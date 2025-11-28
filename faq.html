@@ -1,775 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Mission: Connected Heroes - FAQ</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mission Connected Heroes – FAQ</title>
 
-  <!-- Orbitron pour les titres -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet" />
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --accent: #00e5ff;
-      --text-main: #ffffff;
-      --text-muted: #c8d3ff;
-      --card-bg: rgba(4, 10, 25, 0.7);
-      --card-border: rgba(0, 229, 255, 0.25);
-      --radius-lg: 18px;
-      --radius-md: 12px;
-      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.55);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+<style>
     body {
-      margin: 0;
-      padding: 32px 16px 40px;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text-main);
-      background: transparent; /* Laisse SharePoint gérer le fond */
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(180deg, #07172E 0%, #0A1124 100%);
+        color: #d4e7ff;
+        line-height: 1.6;
+        padding: 40px;
     }
 
-    .page {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    /* HEADER */
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 4px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-      background: rgba(0, 0, 0, 0.35);
-    }
-
-    .badge-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 10px var(--accent);
-    }
-
-    .heading-main {
-      font-family: "Orbitron", system-ui, sans-serif;
-      font-size: clamp(32px, 4vw, 40px);
-      font-weight: 900;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      margin: 0 0 8px;
-    }
-
-    .heading-sub {
-      font-size: 15px;
-      color: var(--text-muted);
-      max-width: 620px;
-      line-height: 1.5;
-      margin-bottom: 28px;
-    }
-
-    /* NAV / SOMMAIRE */
-    .toc {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      padding: 16px;
-      margin-bottom: 32px;
-      border-radius: var(--radius-lg);
-      background: rgba(2, 9, 25, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .toc-title {
-      width: 100%;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-    }
-
-    .toc a {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      font-size: 13px;
-      text-decoration: none;
-      color: var(--text-main);
-      background: radial-gradient(circle at top left, rgba(0, 229, 255, 0.22), transparent 55%);
-      transition: all 0.18s ease-out;
-      backdrop-filter: blur(6px);
-    }
-
-    .toc a::before {
-      content: "●";
-      font-size: 9px;
-      color: var(--accent);
-    }
-
-    .toc a:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      box-shadow: 0 0 16px rgba(0, 229, 255, 0.45);
-      transform: translateY(-1px);
-    }
-
-    /* SECTIONS */
-    section {
-      scroll-margin-top: 90px;
-      margin-bottom: 34px;
-    }
-
-    section:last-of-type {
-      margin-bottom: 0;
-    }
-
-    .section-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--accent);
-      margin-bottom: 4px;
+    h1, h2, h3 {
+        font-family: 'Orbitron', sans-serif;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: white;
     }
 
     .section-title {
-      font-family: "Orbitron", system-ui, sans-serif;
-      font-size: 20px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      margin: 0 0 16px;
+        margin-top: 80px;
+        font-size: 26px;
+        color: #4cc3ff;
     }
 
-    .section-description {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-bottom: 16px;
+    .jump-menu {
+        background: rgba(0,0,0,0.35);
+        border-radius: 16px;
+        padding: 20px;
+        margin: 30px 0;
     }
 
-    /* FAQ ITEMS */
-    details {
-      margin-bottom: 12px;
-      border-radius: var(--radius-md);
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      box-shadow: var(--shadow-soft);
-      overflow: hidden;
+    .jump-menu a {
+        display: inline-block;
+        margin: 6px 10px;
+        padding: 10px 16px;
+        border-radius: 20px;
+        border: 1px solid #4cc3ff;
+        color: #4cc3ff;
+        text-decoration: none;
+        font-size: 14px;
+        transition: 0.2s;
     }
 
-    details:last-child {
-      margin-bottom: 0;
+    .jump-menu a:hover {
+        background: #4cc3ff;
+        color: black;
     }
 
-    summary {
-      list-style: none;
-      cursor: pointer;
-      padding: 14px 18px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .faq-item {
+        background: rgba(255,255,255,0.05);
+        padding: 18px 22px;
+        border-radius: 12px;
+        margin: 15px 0;
     }
 
-    summary::-webkit-details-marker {
-      display: none;
+    .faq-question {
+        font-weight: 700;
+        color: white;
+        margin-bottom: 10px;
     }
 
-    .question-title {
-      font-size: 15px;
-      font-weight: 600;
+    .back-top {
+        display: block;
+        margin-top: 40px;
+        text-align: center;
+        color: #4cc3ff;
+        cursor: pointer;
+        text-decoration: none;
+        font-weight: 600;
     }
 
-    .summary-icon {
-      width: 20px;
-      height: 20px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      color: var(--accent);
-      flex-shrink: 0;
+    .back-top:hover {
+        text-decoration: underline;
     }
 
-    details[open] .summary-icon {
-      background: var(--accent);
-      color: #020617;
-      border-color: var(--accent);
-      box-shadow: 0 0 12px rgba(0, 229, 255, 0.8);
-    }
-
-    .answer {
-      padding: 0 18px 16px 42px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    .answer p {
-      margin: 10px 0;
-    }
-
-    .answer ul {
-      margin: 8px 0 8px 18px;
-      padding-left: 0;
-    }
-
-    .answer li {
-      margin-bottom: 4px;
-    }
-
-    /* BACK TO TOP */
-    .back-to-top {
-      margin-top: 32px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      color: var(--accent);
-      text-decoration: none;
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(0, 229, 255, 0.6);
-      background: rgba(0, 0, 0, 0.5);
-      box-shadow: 0 0 14px rgba(0, 229, 255, 0.4);
-    }
-
-    .back-to-top:hover {
-      background: rgba(0, 229, 255, 0.1);
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      body {
-        padding: 24px 12px 28px;
-      }
-
-      .toc {
-        padding: 12px;
-      }
-
-      .count {
-        font-size: 90px;
-      }
-    }
-  </style>
+</style>
 </head>
-<script>
-  function sendHeight() {
-    const h = document.documentElement.scrollHeight;
-    parent.postMessage({ type: "resizeFaq", height: h }, "*");
-  }
-  window.onload = sendHeight;
-  window.onresize = sendHeight;
-  setInterval(sendHeight, 500);
-</script>
+
 <body>
-  <div class="page" id="top">
-    <!-- HEADER -->
-    <div class="badge">
-      <span class="badge-dot"></span>
-      MISSION: CONNECTED HEROES · FAQ
-    </div>
 
-    <h1 class="heading-main">Frequently Asked Questions</h1>
-    <p class="heading-sub">
-      Find all the key information about the <strong>Mission: Connected Heroes</strong> challenge:
-      eligibility, gameplay, ranking, prizes, and support.
-    </p>
+<a id="top"></a>
 
-    <!-- SOMMAIRE AVEC ANCRES -->
-    <nav class="toc" aria-label="FAQ sections">
-      <div class="toc-title">Jump to a section</div>
-      <a href="#eligibility">Eligibility</a>
-      <a href="#gameplay">Gameplay &amp; Missions</a>
-      <a href="#personal-data">Personal Data</a>
-      <a href="#points-ranking">Points &amp; Ranking</a>
-      <a href="#prizes-rewards">Prizes &amp; Rewards</a>
-      <a href="#technical-support">Technical Support</a>
-      <a href="#communication-support">Communication &amp; Support</a>
-    </nav>
+<h1>Frequently Asked Questions</h1>
+<p>Find all the key information about the Mission: Connected Heroes challenge.</p>
 
-    <!-- SECTIONS -->
+<!-- NAVIGATION ANCHORS -->
+<div class="jump-menu">
+    <a href="#eligibility">Eligibility</a>
+    <a href="#gameplay">Gameplay & Missions</a>
+    <a href="#personaldata">Personal Data</a>
+    <a href="#pointsranking">Points & Ranking</a>
+    <a href="#prizes">Prizes & Rewards</a>
+    <a href="#support">Technical Support</a>
+</div>
 
-    <!-- ELIGIBILITY -->
-    <section id="eligibility">
-      <div class="section-label">Section 01</div>
-      <h2 class="section-title">Eligibility</h2>
+<!-- ===================== -->
+<!-- SECTION 1 - ELIGIBILITY -->
+<!-- ===================== -->
 
-      <details open>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">What is "Mission: Connected Heroes"?</span>
-        </summary>
-        <div class="answer">
-          <p>
-            "Mission: Connected Heroes" is an ambitious program designed to unite over 22,000 employees across
-            four major Stellantis regions around connected services. It's a fun, digital experience inspired by
-            gaming and superhero themes that will help you become an expert in Stellantis connected services.
-          </p>
-        </div>
-      </details>
+<h2 id="eligibility" class="section-title">Section 01 — Eligibility</h2>
 
-      <details>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">When does the challenge take place?</span>
-        </summary>
-        <div class="answer">
-          <p>The challenge timeline is as follows:</p>
-          <ul>
-            <li><strong>December 2025:</strong> Mission 1 “THE ACADEMY” with 3 challenges (8th, 15th, 22nd)</li>
-            <li><strong>January 12–23rd, 2026:</strong> Mission 2 “THE PRACTICE”</li>
-            <li><strong>February 2nd, 2026:</strong> Mission 3 “THE LABORATORY” begins</li>
-            <li><strong>February 16th, 2026:</strong> “THE BIG FINALE” starts</li>
-            <li><strong>Mid-March 2026:</strong> Digital ceremony to announce winners</li>
-          </ul>
-        </div>
-      </details>
+<div class="faq-item">
+    <div class="faq-question">What is "Mission: Connected Heroes"?</div>
+    <div>"Mission: Connected Heroes" is an ambitious program designed to unite over 22,000 employees across four major Stellantis regions around connected services...</div>
+</div>
 
-      <details>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">Who can participate in the challenge?</span>
-        </summary>
-        <div class="answer">
-          <p>
-            All internal Stellantis employees working under the <strong>PDT – Product Development and Technology</strong>
-            entity are eligible to participate, except for external collaborators and non-permanent contracts.
-          </p>
-          <p>
-            If someone arrives at the PDT department during the game, they cannot play. They can only play if
-            their contract covers the entire duration of the challenge.
-          </p>
-        </div>
-      </details>
+<div class="faq-item">
+    <div class="faq-question">When does the challenge take place?</div>
+    <div>The challenge timeline is as follows: December 2025: Mission 1…</div>
+</div>
 
-      <details>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">Is participation mandatory?</span>
-        </summary>
-        <div class="answer">
-          <p>
-            No, participation is voluntary. The challenge is designed to be engaging and fun, but it remains optional.
-          </p>
-        </div>
-      </details>
+<div class="faq-item">
+    <div class="faq-question">Who can participate in the challenge?</div>
+    <div>All internal Stellantis employees under PDT…</div>
+</div>
 
-      <details>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">What language will be used for the challenge?</span>
-        </summary>
-        <div class="answer">
-          <p>
-            The Superhero community language is English. All main communications and the platform will be in English.
-          </p>
-        </div>
-      </details>
+<div class="faq-item">
+    <div class="faq-question">Is participation mandatory?</div>
+    <div>No, participation is voluntary…</div>
+</div>
 
-      <details>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">How do I register for the challenge?</span>
-        </summary>
-        <div class="answer">
-          <p>
-            You don’t need to register, because the challenge takes place on your Microsoft environment, through the
-            dedicated SharePoint site for your region. The link will be shared via email at the beginning of December.
-          </p>
-        </div>
-      </details>
+<div class="faq-item">
+    <div class="faq-question">What language will be used?</div>
+    <div>The superhero community language is English…</div>
+</div>
 
-      <details>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">Do I need any special equipment to participate?</span>
-        </summary>
-        <div class="answer">
-          <p>
-            You will need access to a computer with an internet connection. The game is designed to be played on the
-            SharePoint platform only, and it is not recommended to use smartphones or tablets.
-          </p>
-          <p>
-            Remember that you will need an internet connection and VPN access.
-          </p>
-        </div>
-      </details>
 
-      <details>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">When should I play?</span>
-        </summary>
-        <div class="answer">
-          <p>
-            The challenge is open both during and outside of working hours. It's entirely up to you. Specific
-            arrangements may vary by region and country, in accordance with local HR policies.
-          </p>
-          <p>
-            The platform remains accessible outside of working hours if you prefer to participate at a more relaxed time.
-          </p>
-        </div>
-      </details>
+<!-- ===================== -->
+<!-- SECTION 2 -->
+<!-- ===================== -->
 
-      <details>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">
-            If I am not available during a mission's opening period, how long do I have to complete it?
-          </span>
-        </summary>
-        <div class="answer">
-          <p>
-            The first three missions remain open even after subsequent missions have started. Therefore, you have
-            until the closing date of Mission 3, entitled “The Laboratory”, to complete them.
-          </p>
-        </div>
-      </details>
-    </section>
+<h2 id="gameplay" class="section-title">Section 02 — Gameplay & Missions</h2>
 
-    <!-- GAMEPLAY & MISSIONS -->
-    <section id="gameplay">
-      <div class="section-label">Section 02</div>
-      <h2 class="section-title">Gameplay &amp; Missions</h2>
+<div class="faq-item">
+    <div class="faq-question">How does the challenge work?</div>
+    <div>The challenge consists of three missions…</div>
+</div>
 
-      <details>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">How does the challenge work?</span>
-        </summary>
-        <div class="answer">
-          <p>The challenge consists of three main missions followed by a finale:</p>
-          <ul>
-            <li><strong>1. THE ACADEMY:</strong> Educational challenges focusing on the basics of Connected Services.</li>
-            <li>
-              <strong>2. THE PRACTICE:</strong> Practical challenges where the participant is placed in a simulation of a
-              long-distance logistics journey, presented as an interactive course.
-            </li>
-            <li><strong>3. THE LABORATORY:</strong> Creative challenges where you imagine future Connected Services.</li>
-            <li>
-              <strong>4. THE BIG FINALE:</strong> For top performers only, includes content creation and a vote from everyone.
-            </li>
-          </ul>
-        </div>
-      </details>
+<div class="faq-item">
+    <div class="faq-question">How do I access the challenge?</div>
+    <div>You can access through SharePoint…</div>
+</div>
 
-      <details>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">How do I access the challenge?</span>
-        </summary>
-        <div class="answer">
-          <p>
-            You can access the challenge through the dedicated SharePoint platform using your Stellantis username
-            and password.
-          </p>
-        </div>
-      </details>
 
-      <details>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">Can I participate as a team?</span>
-        </summary>
-        <div class="answer">
-          <p>
-            No, the challenge is designed for individual participation only. There is one participation per person,
-            and no teams.
-          </p>
-        </div>
-      </details>
-    </section>
+<!-- ===================== -->
+<!-- SECTION 3 -->
+<!-- ===================== -->
 
-    <!-- PERSONAL DATA -->
-    <section id="personal-data">
-      <div class="section-label">Section 03</div>
-      <h2 class="section-title">Personal Data</h2>
+<h2 id="personaldata" class="section-title">Section 03 — Personal Data</h2>
 
-      <details>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">
-            What will happen to my personal data shared in connection with this event?
-          </span>
-        </summary>
-        <div class="answer">
-          <p>
-            The data will not be permanently recorded. It will only be used for the purpose of selecting the
-            winners and will be processed in accordance with Stellantis' privacy policy and applicable GDPR
-            regulations.
-          </p>
-        </div>
-      </details>
-    </section>
+<div class="faq-item">
+    <div class="faq-question">What will happen to my data?</div>
+    <div>Your data will not be permanently recorded…</div>
+</div>
 
-    <!-- POINTS & RANKING -->
-    <section id="points-ranking">
-      <div class="section-label">Section 04</div>
-      <h2 class="section-title">Points &amp; Ranking</h2>
 
-      <details>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">How does the points system work?</span>
-        </summary>
-        <div class="answer">
-          <ul>
-            <li>Each correct answer earns you <strong>1 point</strong>.</li>
-            <li>Each incorrect answer deducts <strong>1 point</strong>.</li>
-            <li>The minimum score is <strong>0</strong>.</li>
-            <li>Some challenges will be timed, and the fastest participants will earn <strong>bonus points</strong>.</li>
-          </ul>
-        </div>
-      </details>
+<!-- ===================== -->
+<!-- SECTION 4 -->
+<!-- ===================== -->
 
-      <details>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">How can I check my ranking?</span>
-        </summary>
-        <div class="answer">
-          <p>
-            At each stage, a ranking by region and country will be available on the SharePoint platform, along
-            with your personal ranking.
-          </p>
-        </div>
-      </details>
+<h2 id="pointsranking" class="section-title">Section 04 — Points & Ranking</h2>
 
-      <details>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">How many participants will advance to the finale?</span>
-        </summary>
-        <div class="answer">
-          <p>Employees with the highest number of points will advance to the finale:</p>
-          <ul>
-            <li>First <strong>200</strong> in Europe (EE)</li>
-            <li>First <strong>100</strong> in North America (NA)</li>
-            <li>First <strong>35</strong> in South America (SA)</li>
-            <li>First <strong>35</strong> in India Asia Pacific/China (IAP/China)</li>
-          </ul>
-        </div>
-      </details>
-    </section>
+<div class="faq-item">
+    <div class="faq-question">How does scoring work?</div>
+    <div>Correct answers: +1, incorrect: –1…</div>
+</div>
 
-    <!-- PRIZES & REWARDS -->
-    <section id="prizes-rewards">
-      <div class="section-label">Section 05</div>
-      <h2 class="section-title">Prizes &amp; Rewards</h2>
 
-      <details>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">When and how will winners be announced?</span>
-        </summary>
-        <div class="answer">
-          <p>
-            Winners will be announced during a global digital ceremony in mid-March 2026.
-          </p>
-        </div>
-      </details>
+<!-- ===================== -->
+<!-- SECTION 5 -->
+<!-- ===================== -->
 
-      <details>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">Is the contest fair for all participants?</span>
-        </summary>
-        <div class="answer">
-          <p>
-            Yes, fairness is guaranteed as all heroes have the same chances. A bailiff ensures justice and the
-            integrity of the rules throughout the challenge.
-          </p>
-        </div>
-      </details>
+<h2 id="prizes" class="section-title">Section 05 — Prizes & Rewards</h2>
 
-      <details>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">When and how will the prizes be awarded?</span>
-        </summary>
-        <div class="answer">
-          <p>
-            The first prizes will be awarded in due course by the SWX regional marketing department, as will the
-            second and third prizes.
-          </p>
-        </div>
-      </details>
+<div class="faq-item">
+    <div class="faq-question">When are winners announced?</div>
+    <div>A global ceremony will take place in March…</div>
+</div>
 
-      <details>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">
-            I won the first prize, but I am not available. Can I transfer my prize to the person of my choice?
-          </span>
-        </summary>
-        <div class="answer">
-          <p>
-            Yes, if you are unavailable, you are free to invite the person(s) of your choice.
-          </p>
-        </div>
-      </details>
 
-      <details>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">
-            Will I have to declare the winnings to my government and pay taxes on the amount of the first prizes?
-          </span>
-        </summary>
-        <div class="answer">
-          <p>
-            Tax obligations vary by region and country. Please consult your regional HR department for specific
-            information regarding the tax implications of received prizes.
-          </p>
-        </div>
-      </details>
-    </section>
+<!-- ===================== -->
+<!-- SECTION 6 -->
+<!-- ===================== -->
 
-    <!-- TECHNICAL SUPPORT -->
-    <section id="technical-support">
-      <div class="section-label">Section 06</div>
-      <h2 class="section-title">Technical Support</h2>
+<h2 id="support" class="section-title">Section 06 — Support</h2>
 
-      <details>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">What if I encounter technical issues during the challenge?</span>
-        </summary>
-        <div class="answer">
-          <p>
-            If you encounter technical issues, you can contact your regional SharePoint and technical support teams.
-            Contact information will be available on the SharePoint platform.
-          </p>
-        </div>
-      </details>
+<div class="faq-item">
+    <div class="faq-question">Technical problems?</div>
+    <div>Contact regional SharePoint support…</div>
+</div>
 
-      <details>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">
-            What if I miss a mission due to vacation or work commitments?
-          </span>
-        </summary>
-        <div class="answer">
-          <p>
-            The missions are designed to be completed at your convenience within their active periods. If you miss a
-            specific challenge date, you may still be able to participate in subsequent missions, but this might affect
-            your overall ranking.
-          </p>
-        </div>
-      </details>
 
-      <details>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">Where can I find more information about connected services?</span>
-        </summary>
-        <div class="answer">
-          <p>
-            A media library with information about connected services will be available on the SharePoint platform.
-            This will include training materials and documentation specific to your region.
-          </p>
-        </div>
-      </details>
-    </section>
+<!-- BACK TO TOP -->
+<a href="#top" class="back-top">▲ Back to top</a>
 
-    <!-- COMMUNICATION & SUPPORT -->
-    <section id="communication-support">
-      <div class="section-label">Section 07</div>
-      <h2 class="section-title">Communication &amp; Support</h2>
-
-      <details>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">How will I receive updates about the challenge?</span>
-        </summary>
-        <div class="answer">
-          <p>
-            Updates will be communicated through the SharePoint platform, Teams notifications, and possibly through
-            your regional communication channels.
-          </p>
-        </div>
-      </details>
-
-      <details>
-        <summary>
-          <span class="summary-icon">?</span>
-          <span class="question-title">Who can I contact if I have questions not covered in this FAQ?</span>
-        </summary>
-        <div class="answer">
-          <p>
-            The SharePoint platform will include a dedicated FAQ section and contact information for support. You can
-            reach out to the organizing team through these channels.
-          </p>
-          <ul>
-            <li>
-              <strong>For difficulties accessing the SharePoint platform:</strong>
-              contact your internal Stellantis IT support.
-            </li>
-            <li>
-              <strong>For questions about the organization of the challenge:</strong>
-              consult the dedicated FAQ page on the SharePoint platform. If you cannot find your answer there, you can
-              contact an organizing representative via the form available on the platform.
-            </li>
-            <li>
-              <strong>If you experience difficulties with a connected service:</strong>
-              contact the call center of the vehicle brand available in your country.
-            </li>
-          </ul>
-        </div>
-      </details>
-    </section>
-
-    <!-- BACK TO TOP -->
-    <a href="#top" class="back-to-top" aria-label="Back to top">
-      ↑ Back to top
-    </a>
-  </div>
-  <script>
-  // Adjust iframe height dynamically (for SharePoint)
+<!-- SCRIPT FOR SHAREPOINT + ANCHORS -->
+<script>
   function sendHeight() {
     const height = document.documentElement.scrollHeight;
     parent.postMessage({ type: "resizeFaq", height: height }, "*");
   }
 
-  // Trigger height sync
   window.addEventListener("load", sendHeight);
   window.addEventListener("resize", sendHeight);
   setInterval(sendHeight, 500);
 
-  // Smooth scrolling for anchors
+  // Smooth anchor scrolling
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener("click", function(e) {
       e.preventDefault();
       const target = document.querySelector(this.getAttribute("href"));
       if (target) {
         target.scrollIntoView({ behavior: "smooth", block: "start" });
-        sendHeight(); // update iframe height after scroll
+        setTimeout(sendHeight, 600);
       }
     });
   });
 </script>
+
 </body>
 </html>
