@@ -274,6 +274,15 @@
     }
   </style>
 </head>
+<script>
+  function sendHeight() {
+    const h = document.documentElement.scrollHeight;
+    parent.postMessage({ type: "resizeFaq", height: h }, "*");
+  }
+  window.onload = sendHeight;
+  window.onresize = sendHeight;
+  setInterval(sendHeight, 500);
+</script>
 <body>
   <div class="page" id="top">
     <!-- HEADER -->
