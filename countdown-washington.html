@@ -2,37 +2,76 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Countdown Washington</title>
+<title>Countdown USA (Detroit)</title>
 
+<!-- Orbitron font -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&display=swap" rel="stylesheet">
 
 <style>
-    body { background: transparent; margin: 0; padding: 20px; text-align: center; color: white; font-family: 'Orbitron', sans-serif; }
-    .count { font-size: 110px; font-weight: 900; letter-spacing: 8px; }
-    .sec { color: #00E5FF; }
+    body {
+        background: transparent !important;
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+        color: white;
+        font-family: 'Orbitron', sans-serif;
+    }
+    .count {
+        font-size: 110px;
+        font-weight: 900;
+        letter-spacing: 8px;
+    }
+    .sec {
+        color: #00E5FF;
+    }
 </style>
 </head>
 
 <body>
-<div class="count" id="washington"></div>
+
+<div class="count" id="usa"></div>
 
 <script>
-function updateCountdown(id, targetDate, timezone) {
-    const el = document.getElementById(id);
-    function tick() {
-        const now = new Date().toLocaleString("en-US", { timeZone: timezone });
-        const diff = targetDate - new Date(now);
-        if (diff <= 0) { el.innerHTML = "00 : 00 : 00 : 00"; return; }
-        const d = String(Math.floor(diff / 86400000)).padStart(2,'0');
-        const h = String(Math.floor((diff/3600000) % 24)).padStart(2,'0');
-        const m = String(Math.floor((diff/60000) % 60)).padStart(2,'0');
-        const s = String(Math.floor((diff/1000) % 60)).padStart(2,'0');
-        el.innerHTML = `${d} : ${h} : ${m} : <span class="sec">${s}</span>`;
-    }
-    tick(); setInterval(tick, 1000);
+/*
+    Helper to build a date in the correct timezone.
+*/
+function getLocalTZDate(tz, year, month, day, hour, minute) {
+    const dateStr = `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')} `
+                  + `${String(hour).padStart(2,'0')}:${String(minute).padStart(2,'0')}:00`;
+
+    const localized = new Date(dateStr + " UTC").toLocaleString("en-US", { timeZone: tz });
+    return new Date(localized);
 }
 
-updateCountdown("washington", new Date("2025-12-08T09:00:00"), "America/New_York");
+function updateCountdown(id, targetDate, timezone) {
+    const el = document.getElementById(id);
+
+    function tick() {
+        const nowStr = new Date().toLocaleString("en-US", { timeZone: timezone });
+        const now = new Date(nowStr);
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+            el.innerHTML = "00 : 00 : 00 : 00";
+            return;
+        }
+
+        const d = String(Math.floor(diff / 86400000)).padStart(2, '0');
+        const h = String(Math.floor((diff / 3600000) % 24)).padStart(2, '0');
+        const m = String(Math.floor((diff / 60000) % 60)).padStart(2, '0');
+        const s = String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
+
+        el.innerHTML = `${d} : ${h} : ${m} : <span class="sec">${s}</span>`;
+    }
+
+    tick();
+    setInterval(tick, 1000);
+}
+
+// 🇺🇸 Detroit (USA) — Eastern Time
+const detroitDate = getLocalTZDate("America/Detroit", 2025, 12, 8, 9, 0);
+
+updateCountdown("usa", detroitDate, "America/Detroit");
 </script>
 
 </body>
