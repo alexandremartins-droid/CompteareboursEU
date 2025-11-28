@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Countdown Asia (Beijing)</title>
+<title>Countdown Asia (Chennai – India)</title>
 
 <!-- Orbitron font -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&display=swap" rel="stylesheet">
 
 <style>
     body {
-        background: transparent;
+        background: transparent !important;
         margin: 0;
         padding: 20px;
         text-align: center;
@@ -32,22 +32,37 @@
 <div class="count" id="asia"></div>
 
 <script>
+/*
+    FIX IMPORTANT :
+    We must build the date in the target timezone (IST) otherwise
+    JavaScript interprets timestamps as UTC.
+*/
+
+function getLocalTZDate(tz, year, month, day, hour, minute) {
+    const dateStr = `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')} `
+                  + `${String(hour).padStart(2,'0')}:${String(minute).padStart(2,'0')}:00`;
+
+    const localized = new Date(dateStr + " UTC").toLocaleString("en-US", { timeZone: tz });
+    return new Date(localized);
+}
+
 function updateCountdown(id, targetDate, timezone) {
     const el = document.getElementById(id);
 
     function tick() {
-        const now = new Date().toLocaleString("en-US", { timeZone: timezone });
-        const diff = targetDate - new Date(now);
+        const nowStr = new Date().toLocaleString("en-US", { timeZone: timezone });
+        const now = new Date(nowStr);
+        const diff = targetDate - now;
 
         if (diff <= 0) {
             el.innerHTML = "00 : 00 : 00 : 00";
             return;
         }
 
-        const d = String(Math.floor(diff / 86400000)).padStart(2,'0');
-        const h = String(Math.floor((diff/3600000) % 24)).padStart(2,'0');
-        const m = String(Math.floor((diff/60000) % 60)).padStart(2,'0');
-        const s = String(Math.floor((diff/1000) % 60)).padStart(2,'0');
+        const d = String(Math.floor(diff / 86400000)).padStart(2, '0');
+        const h = String(Math.floor((diff / 3600000) % 24)).padStart(2, '0');
+        const m = String(Math.floor((diff / 60000) % 60)).padStart(2, '0');
+        const s = String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
 
         el.innerHTML = `${d} : ${h} : ${m} : <span class="sec">${s}</span>`;
     }
@@ -56,7 +71,10 @@ function updateCountdown(id, targetDate, timezone) {
     setInterval(tick, 1000);
 }
 
-updateCountdown("asia", new Date("2025-12-08T09:00:00"), "Asia/Shanghai");
+// 🔥 India / Chennai timezone
+const indiaDate = getLocalTZDate("Asia/Kolkata", 2025, 12, 8, 9, 0);
+
+updateCountdown("asia", indiaDate, "Asia/Kolkata");
 </script>
 
 </body>
