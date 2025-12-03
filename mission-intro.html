@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Mission 1 – Introduction</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+html, body {
+    margin: 0;
+    padding: 40px;
+    background: transparent !important;
+    font-family: 'Inter', sans-serif;
+    color: #d4e7ff;
+    line-height: 1.7;
+}
+
+/* Header */
+.header-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    font-size: 12px;
+    border-radius: 20px;
+    border: 1px solid #2aa8ff;
+    color: #2aa8ff;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #ffffff;
+    margin: 0 0 14px 0;
+}
+
+/* Card */
+.content-card {
+    margin-top: 24px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 24px 26px;
+    backdrop-filter: blur(10px);
+    max-width: 900px;
+}
+.content-card p {
+    margin: 0;
+    font-size: 15px;
+}
+
+</style>
+</head>
+
+<body>
+<a id="top"></a>
+
+<div class="header-badge">Mission 1 – The Academy</div>
+<h1>Welcome to the First Mission!</h1>
+
+<div class="content-card">
+    <p>
+        Join The Academy of Connected Heroes and master the fundamentals that will make you a Stellantis expert:
+        an introduction and three exciting sessions each week to discover how to <b>DRIVE SMARTER</b>, make your <b>LIFE EASIER</b>,
+        and your <b>TRIP ENJOYABLE</b>!
+        <br><br>
+        Take on the challenge by answering questions after each session and stand out with your expertise to reach the top of the rankings!
+        <br><br>
+        <b>Watch the introduction below.</b>
+    </p>
+</div>
+
+<script>
+/* Auto-resize for SharePoint iframe */
+function sendHeight() {
+    const height = document.documentElement.scrollHeight;
+    parent.postMessage({ type: "resizeMissionIntro", height: height }, "*");
+}
+window.onload = sendHeight;
+window.onresize = sendHeight;
+setInterval(sendHeight, 800);
+</script>
+
+</body>
+</html>
