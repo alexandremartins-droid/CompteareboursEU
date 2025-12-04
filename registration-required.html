@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <title>Mission Connected Heroes – Registration Required</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+<!-- Google Fonts for fallback -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
+<!-- Custom FONT (Quantum) -->
 <style>
+@font-face {
+    font-family: "Quantum";
+    src: url("Quantum.otf") format("opentype");
+}
+@font-face {
+    font-family: "QuantumBold";
+    src: url("Quantum 2.otf") format("opentype");
+}
+
+/* GLOBAL */
 html, body {
     margin: 0;
     padding: 40px;
@@ -16,7 +28,7 @@ html, body {
     line-height: 1.7;
 }
 
-/* Header */
+/* HEADER */
 .header-badge {
     display: inline-block;
     padding: 6px 14px;
@@ -29,7 +41,7 @@ html, body {
     text-transform: uppercase;
 }
 h1 {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'QuantumBold', 'Orbitron', sans-serif;
     font-size: 38px;
     font-weight: 800;
     letter-spacing: 3px;
@@ -37,25 +49,60 @@ h1 {
     margin: 0 0 14px 0;
 }
 
-/* Card */
+/* CARD */
 .content-card {
-    margin-top: 28px;
+    margin-top: 24px;
     background: rgba(255,255,255,0.06);
     border-radius: 18px;
     border: 1px solid rgba(255,255,255,0.08);
-    padding: 28px 30px;
+    padding: 24px 26px;
     backdrop-filter: blur(10px);
     max-width: 900px;
 }
 
+/* TEXT */
 .content-card p {
-    margin: 0 0 14px 0;
-    font-size: 15px;
+    margin: 0 0 16px 0;
+    font-size: 16px;
+    color: #d4e7ff;
 }
 
-.highlight {
-    color: #57d8ff;
-    font-weight: 600;
+/* BUTTONS */
+.btn-area {
+    margin-top: 32px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.btn-register, .btn-continue {
+    display: inline-block;
+    padding: 22px 36px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-family: 'QuantumBold', sans-serif;
+    font-size: 32px;
+    letter-spacing: 2px;
+    transition: 0.25s;
+    border: none;
+}
+
+/* ORANGE BUTTON */
+.btn-register {
+    background: #FFB12F;
+    color: white;
+}
+.btn-register:hover {
+    transform: scale(1.05);
+}
+
+/* BLUE BUTTON */
+.btn-continue {
+    background: #00E8F0;
+    color: #001a2b;
+}
+.btn-continue:hover {
+    transform: scale(1.05);
 }
 </style>
 </head>
@@ -64,34 +111,46 @@ h1 {
 <a id="top"></a>
 
 <div class="header-badge">Mission: Connected Heroes</div>
-<h1>Important – Registration Required</h1>
+<h1>Registration Required</h1>
 
 <div class="content-card">
     <p>
-        To become a true Connected Hero, <span class="highlight">registration is mandatory</span>.
-        Without completing the official <b>Registration Form</b>, you will <b>not</b> be able to access the
-        challenges, earn points, or appear in the regional rankings.
+        To join the Mission: Connected Heroes challenge, <b>registration is mandatory</b>.
+        Without registration, you will not be able to participate in the missions, earn points, 
+        or qualify for the exclusive rewards.
     </p>
 
     <p>
-        This step is essential to validate your identity, connect you to your region, and unlock your access
-        to the Mission: Connected Heroes platform.
+        Don’t miss your chance to rise among Stellantis’ elite Connected Heroes — 
+        register now or continue if you already completed the form.
     </p>
 
-    <p><b class="highlight">Only registered participants can:</b></p>
-    <p>
-        • Access the 3 sessions of <b>The Academy</b><br>
-        • Join the interactive journey of <b>The Practice Excursion</b><br>
-        • Submit their creative vision in <b>The Laboratory</b><br>
-        • Qualify for <b>The Big Finale</b><br>
-        • Earn rewards and appear in the official ranking<br>
-    </p>
+    <div class="btn-area">
 
+        <!-- REGISTER BUTTON -->
+        <a 
+            class="btn-register"
+            href="https://forms.cloud.microsoft/e/BvmwTzuG2T"
+            target="_blank">
+            REGISTER
+        </a>
+
+        <!-- CONTINUE BUTTON -->
+        <a 
+            class="btn-continue"
+            href="https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_EU/SitePages/Mission--1.aspx"
+            target="_blank">
+            CONTINUE IF REGISTERED
+        </a>
+
+    </div>
+</div>
+
+<!-- IFRAME AUTO-RESIZE -->
 <script>
-/* Auto-resize for SharePoint iframe */
-function sendHeight() {
-    const height = document.documentElement.scrollHeight;
-    parent.postMessage({ type: "resizeRegistration", height: height }, "*");
+function sendHeight(){
+    const h = document.documentElement.scrollHeight;
+    parent.postMessage({type:"resizeRegister", height:h},"*");
 }
 window.onload = sendHeight;
 window.onresize = sendHeight;
