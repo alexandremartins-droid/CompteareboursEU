@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Mission Connected Heroes – Home Text</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    font-family: 'Inter', sans-serif;
+}
+
+.container {
+    padding: 40px 24px;
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.hero-text {
+    font-size: 24px;
+    font-weight: 600;
+    color: #0FDFE3;
+    line-height: 1.6;
+    opacity: 0;
+    animation: fadeIn 1.8s ease-out forwards;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Auto-resize for SharePoint iframe */
+</style>
+
+<script>
+function sendHeight() {
+    const h = document.documentElement.scrollHeight;
+    parent.postMessage({ type: "resizeHomeText", height: h }, "*");
+}
+window.onload = sendHeight;
+window.onresize = sendHeight;
+setInterval(sendHeight, 800);
+</script>
+
+</head>
+<body>
+
+<div class="container">
+    <div class="hero-text">
+        Become a Stellantis Connected Services hero by taking on our exceptional challenge: learn, practice, 
+        innovate, and create to rise to the top of the elite finalist superheroes who will compete for 
+        exclusive motorsport experiences in this unprecedented online adventure!
+    </div>
+</div>
+
+</body>
+</html>
