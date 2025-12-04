@@ -12,26 +12,44 @@ html, body {
     padding: 40px;
     background: transparent !important;
     font-family: 'Inter', sans-serif;
-    color: #d4e7ff;
+    color: #0FDFE3;
     line-height: 1.7;
     text-align: center;
 }
 
-/* Card block */
+/* Fade-in animation */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Glass card */
 .content-card {
     margin: 0 auto;
     background: rgba(255,255,255,0.05);
     border-radius: 20px;
     border: 1px solid rgba(255,255,255,0.10);
-    padding: 30px 40px;
+    padding: 35px 45px;
     backdrop-filter: blur(12px);
     max-width: 1000px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    box-shadow: 0 0 24px rgba(0,0,0,0.45);
+
+    /* Animation */
+    opacity: 0;
+    animation: fadeInUp 0.9s ease-out forwards;
+    animation-delay: 0.2s;
 }
 
 .content-card p {
-    font-size: 18px;
+    font-size: 20px;
     margin: 0;
+    font-weight: 400;
 }
 </style>
 </head>
