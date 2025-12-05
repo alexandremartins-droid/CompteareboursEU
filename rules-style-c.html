@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Mission: Connected Heroes – Official Rules</title>
+<title>Mission: Connected Heroes – Challenge Rules</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 <style>
-/* GLOBAL */
 html, body {
     margin: 0;
     padding: 40px;
@@ -17,7 +16,7 @@ html, body {
     line-height: 1.7;
 }
 
-/* HEADERS */
+/* Header */
 .header-badge {
     display: inline-block;
     padding: 6px 14px;
@@ -29,87 +28,100 @@ html, body {
     letter-spacing: 1px;
     text-transform: uppercase;
 }
-
 h1 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 40px;
+    font-size: 34px;
     font-weight: 800;
     letter-spacing: 3px;
-    margin: 0 0 18px 0;
     color: #ffffff;
+    margin: 0;
 }
-
 .header-sub {
+    width: 80%;
     max-width: 900px;
+    margin-top: 14px;
 }
 
-/* JUMP MENU */
+/* Jump menu */
 .jump-menu {
     background: rgba(0,0,0,0.45);
     border-radius: 24px;
-    padding: 24px;
-    margin: 40px 0;
+    padding: 20px 24px;
+    margin: 32px 0;
     backdrop-filter: blur(12px);
     box-shadow: 0 0 20px rgba(0,0,0,0.4);
-    max-width: 1000px;
 }
-
 .jump-menu-title {
     font-family: 'Orbitron';
-    font-size: 14px;
-    color: #7fc9ff;
+    font-size: 13px;
     letter-spacing: 2px;
-    margin-bottom: 18px;
+    color: #7fc9ff;
     text-transform: uppercase;
+    margin-bottom: 12px;
 }
-
 .jump-link {
     display: inline-block;
-    padding: 10px 18px;
-    margin: 6px;
+    padding: 8px 16px;
+    margin: 4px;
     border-radius: 30px;
+    font-size: 13px;
     border: 1px solid #3bc4ff;
     color: #3bc4ff;
-    font-size: 14px;
     text-decoration: none;
-    transition: 0.25s;
+    transition: 0.2s;
 }
 .jump-link:hover {
     background: #3bc4ff;
     color: #062035;
 }
 
-/* SECTION TITLE */
+/* Articles */
 .section-title {
-    margin-top: 80px;
-    font-family: 'Orbitron';
-    font-size: 22px;
+    margin-top: 40px;
+    margin-bottom: 6px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
     color: #3bc4ff;
     letter-spacing: 2px;
     text-transform: uppercase;
 }
-
-/* ARTICLE CARD */
 .article-card {
+    margin-top: 8px;
     background: rgba(255,255,255,0.06);
     border-radius: 16px;
     border: 1px solid rgba(255,255,255,0.08);
-    padding: 26px 30px;
-    margin-top: 16px;
-    backdrop-filter: blur(10px);
-    max-width: 1000px;
+    padding: 18px 20px 18px 22px;
+    backdrop-filter: blur(8px);
+}
+.article-card p {
+    margin: 8px 0;
+    font-size: 14px;
+}
+.article-card ul {
+    margin: 6px 0 6px 20px;
+    padding: 0;
+    font-size: 14px;
+}
+.article-label {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 13px;
+    color: #9ed8ff;
+    margin-bottom: 4px;
 }
 
-/* BACK TO TOP */
+/* Back to top */
 .back-top {
-    margin-top: 60px;
+    margin-top: 40px;
     display: inline-block;
     background: rgba(0,150,255,0.15);
-    padding: 10px 20px;
+    padding: 8px 18px;
     border-radius: 20px;
     color: #4cc7ff;
     border: 1px solid #4cc7ff;
     text-decoration: none;
+    font-size: 13px;
 }
 .back-top:hover {
     background: #4cc7ff;
@@ -119,248 +131,536 @@ h1 {
 </head>
 
 <body>
-
 <a id="top"></a>
 
-<div class="header-badge">Mission: Connected Heroes</div>
-<h1>Official Rules</h1>
-<p class="header-sub">Please find below the full legally binding rules for participation in the Mission: Connected Heroes global challenge.</p>
+<div class="header-badge">Mission: Connected Heroes · Official Rules</div>
+<h1>Challenge Rules</h1>
+<p class="header-sub">
+Below are the official rules of the “Mission: Connected Heroes” Challenge. Please read them carefully before participating.
+</p>
 
-<!-- JUMP MENU -->
 <div class="jump-menu">
-    <div class="jump-menu-title">Jump to an Article</div>
-
-    <a class="jump-link" href="#article1">Article 1</a>
-    <a class="jump-link" href="#article2">Article 2</a>
-    <a class="jump-link" href="#article3">Article 3</a>
-    <a class="jump-link" href="#article4">Article 4</a>
-    <a class="jump-link" href="#article5">Article 5</a>
-    <a class="jump-link" href="#article6">Article 6</a>
-    <a class="jump-link" href="#article7">Article 7</a>
-    <a class="jump-link" href="#article8">Article 8</a>
-    <a class="jump-link" href="#article9">Article 9</a>
-    <a class="jump-link" href="#article10">Article 10</a>
-    <a class="jump-link" href="#article11">Article 11</a>
-    <a class="jump-link" href="#article12">Article 12</a>
-    <a class="jump-link" href="#article13">Article 13</a>
-    <a class="jump-link" href="#article14">Article 14</a>
-    <a class="jump-link" href="#article15">Article 15</a>
-    <a class="jump-link" href="#article16">Article 16</a>
-    <a class="jump-link" href="#article17">Article 17</a>
+    <div class="jump-menu-title">Jump to an article</div>
+    <a class="jump-link" href="#art1">Art. 1 – Organizing Company</a>
+    <a class="jump-link" href="#art2">Art. 2 – Game Duration & Description</a>
+    <a class="jump-link" href="#art3">Art. 3 – Definitions</a>
+    <a class="jump-link" href="#art4">Art. 4 – Objectives</a>
+    <a class="jump-link" href="#art5">Art. 5 – Participation Conditions</a>
+    <a class="jump-link" href="#art6">Art. 6 – Personal Data</a>
+    <a class="jump-link" href="#art7">Art. 7 – Game Calendar</a>
+    <a class="jump-link" href="#art8">Art. 8 – Game Journey</a>
+    <a class="jump-link" href="#art9">Art. 9 – Points System</a>
+    <a class="jump-link" href="#art10">Art. 10 – Prize Allocation</a>
+    <a class="jump-link" href="#art11">Art. 11 – Fairness & Integrity</a>
+    <a class="jump-link" href="#art12">Art. 12 – Platform Access</a>
+    <a class="jump-link" href="#art13">Art. 13 – Requests</a>
+    <a class="jump-link" href="#art14">Art. 14 – Respect of Rules</a>
+    <a class="jump-link" href="#art15">Art. 15 – Filing & Modification</a>
+    <a class="jump-link" href="#art16">Art. 16 – Miscellaneous</a>
+    <a class="jump-link" href="#art17">Art. 17 – Applicable Law</a>
 </div>
 
-<!-- ========================================================= -->
 <!-- ARTICLE 1 -->
-<!-- ========================================================= -->
-<div id="article1" class="section-title">Article 1 — Organizing Company</div>
+<div id="art1" class="section-title">Article 1: Organizing Company</div>
 <div class="article-card">
-STELLANTIS Auto SAS, a simplified joint-stock company with a capital of 300 176 800 euros, registered with the Versailles Trade and Companies Register under number B 542 065 479, whose registered office is located at 43 Rue Jean Pierre Timbaud – 78300 Poissy, is organizing from 8 December 2025 to March 14th 2026 included, a game with no obligation to purchase entitled “Mission Connected Heroes” (hereinafter referred to as the “Game”).
+    <p>
+        STELLANTIS AUTO SAS, a simplified joint-stock company with a capital of 300 176 800 euros,
+        registered with the Versailles Trade and Companies Register under number B 542 065 479,
+        whose registered office is located at 43 Rue Jean Pierre Timbaud – 78300 Poissy,
+        is organizing from 8 December 2025 to 14 March 2026 inclusive, a game with no obligation to purchase entitled
+        is organizing from 8 December 2025 to 14 March 2026 included, a game with no obligation to purchase entitled
+        “Mission: Connected Heroes” (hereinafter referred to as the “Game”).
+    </p>
 </div>
 
-<!-- ========================================================= -->
 <!-- ARTICLE 2 -->
-<!-- ========================================================= -->
-<div id="article2" class="section-title">Article 2 — Game Duration and Description</div>
+<div id="art2" class="section-title">Article 2: Game Duration and Global Description</div>
 <div class="article-card">
-The Game will take place from 8 December 2025 to March 14th 2026 included.<br><br>
-The Game “Mission: Connected Heroes” is a unifying global initiative bringing together more than 22,000 STELLANTIS employees from the Product Development and Technology Business Unit (PDT) across four strategic regions (North America, Europe, South America, and IAP/China). Its aim is to create a shared culture and harmonize knowledge around connected services.
+    <p>
+        The Game will take place from 8 December 2025 to 14 March 2026 inclusive.
+        The Game will take place from 8 December 2025 to 14 March 2026 included.
+    </p>
+    <p>
+        The Game entitled “Mission: Connected Heroes” is a unifying global initiative that aims to bring together more than
+        22,000 STELLANTIS employees from the Product Development and Technology Business Unit (hereafter referred as “PDT”).
+        This challenge, deployed simultaneously in four major strategic regions (North America, Europe, South America, and IAP/China),
+        aims to create a common culture and harmonize knowledge around connected services.
+    </p>
 </div>
 
-<!-- ========================================================= -->
 <!-- ARTICLE 3 -->
-<!-- ========================================================= -->
-<div id="article3" class="section-title">Article 3 — Definitions</div>
+<div id="art3" class="section-title">Article 3: Definitions</div>
 <div class="article-card">
-<b>Participant:</b> Internal Stellantis employee meeting eligibility conditions.<br>
-<b>Challenge:</b> Multiple-choice or open-question activities required to progress.<br>
-<b>SharePoint:</b> Platform hosting the Game for each region.
+    <p>In these rules, each of the expressions below will have the meaning specified in its definition:</p>
+    <ul>
+        <li><b>"Participant"</b>: Individual who participates in the Game by meeting the participation conditions and who is an employee of a company belonging to Stellantis Group.</li>
+        <li><b>"Challenge"</b>: Multiple-choice questionnaire or open questions, etc. to which Participants must correctly respond in full to win this Game.</li>
+        <li><b>"Sharepoint"</b>: Platform on which the Game is hosted for each of the participating regions.</li>
+    </ul>
 </div>
 
-<!-- ========================================================= -->
 <!-- ARTICLE 4 -->
-<!-- ========================================================= -->
-<div id="article4" class="section-title">Article 4 — Challenge Objectives</div>
+<div id="art4" class="section-title">Article 4: Challenge Objectives</div>
 <div class="article-card">
-The Game has four objectives:
-<ul>
-<li>Unite participants from 4 regions around a common, engaging program</li>
-<li>Clarify and give meaning to the Group's connected services</li>
-<li>Train the best internal ambassadors</li>
-<li>Strengthen pride and belonging through a fun and digital experience</li>
-</ul>
+    <p>The Game pursues four main objectives:</p>
+    <ul>
+        <li>Unite participants from the 4 regions around a common, engaging, and unprecedented program</li>
+        <li>Clarify and give meaning to the group's connected services offering</li>
+        <li>Train the best ambassadors capable of promoting connected services</li>
+        <li>Engage teams by strengthening pride and belonging through a fun and digital experience</li>
+    </ul>
 </div>
 
-<!-- ========================================================= -->
 <!-- ARTICLE 5 -->
-<!-- ========================================================= -->
-<div id="article5" class="section-title">Article 5 — Participation Conditions</div>
+<div id="art5" class="section-title">Article 5: Participation Conditions</div>
 <div class="article-card">
-<b>5.1 Eligibility</b><br>
-Only internal STELLANTIS employees with permanent contracts under PDT, from the beginning of the challenge, are eligible. External contractors are excluded.<br><br>
+    <p class="article-label">5.1 Eligibility of participants</p>
+    <p>
+        The Game is exclusively reserved for internal STELLANTIS employees working under the PDT - Product Development and Technology entity (Participant),
+        provided they have a permanent contract in these services from the start date to the end date of the challenge.
+        Employees joining the company during the program will not be able to participate, from 8 December.
+    </p>
+    <p>
+        Only employees with permanent contracts are eligible; external service providers are explicitly excluded from this competition.
+    </p>
+    <p>
+        The Organizing Company reserves the right to add participants from outside the PDT Business Unit, employees of a Stellantis Group company.
+    </p>
 
-<b>5.2 Language</b><br>
-The official language of the Challenge is English.<br><br>
+    <p class="article-label">5.2 Language</p>
+    <p>The official language of this challenge is English.</p>
 
-<b>5.3 Registration and Participation</b><br>
-Participation is voluntary and individual. Access is via SharePoint with a Stellantis username and password. Participation constitutes full acceptance of these rules.
+    <p class="article-label">5.3 Participation and Registration by the Participant</p>
+    <p>
+        Participation is strictly voluntary.
+        Only one participation per individual is allowed; no group of individuals (a team) is allowed.
+        Access to the Game portal is only via the SharePoint platform.
+        Connection for registration by the Participant is made with the Participant’s STELLANTIS username and password.
+    </p>
+    <p>
+        The Organizing Company can unilaterally terminate the Participant's participation, without notice or justification,
+        and without this termination being able to be used for any claim against the Organizing Company by the Participant,
+        particularly if the information provided is contrary to the rules of participation.
+    </p>
+    <p>
+        The Participant can end their participation at any time by writing to the Organizing Company to delete their data.
+    </p>
 </div>
 
-<!-- ========================================================= -->
 <!-- ARTICLE 6 -->
-<!-- ========================================================= -->
-<div id="article6" class="section-title">Article 6 — Personal Data</div>
+<div id="art6" class="section-title">Article 6: Personal Data Protection</div>
 <div class="article-card">
-Full GDPR compliance details including:<br>
-– Data collected (name, email, ID, region, scores, etc.)<br>
-– Purposes (game management, statistics, communication)<br>
-– Legal basis<br>
-– Retention (duration + 3 months)<br>
-– Rights (access, rectification, deletion, objection, portability, consent withdrawal)<br><br>
+    <p class="article-label">6.1 Data collected</p>
+    <p>As part of the "Mission: Connected Heroes" Challenge, STELLANTIS, as the data controller, collects and processes certain personal data of Participants, including:</p>
+    <p>As part of the "Mission: Connected Heroes" Challenge, STELLANTIS Auto SAS, as the controller, collects and processes certain personal data of Participants, including:</p>
+    <ul>
+        <li>First and last name</li>
+        <li>Professional email address</li>
+        <li>STELLANTIS username</li>
+        <li>Entity/department</li>
+        <li>Region and country of assignment</li>
+        <li>Connection and participation data (dates, times, scores, responses)</li>
+        <li>Content created as part of the Challenge</li>
+    </ul>
 
-<b>Contact emails:</b><br>
-EE: sara.agnello@stellantis.com / alessandro.alessio1@stellantis.com / roberto.tola@stellantis.com<br>
-IAP/China: claude.harran@stellantis.com<br>
-SA: viviane.antonio@stellantis.com<br>
-NA: shirley.akey@stellantis.com / tammy.johnson@stellantis.com / san.huepenbecker@stellantis.com
+    <p class="article-label">6.2 Purposes of processing</p>
+    <p>The personal data of Participants are collected and processed for the exclusive purposes of:</p>
+    <ul>
+        <li>Managing participation in the Challenge and its smooth running</li>
+        <li>Determining winners and awarding prizes</li>
+        <li>Anonymized statistical analysis of performance by region/country</li>
+        <li>Determining winners and awarding prizes and manage tax requirements</li>
+        <li>Statistical analysis of performance by region/country to create anonymized reports</li>
+        <li>Internal communication relating to the Challenge and its results</li>
+        <li>Improving knowledge of connected services within the Group</li>
+    </ul>
+
+    <p class="article-label">6.3 Legal basis</p>
+    <p>The processing of Participants' personal data is based on:</p>
+    <ul>
+        <li>STELLANTIS’s legitimate interest in promoting knowledge of connected services including this game</li>
+        <li>The execution of these rules, considered as a contract between STELLANTIS and the Participant</li>
+        <li>STELLANTIS's legitimate interest in promoting knowledge of connected services</li>
+        <li>The Participant's consent for specific processing, particularly the internal distribution of created content</li>
+        <li>Comply with legal obligations in case of taxes, etc.</li>
+    </ul>
+
+    <p class="article-label">6.4 Retention period</p>
+    <p>
+        Participants' personal data are kept for the duration of the Challenge and up to three (3) months after the prize-giving,
+        to allow for the processing of any claims.
+        At the end of this period, the data will either be deleted or anonymized for statistical purposes and overall performance analysis.
+        Participants' personal data are kept for the duration of the Challenge and up to three (3) months after the prize-giving, to allow for the processing of any claims.
+        At the end of this period, the data will either be deleted or anonymized to allow for statistical analysis, to improve the performance of the processes and functionalities of the connected services.
+    </p>
+
+    <p class="article-label">6.5 Recipients of data</p>
+    <p>The personal data collected are intended for:</p>
+    <ul>
+        <li>The organizing teams of the Challenge within STELLANTIS</li>
+        <li>Technical service providers mandated for the management of the SharePoint platform</li>
+        <li>The bailiff in charge of supervising the Challenge, only for the data necessary for their mission</li>
+        <li>Internal communication services for winners who have consented to the publication of their identity</li>
+    </ul>
+    <p>No personal data will be transferred outside the European Economic Area without implementing appropriate safeguards in accordance with the GDPR.</p>
+    <p>Transfer outside the European Economic Area are safeguarde trough intragroup agreements in accordance with applicable data protection laws</p>
+
+    <p class="article-label">6.6 Rights of Participants</p>
+    <p>In accordance with the General Data Protection Regulation (GDPR) and applicable national legislation, each Participant has:</p>
+    <p>In accordance with the General Data Protection Regulation (GDPR) applicable for the controller and national legislation, each Participant has:</p>
+    <ul>
+        <li>A right of access to their personal data</li>
+        <li>A right to rectify inaccurate data</li>
+        <li>A right to erasure under legal conditions</li>
+        <li>A right to restriction of processing</li>
+        <li>A right to object on legitimate grounds</li>
+        <li>A right to data portability</li>
+        <li>The right to withdraw consent at any time for processing on this basis</li>
+        <li>The right to define directives regarding the fate of their data after their death</li>
+    </ul>
+    <p>
+        To exercise these rights, the Participant can contact STELLANTIS's Data Protection Officer at the following address,
+        specifying "DPO – Mission: Connected Heroes" in the subject.<br>
+        EE: sara.agnello@stellantis.com / alessandro.alessio1@stellantis.com / roberto.tola@stellantis.com<br>
+        IAP / CHINA: claude.harran@stellantis.com<br>
+        SA: viviane.antonio@stellantis.com<br>
+        NA: shirley.akey@stellantis.com / tammy.johnson@stellantis.com / san.huepenbecker@stellantis.com
+        To exercise these rights, the Participant can contact eva@lalternative.paris<br>
+        (Always include your regional origin (NA, SA, China, IAP, or EE) in the message subject line before sending any information requests). The Participant can at any time contact the Stellantis Data Protection Officer at dataprotectionofficer@stellantis.com. In case of complaint, the Participant may also contact the competent supervisory authority in their country of residence.
+    </p>
+    <p>In the event of a complaint, the Participant may also contact the competent supervisory authority in their country of residence.</p>
+
+    <p class="article-label">6.7 Data security</p>
+    <p>STELLANTIS implements appropriate technical and organizational measures to ensure the security, integrity, and confidentiality of Participants' personal data, in accordance with its information systems security policy.</p>
+
+    <p class="article-label">6.8 Specific consents</p>
+    <p>When registering for the Challenge, the Participant will be invited to give their explicit consent for:</p>
+    <ul>
+        <li>The use of their image and name in the event that they win, for internal communication purposes</li>
+        <li>The anonymized use of created content for illustration and promotion purposes of STELLANTIS connected services</li>
+    </ul>
+    <p>These consents are optional and do not affect participation in the Challenge.</p>
 </div>
 
-<!-- ========================================================= -->
 <!-- ARTICLE 7 -->
-<!-- ========================================================= -->
-<div id="article7" class="section-title">Article 7 — Game Calendar</div>
+<div id="art7" class="section-title">Article 7: Game Calendar</div>
 <div class="article-card">
-Week 50 2025: Mission 1 — The Academy (3 challenges)<br>
-Week 03 2026: Mission 2 — The Practice<br>
-Week 06 2026: Mission 3 — The Laboratory<br>
-Week 09 2026: The Big Finale<br>
-Week 13 2026: Digital Ceremony
+    <p>The Game launch takes place on the basis of the following schedule:</p>
+    <ul>
+        <li>Week 50 2025: Mission1 "THE ACADEMY" – 3 challenges (December 8, 15, and 22)</li>
+        <li>Week 02 2026: Mission 2 "THE PRACTICE"</li>
+        <li>Week 03 2026: Mission 2 "THE PRACTICE"</li>
+        <li>Week 06 2026: Mission 3 "THE LABORATORY"</li>
+    </ul>
+    <p>Missions 1, 2, and 3 remain accessible until Week 09 2026.</p>
+    <ul>
+        <li>Week 09 2026: "THE BIG FINALE"</li>
+        <li>Week 13 2026: DIGITAL CEREMONY to announce the winners</li>
+    </ul>
+    <p>
+        The Organizing Company reserves the right to shorten, extend, postpone, modify, or cancel the Game if circumstances require.
+        In such circumstances, the Organizing Company will implement technical means to inform Participants on the SharePoint.
+    </p>
 </div>
 
-<!-- ========================================================= -->
 <!-- ARTICLE 8 -->
-<!-- ========================================================= -->
-<div id="article8" class="section-title">Article 8 — Game Journey</div>
+<div id="art8" class="section-title">Article 8: Game Journey</div>
 <div class="article-card">
-<b>The Academy:</b> 3 learning sessions (10–15 min).<br>
-<b>The Practice:</b> Interactive logistics simulation with choice-based progression.<br>
-<b>The Laboratory:</b> Open creativity challenge (text).<br>
-<b>The Big Finale:</b> Original content creation + voting.
+    <p>
+        The Game journey is divided into four progressive phases, each designed to develop participants' knowledge and skills around STELLANTIS connected services:
+    </p>
+
+    <p class="article-label">8.1 Educational Phase (THE ACADEMY)</p>
+    <p>
+        This first fundamental mission takes place in three distinct sessions, each lasting between 10 and 15 minutes.
+        It aims to build a solid foundation of knowledge of connected services:
+    </p>
+    <ul>
+        <li>#1: Discovery of STELLANTIS connected service fundamentals via the Drive Smarter session</li>
+        <li>#2: Discovery of STELLANTIS connected service fundamentals via the Easier Life session</li>
+        <li>#3: Discovery of STELLANTIS connected service fundamentals via the Enjoyable Trip session</li>
+    </ul>
+
+    <p class="article-label">8.2 Practical Phase (THE PRACTICE EXCURSION)</p>
+    <p>
+        In this second phase, the participant is placed in a simulation of a long-distance logistics journey, presented as an interactive course.
+        At different stages of the virtual journey, the participant is confronted with situations requiring decision-making that will determine the participant's subsequent journey.
+        For each situation, several response options are offered to the participant.
+        No answer is considered incorrect, but some choices may be more efficient than others in terms of time, resources, or journey optimization.
+    </p>
+
+    <p class="article-label">8.3 Prospective Brainstorming Phase (THE LABORATORY)</p>
+    <p>
+        This third phase is a creative test aimed at imagining the connected services of the future.
+        The participant is invited to answer an open question about potential innovations in the field of connected logistics services.
+        The response must be formulated in text form in the dedicated space, in English, and without character limit.
+    </p>
+    <p>Each of these three sessions allows participants to accumulate essential points for qualification in the final phase, while consolidating their expertise and knowledge.</p>
+
+    <p class="article-label">8.4 Finale (THE BIG FINALE)</p>
+    <p>
+        The grand finale consists of creating original content showcasing and highlighting one or more connected services,
+        from an internal communication perspective.
+        Finalists can submit their creation in one of the following formats:
+    </p>
+    <ul>
+        <li>Video content (maximum duration: 2 minutes)</li>
+        <li>Audio content (maximum duration: 3 minutes)</li>
+        <li>Detailed scenario (Word, PDF)</li>
+        <li>Visual or infographic (accepted formats: JPG, PNG, PDF)</li>
+    </ul>
+    <p>For the development of their creation, finalists shall exclusively use STLA Artificial Intelligence tools.</p>
+    <p>
+        Only employees who have obtained the highest number of points at the end of the five weekly challenges are qualified to participate in the grand finale,
+        with the following regional distribution:
+    </p>
+    <ul>
+        <li>Top 200 in Europe</li>
+        <li>Top 100 in North America</li>
+        <li>Top 35 in South America</li>
+        <li>Top 35 in the IAP/China area</li>
+    </ul>
+    <p>
+        At the end of the creation period, all challenge participants, irrespective of whether they participated in the Grand Finale,
+        are invited to vote for the finalist content.
+        Each voter has multiple votes but only one vote per content.
+        You cannot vote multiple times for the same content.
+    </p>
+    <p>
+        The winners of the finale are determined exclusively by the number of votes received.
+        In case of a perfect tie between several finalists, the Organizing Company will look at their points from the previous challenge missions.
+        The finalist who had the most points will win the allocated prize.
+    </p>
+    <p>
+        If the number of points is similar, the finalist who responded to the different missions in the least time will win the tiebreaker.
+        If there is perfect equality in both points and time, a draw supervised by a bailiff will take place to determine the winner.
+        Name of the bailiff.
+    </p>
 </div>
 
-<!-- ========================================================= -->
 <!-- ARTICLE 9 -->
-<!-- ========================================================= -->
-<div id="article9" class="section-title">Article 9 — Point System</div>
+<div id="art9" class="section-title">Article 9: Points System</div>
 <div class="article-card">
-<b>Mission 1:</b> +1 / –1, min 0, timed bonus.<br>
-<b>Mission 2:</b> 1–3 pts depending on choices + bonus.<br>
-<b>Mission 3:</b> +1 if answer provided.<br>
-<b>Finale:</b> Votes-based ranking + tie-breaking rules.<br>
+    <p class="article-label">9.1 Basic rules</p>
+    <p><b>MISSION #1</b></p>
+    <ul>
+        <li>Mandatory and sometimes multiple answers</li>
+        <li>Minimum score: 0 (no negative score, it remains at 0)</li>
+        <li>Correct answer: 1 point added</li>
+        <li>Incorrect answer: 1 point deducted</li>
+    </ul>
+    <p>Bonus: this challenge will be timed, and the fastest participants will earn higher places in the overall regional rankings.</p>
+
+    <p><b>MISSION #2</b></p>
+    <ul>
+        <li>A score is awarded based on the effectiveness of the choices made (from 1 to 3 points at each stage).</li>
+        <li>A bonus of 2 points will be awarded if the mission is completed successfully and on time. A bonus of 1 point will be awarded if the mission is completed successfully but later. No points will be awarded for failure.</li>
+        <li>For the mission concerning Stellantis Group connected vehicle users: 1 point is awarded if all fields in the open-ended questions are completed. 0 points otherwise.</li>
+        <li>For the mission concerning non-vehicle users or non-users of Stellantis Group connected vehicles: 1 point is awarded if all fields in the open-ended questions are completed. 0 points otherwise.</li>
+    </ul>
+
+    <p><b>MISSION #3</b></p>
+    <ul>
+        <li>Answer provided: 1 point added</li>
+        <li>Answer not provided: 0 points added</li>
+    </ul>
+
+    <p class="article-label">9.2 Grand Finale</p>
+    <p>
+        The final ranking of winners is based primarily on the number of votes received during the final phase.
+        In the event of a perfect tie between several finalists, a progressive tiebreaker system applies on the following basis:
+    </p>
+    <ul>
+        <li>The cumulative points obtained during the previous phases will be examined, designating as the winner the participant who demonstrated the best overall performance.</li>
+        <li>If the tie persists, the time factor will come into play: the participant who completed all the missions with the greatest speed will win the advantage.</li>
+        <li>In the exceptional event of a perfect equality in both points and completion time, a draw supervised by a bailiff will determine the final winner.</li>
+    </ul>
+    <p>This rigorous methodology guarantees the fair designation of participants who will benefit from the rewards offered by STELLANTIS, detailed below.</p>
+
+    <p class="article-label">9.3 Rankings</p>
+    <p>
+        At each stage, a ranking by region and country will be available, as well as the ranking of the connected person.
+        The ranking is done by first name + 1st letter of the last name.
+        The ranking is done by first name + 1st letter of the last name. All characters are in uppercase. There is no space between the first name and the first letter of the last name. In case of homonyms, it is possible to request that the order of participants be distinguished by writing to: eva@lalternative.paris (by specifying the region of origin in the subject line of the email.)
+    </p>
 </div>
 
-<!-- ========================================================= -->
 <!-- ARTICLE 10 -->
-<!-- ========================================================= -->
-<div id="article10" class="section-title">Article 10 — Prizes</div>
+<div id="art10" class="section-title">Article 10: Prize Allocation and Delivery</div>
 <div class="article-card">
-<b>Gold Prizes:</b> F1 Grand Prix or equivalent trips (region specific).<br>
-<b>Silver Prizes:</b> Connected services subscription or connected speaker.<br>
-<b>Bronze Prizes:</b> Tote bag + notebook + water bottle.<br><br>
-All prizes are nominative and non-transferable.
+    <p class="article-label">10.1 Gold Prizes</p>
+    <p>Access to an international Formula 1 Grand Prix or equivalent.</p>
+    <p>The trip to the event is covered by STELLANTIS: transportation, transfers, accommodation.</p>
+    <p>The events (or equivalents):</p>
+    <ul>
+        <li>Europe: 24 Hours of Le Mans – 6 winners – value of approximately €1,200 per person</li>
+        <li>North America: Racing School – 3 winners – value of approximately €1,200 per person</li>
+        <li>South America: 6 Hours of São Paulo – 1 winner – value of approximately €2,000</li>
+        <li>IAP/China: Singapore F1 – 1 winner – value of approximately €2,000</li>
+    </ul>
+
+    <p class="article-label">10.2 Silver Prizes</p>
+    <p>1 year of free subscription to connected services or a connected speaker and a phone battery:</p>
+    <ul>
+        <li>10 for Eastern Europe</li>
+        <li>5 for North America</li>
+        <li>2 for South America</li>
+        <li>2 for IAP/China</li>
+    </ul>
+    <p>The participant is free to choose the desired prize.</p>
+
+    <p class="article-label">10.3 Bronze Prizes</p>
+    <p>1 tote bag, 1 notebook, and 1 water bottle – STELLANTIS branded items:</p>
+    <ul>
+        <li>84 for Eastern Europe</li>
+        <li>42 for North America</li>
+        <li>17 for South America</li>
+        <li>17 for IAP/China</li>
+    </ul>
+
+    <p>
+        After verifying the regularity of the registration of the Participants, the winners will be notified by the STELLANTIS Organizing Company
+        After verifying the regularity of the registration of the Participants, the winners will be notified by the STELLANTIS AUTO SAS, organizing Company
+        via an email sent to the STELLANTIS contact details.
+    </p>
+    <p>
+        Prizes returned due to any difficulty with the recipient's name or address will not be reassigned or returned
+        and will remain the property of STELLANTIS.
+        The prizes are nominative and cannot be assigned to other people.
+    </p>
+    <p>
+        If one of the planned services cannot be offered by the organizers for reasons beyond their control,
+        it will be replaced by an endowment of the same nature and equivalent value.
+        The organizers cannot be held responsible for any modifications to the content of the endowment.
+    </p>
+    <p>
+        It is formally forbidden for winners to transfer their prize for a fee.
+        Any transfer will be subject of cancellation of the prize and/or request for damages in court by STELLANTIS.
+    </p>
+    <p>
+        Without prejudice to any legal action and its ability to terminate the Participant's registration,
+        the Organizing Company is not required to deliver any prize to the beneficiary Participant if they have not correctly entered their details during registration,
+        if they have manifestly, and by any means, succeeded in falsifying the result of the Game or have not complied with these rules.
+    </p>
+    <p>
+        The prizes cannot give rise to any dispute, nor to the delivery of their cash equivalent, nor to their exchange or replacement
+        (it is understood, however, that the Organizing Company reserves the possibility of substituting at any time
+        the proposed prizes with other prizes of equivalent value).
+    </p>
 </div>
 
-<!-- ========================================================= -->
 <!-- ARTICLE 11 -->
-<!-- ========================================================= -->
-<div id="article11" class="section-title">Article 11 — Fairness</div>
+<div id="art11" class="section-title">Article 11: Fairness And Integrity</div>
 <div class="article-card">
-Fairness ensured by a judicial officer overseeing rule integrity.
+    <p>
+        Fairness is guaranteed: all participants have the same chances.
+        A bailiff ensures fairness and the integrity of the rules.
+    </p>
 </div>
 
-<!-- ========================================================= -->
 <!-- ARTICLE 12 -->
-<!-- ========================================================= -->
-<div id="article12" class="section-title">Article 12 — Platform Access</div>
+<div id="art12" class="section-title">Article 12: Platform Access</div>
 <div class="article-card">
-Access is exclusively through SharePoint:<br><br>
-
-<b>IAP/China:</b><br>
-<a href="https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_IAP/SitePages/Home.aspx" target="_blank">
-https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_IAP/SitePages/Home.aspx
-</a><br><br>
-
-<b>South America:</b><br>
-<a href="https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_SA/" target="_blank">
-https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_SA/
-</a><br><br>
-
-<b>EE/MEA:</b><br>
-<a href="https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_EU/SitePages/Home.aspx?sw=auth" target="_blank">
-https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_EU/SitePages/Home.aspx?sw=auth
-</a><br><br>
-
-<b>North America:</b><br>
-<a href="https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_NA/" target="_blank">
-https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_NA/
-</a>
+    <p>Access to the challenge is exclusively via the dedicated SharePoint platform:</p>
+    <p>IAP/CHINA: LINK: MissionConnectedHero_IAP – Home</p>
+    <p>SA: LINK: MissionConnectedHero_SA – Home</p>
+    <p>EE/MEA: LINK: MissionConnectedHero_EU – Home</p>
+    <p>NA: LINK: MissionConnectedHero_NA – Home</p>
 </div>
 
-<!-- ========================================================= -->
 <!-- ARTICLE 13 -->
-<!-- ========================================================= -->
-<div id="article13" class="section-title">Article 13 — Questions</div>
+<div id="art13" class="section-title">Article 13: Requests Relating To The Organization Of The Game</div>
 <div class="article-card">
-Participants may contact the organizing team at:<br>
-eva.lekic@external.stellantis.com / eva@lalternative.paris
+    <p>
+        For any questions concerning these rules, Participants can contact the team in charge of monitoring the organizer of the
+        “Mission: Connected Heroes” Challenge at the following address: <b>eva.lekic@external.stellantis.com</b>
+        “Mission: Connected Heroes” Challenge at the following address: <b>eva@lalternative.paris</b>
+    </p>
 </div>
 
-<!-- ========================================================= -->
 <!-- ARTICLE 14 -->
-<!-- ========================================================= -->
-<div id="article14" class="section-title">Article 14 — Respect of Rules</div>
+<div id="art14" class="section-title">Article 14: Respect Of Rules</div>
 <div class="article-card">
-Participants must respect rules and other participants. Fraud or misconduct may lead to exclusion.
+    <p>
+        Participation in the Game implies a loyal attitude, meaning absolute respect for the rules and the rights of other participants.
+    </p>
+    <p>
+        Participants are prohibited from implementing or seeking to implement any participation process that would not strictly comply with the principles of the Game and these rules.
+    </p>
+    <p>
+        STELLANTIS reserves the right to exclude any person not fully respecting these rules.
+    </p>
+    <p>
+        STELLANTIS also reserves the right to prosecute anyone who attempts to defraud or harm the smooth running or impartiality of the Game.
+    </p>
+    <p>
+        STELLANTIS may decide to cancel the Game if it appears that manifest fraud has occurred in any form whatsoever,
+        particularly in a computerized manner in the context of participation in the Game or the determination of the winners.
+    </p>
 </div>
 
-<!-- ========================================================= -->
 <!-- ARTICLE 15 -->
-<!-- ========================================================= -->
-<div id="article15" class="section-title">Article 15 — Filing & Modifications</div>
+<div id="art15" class="section-title">Article 15: Filing and Modification Of Rules</div>
 <div class="article-card">
-Rules filed with Maître Doniol, 7 rue Jean Jaurès, 77410 Claye Souilly.<br>
-Modifications may occur and will be published on SharePoint.
+    <p>
+        These Rules have been filed with Maître ________ (name of the Bailiff), Judicial Officer in Paris,
+        at the following address: [ADDRESS OF THE BAILIFF].
+    </p>
+    <p>They are also available on the website ________ (insert URL).</p>
+    <p>
+        STELLANTIS AUTO SAS reserves the right to amend these Rules and in particular the rules of the game and the prizes awarded,
+        essentially to consider the evolution of legal, regulatory, or administrative provisions, judicial decisions, recommendations
+        issued by organizations in charge of the administration of the Internet network and STELLANTIS's commercial policy.
+    </p>
+    <p>
+        Any amendment shall be recorded in an addendum filed with the aforementioned Bailiff and shall be announced on the website/SharePoint ________.
+    </p>
 </div>
 
-<!-- ========================================================= -->
 <!-- ARTICLE 16 -->
-<!-- ========================================================= -->
-<div id="article16" class="section-title">Article 16 — Miscellaneous</div>
+<div id="art16" class="section-title">Article 16: Miscellaneous</div>
 <div class="article-card">
-Any difficulty in interpreting these rules shall be resolved by STELLANTIS Auto SAS under French law.
+    <p>
+        Any difficulty in interpreting or applying these Rules shall be resolved by the Organizing Company in compliance with French law.
+    </p>
+    <p>
+        Any behavior by a Participant that may harm the image of the Stellantis Group and/or that is contrary to public order and/or
+        accepted standards of morality may result in the invalidation of that Participant’s Participation in the Game.
+    </p>
 </div>
 
-<!-- ========================================================= -->
 <!-- ARTICLE 17 -->
-<!-- ========================================================= -->
-<div id="article17" class="section-title">Article 17 — Applicable Law</div>
+<div id="art17" class="section-title">Article 17: Applicable Law</div>
 <div class="article-card">
-The Game is governed exclusively by French law.
+    <p>The Game is governed exclusively by French law.</p>
 </div>
 
-<!-- BACK TO TOP -->
 <a href="#top" class="back-top">↑ Back to top</a>
 
-
-<!-- SHAREPOINT RESIZE -->
 <script>
+// Smooth scroll for anchors
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", e => {
+        e.preventDefault();
+        const target = document.querySelector(anchor.getAttribute("href"));
+        if (target) {
+            target.scrollIntoView({ behavior: "smooth" });
+            sendHeightDelayed();
+        }
+    });
+});
+
+// Resize for SharePoint iframe
 function sendHeight() {
     const height = document.documentElement.scrollHeight;
-    parent.postMessage({ type: "resizeRules", height }, "*");
+    parent.postMessage({ type: "resizeRules", height: height }, "*");
+}
+function sendHeightDelayed() {
+    setTimeout(sendHeight, 400);
 }
 window.onload = sendHeight;
 window.onresize = sendHeight;
-setInterval(sendHeight, 600);
+setInterval(sendHeight, 1000);
 </script>
-
 </body>
 </html>
