@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Prizes – North America</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+html, body {
+    margin: 0;
+    padding: 40px;
+    background: transparent !important;
+    font-family: 'Inter', sans-serif;
+    color: #d4e7ff;
+    line-height: 1.6;
+}
+
+/* Title & Header */
+.header-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    font-size: 12px;
+    border-radius: 20px;
+    border: 1px solid #2aa8ff;
+    color: #2aa8ff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 28px;
+}
+
+/* Card */
+.card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+    padding: 32px;
+    max-width: 1100px;
+    backdrop-filter: blur(8px);
+}
+
+.section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    margin-top: 32px;
+    margin-bottom: 16px;
+    color: #2cc8ff;
+}
+
+/* Image */
+.prize-image {
+    width: 100%;
+    max-width: 900px;
+    border-radius: 18px;
+    margin: 20px 0 30px 0;
+}
+
+/* Text */
+p {
+    margin: 0 0 16px 0;
+    font-size: 17px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header-badge">Mission: Connected Heroes</div>
+<h1>Prizes — North America</h1>
+
+<div class="card">
+
+    <h2 class="section-title">FIRST PRIZE · 3 PLACES TO WIN</h2>
+
+    <img src="NA.png" class="prize-image" alt="Racing School">
+
+    <p>
+        A 3-day driving experience at the legendary Dodge Racing School! Imagine…  
+        Three days of pure adrenaline, behind the wheel of powerful race cars, on tracks where speed becomes your superpower.
+    </p>
+
+    <p>
+        You won't just be a driver…  
+        <strong>You’ll be an asphalt hero</strong>, ready to tame brute force and defy the laws of gravity.  
+        This prize is more than a gift: it’s an introduction to speed, an immersion into the world of champions.
+    </p>
+
+    <p>
+        Prepare your cape, adjust your helmet…  
+        <strong>The track awaits.</strong>
+    </p>
+
+    <p><em>Stellantis covers travel and accommodation expenses.</em></p>
+
+    <h2 class="section-title">SECOND PRIZE</h2>
+    <p>1-year free connected services or connected speaker & phone battery</p>
+
+    <h2 class="section-title">THIRD PRIZE</h2>
+    <p>Goodies (tote bag, notebook and bottle)</p>
+
+</div>
+
+<script>
+function sendHeight() {
+    const height = document.documentElement.scrollHeight;
+    parent.postMessage({ type: "resizePrizesNA", height: height }, "*");
+}
+window.onload = sendHeight;
+window.onresize = sendHeight;
+setInterval(sendHeight, 800);
+</script>
+
+</body>
+</html>
