@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Prizes – South America</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+html, body {
+    margin: 0;
+    padding: 40px;
+    background: transparent !important;
+    font-family: 'Inter', sans-serif;
+    color: #d4e7ff;
+    line-height: 1.6;
+}
+
+/* Title & Header */
+.header-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    font-size: 12px;
+    border-radius: 20px;
+    border: 1px solid #2aa8ff;
+    color: #2aa8ff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 28px;
+}
+
+/* Card */
+.card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+    padding: 32px;
+    max-width: 1100px;
+    backdrop-filter: blur(8px);
+}
+
+.section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    margin-top: 32px;
+    margin-bottom: 16px;
+    color: #2cc8ff;
+}
+
+/* Image */
+.prize-image {
+    width: 100%;
+    max-width: 900px;
+    border-radius: 18px;
+    margin: 20px 0 30px 0;
+}
+
+/* Text */
+p {
+    margin: 0 0 16px 0;
+    font-size: 17px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header-badge">Mission: Connected Heroes</div>
+<h1>Prizes — South America</h1>
+
+<div class="card">
+
+    <h2 class="section-title">FIRST PRIZE · 1 PLACE TO WIN</h2>
+
+    <img src="SA.png" class="prize-image" alt="São Paulo 6 Hours">
+
+    <p>
+        An immersive experience at the heart of the 2026 FIA World Endurance Championship – 6 Hours of São Paulo!
+    </p>
+
+    <p>
+        Imagine…  
+        The roar of the prototypes, the tension in the pits, the speed that defies time.  
+        You’ll be there, at the center of the action, in the arena where champions battle for world glory.
+    </p>
+
+    <p>
+        This prize isn't just an experience… <strong>it's an epic mission.</strong>  
+        You’ll join the ranks of track heroes, where strategy meets power, and every second counts.
+    </p>
+
+    <p>
+        Prepare your cape, adjust your helmet…  
+        <strong>São Paulo awaits.</strong>
+    </p>
+
+    <p><em>Stellantis covers travel and accommodation expenses.</em></p>
+
+    <h2 class="section-title">SECOND PRIZE</h2>
+    <p>1-year free connected services or connected speaker & phone battery</p>
+
+    <h2 class="section-title">THIRD PRIZE</h2>
+    <p>Goodies (tote bag, notebook and bottle)</p>
+
+</div>
+
+<script>
+function sendHeight() {
+    const height = document.documentElement.scrollHeight;
+    parent.postMessage({ type: "resizePrizesSA", height: height }, "*");
+}
+window.onload = sendHeight;
+window.onresize = sendHeight;
+setInterval(sendHeight, 800);
+</script>
+
+</body>
+</html>
