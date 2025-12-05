@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Mission Connected Heroes – Registration (NA)</title>
+<title>Registration Required – North America</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;900&family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 <style>
 html, body {
@@ -13,7 +13,7 @@ html, body {
     background: transparent !important;
     font-family: 'Inter', sans-serif;
     color: #d4e7ff;
-    line-height: 1.7;
+    line-height: 1.65;
 }
 
 /* Header */
@@ -24,72 +24,79 @@ html, body {
     border-radius: 20px;
     border: 1px solid #2aa8ff;
     color: #2aa8ff;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
     letter-spacing: 1px;
     text-transform: uppercase;
 }
 
 h1 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 38px;
+    font-size: 40px;
     font-weight: 800;
     letter-spacing: 3px;
     color: #ffffff;
-    margin: 0 0 20px 0;
-}
-
-/* Highlight text */
-.highlight {
-    color: #3bc4ff;
-    font-weight: 700;
+    margin: 0 0 24px 0;
 }
 
 /* Card */
 .content-card {
     margin-top: 24px;
-    background: rgba(255,255,255,0.05);
-    border-radius: 20px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 18px;
     border: 1px solid rgba(255,255,255,0.08);
-    padding: 26px 30px;
+    padding: 32px 36px;
     backdrop-filter: blur(10px);
-    max-width: 900px;
+    max-width: 1100px;
 }
 
-/* Buttons section */
-.buttons-row {
-    margin-top: 30px;
+.content-card p {
+    margin: 0;
+    font-size: 17px;
+}
+
+/* Highlight mandatory text */
+.highlight {
+    color: #2cc8ff;
+    font-weight: 700;
+}
+
+/* Buttons container */
+.btn-wrapper {
+    margin-top: 40px;
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 28px;
 }
 
-.btn-register,
-.btn-continue {
-    padding: 14px 32px;
-    border-radius: 14px;
-    font-size: 16px;
-    font-weight: 800;
-    text-decoration: none;
-    color: #ffffff;
-    border: none;
+/* Buttons */
+.btn {
     display: inline-block;
-    transition: 0.25s;
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    padding: 18px 42px;
+    border-radius: 20px;
+    color: #fff;
+    transition: 0.25s ease;
 }
 
-/* Orange register button */
+/* Orange button */
 .btn-register {
-    background: linear-gradient(90deg, #FF8A00, #FF5E00);
+    background: #ffb027;
 }
 .btn-register:hover {
-    transform: scale(1.05);
+    background: #ffc75a;
+    transform: translateY(-2px);
 }
 
-/* Blue continue button */
+/* Blue button */
 .btn-continue {
-    background: linear-gradient(90deg, #00B7FF, #008CFF);
+    background: #19dfff;
 }
 .btn-continue:hover {
-    transform: scale(1.05);
+    background: #4be9ff;
+    transform: translateY(-2px);
 }
 </style>
 </head>
@@ -97,36 +104,31 @@ h1 {
 <body>
 <a id="top"></a>
 
-<div class="header-badge">Mission: Connected Heroes · Registration</div>
+<div class="header-badge">Mission: Connected Heroes – NA</div>
 <h1>Registration Required</h1>
 
 <div class="content-card">
     <p>
-        To take part in the <b>Mission: Connected Heroes</b> challenge, you must complete your registration first.
+        To join the Mission: Connected Heroes challenge,  
+        <span class="highlight">registration is mandatory.</span>  
+        Without it, you will not be able to access the missions, earn points, or qualify for the exclusive international rewards.
         <br><br>
-        Without registration, you will <span class="highlight">not be able to access the challenge missions</span> or appear in the rankings.
-        <br><br>
-        Please select one of the options below to continue.
+        Take a moment to register now — or continue if you are already part of the league.  
+        Your heroic journey starts here!
     </p>
 
-    <div class="buttons-row">
-        <a href="https://forms.cloud.microsoft/e/TpDQkpWPcb" class="btn-register">
-            REGISTER
-        </a>
-
-        <a href="https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_NA/SitePages/Mission-1-%E2%80%93-The-Academy.aspx" class="btn-continue">
-            CONTINUE
-        </a>
+    <div class="btn-wrapper">
+        <!-- SAME TAB -->
+        <a href="https://forms.cloud.microsoft/e/sW8S9aEhx2" class="btn btn-register">REGISTER</a>
+        <a href="https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_NA/SitePages/Mission-1-%E2%80%93-The-Academy.aspx" class="btn btn-continue">CONTINUE IF REGISTERED</a>
     </div>
 </div>
 
 <script>
-/* Auto-resize for SharePoint iframe */
 function sendHeight() {
     const height = document.documentElement.scrollHeight;
     parent.postMessage({ type: "resizeRegister", height: height }, "*");
 }
-
 window.onload = sendHeight;
 window.onresize = sendHeight;
 setInterval(sendHeight, 800);
