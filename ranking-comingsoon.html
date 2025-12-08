@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ranking – Coming Soon</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+html, body {
+    margin: 0;
+    padding: 40px;
+    background: transparent !important;
+    font-family: 'Inter', sans-serif;
+    color: #d4e7ff;
+    line-height: 1.6;
+}
+
+/* Badge */
+.header-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    font-size: 12px;
+    border-radius: 20px;
+    border: 1px solid #2aa8ff;
+    color: #2aa8ff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+/* Title */
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #ffffff;
+    margin-bottom: 24px;
+}
+
+/* Card */
+.content-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+    padding: 32px;
+    max-width: 1100px;
+    backdrop-filter: blur(10px);
+}
+
+/* Text */
+p {
+    margin-bottom: 18px;
+    font-size: 17px;
+}
+
+/* Highlight */
+.highlight {
+    color: #2cc8ff;
+    font-weight: 700;
+}
+
+/* Coming soon container */
+.coming {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.coming-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: #2aa8ff;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.coming-sub {
+    font-size: 18px;
+    opacity: 0.8;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header-badge">Mission: Connected Heroes</div>
+<h1>Ranking – Coming Soon</h1>
+
+<div class="content-card">
+    <p>
+        The <span class="highlight">regional and country rankings</span> will be displayed here very soon.
+    </p>
+
+    <p>
+        To appear in the ranking, participants must first 
+        <span class="highlight">register for the challenge</span> and complete 
+        <span class="highlight">Mission 1 – The Academy</span>.
+    </p>
+
+    <p>
+        Once Mission 1 has launched and the first points have been earned, your heroic journey will start to take shape — and your position among the Connected Heroes will be revealed.
+    </p>
+
+    <div class="coming">
+        <div class="coming-title">COMING SOON</div>
+        <div class="coming-sub">Your ranking will appear here after the first mission.</div>
+    </div>
+</div>
+
+<script>
+function sendHeight() {
+    const h = document.documentElement.scrollHeight;
+    parent.postMessage({ type: "resizeRankingSoon", height: h }, "*");
+}
+window.onload = sendHeight;
+window.onresize = sendHeight;
+setInterval(sendHeight, 800);
+</script>
+
+</body>
+</html>
