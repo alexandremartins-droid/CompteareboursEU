@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Mission 1 – Life Easier (SA)</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+html, body {
+    margin: 0;
+    padding: 40px;
+    background: transparent !important;
+    font-family: 'Inter', sans-serif;
+    color: #d4e7ff;
+    line-height: 1.7;
+}
+
+/* Header */
+.header-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    font-size: 12px;
+    border-radius: 20px;
+    border: 1px solid #2aa8ff;
+    color: #2aa8ff;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #ffffff;
+    margin: 0 0 14px 0;
+}
+
+/* Card */
+.content-card {
+    margin-top: 24px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 24px 26px;
+    backdrop-filter: blur(10px);
+    max-width: 900px;
+}
+
+.content-card p {
+    margin: 0 0 12px 0;
+    font-size: 15px;
+}
+
+/* Highlight REGISTER */
+.highlight-register {
+    color: #0FDFE3;
+    font-weight: 700;
+    text-decoration: none;
+}
+.highlight-register:hover {
+    text-decoration: underline;
+}
+</style>
+</head>
+
+<body>
+<a id="top"></a>
+
+<div class="header-badge">Mission 1 – The Academy</div>
+<h1>Life Easier · Session 2</h1>
+
+<div class="content-card">
+    <p>
+        Take the time to carefully review this training session on <b>LIFE EASIER</b> before taking the quiz —
+        every detail counts to maximize your chances of success and demonstrate your expertise in
+        Stellantis connected services!
+    </p>
+
+    <p><i>
+        Don't forget to 
+        <a href="https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_SA/SitePages/REGISTER.aspx" 
+           class="highlight-register" 
+           target="_blank">
+           REGISTER
+        </a>
+        and to take the first test if you haven't done so yet.
+    </i></p>
+</div>
+
+<script>
+/* Auto-resize for SharePoint iframe */
+function sendHeight() {
+    const height = document.documentElement.scrollHeight;
+    parent.postMessage({ type: "resizeMission1S2SA", height: height }, "*");
+}
+window.onload = sendHeight;
+window.onresize = sendHeight;
+setInterval(sendHeight, 800);
+</script>
+
+</body>
+</html>
