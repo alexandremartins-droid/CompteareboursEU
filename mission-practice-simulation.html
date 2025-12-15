@@ -1,245 +1,681 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mission 2 – The Practice (Simulation)</title>
 
-<title>Mission: Connected Heroes – Practice Simulation</title>
-
-<!-- Orbitron + Inter -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 <style>
 /* =========================
-   GLOBAL
+   GLOBAL (SharePoint/iframe safe)
 ========================= */
 html, body {
-    margin: 0;
-    padding: 40px;
-    background: transparent !important;
-    font-family: 'Inter', sans-serif;
-    color: #d4e7ff;
-    line-height: 1.6;
+  margin: 0;
+  padding: 40px;
+  background: transparent !important;
+  font-family: 'Inter', sans-serif;
+  color: #d4e7ff;
+  line-height: 1.6;
+}
+
+:root{
+  --cyan:#3bc4ff;
+  --cyan2:#0FDFE3;
+  --glass: rgba(255,255,255,0.06);
+  --glass2: rgba(0,0,0,0.45);
+  --border: rgba(255,255,255,0.08);
+  --textDim:#b8dfff;
 }
 
 /* =========================
    CONTAINER
 ========================= */
 #game-container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 32px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 20px;
-    border: 1px solid rgba(255,255,255,0.08);
-    backdrop-filter: blur(12px);
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 32px;
+  background: var(--glass);
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+}
+
+.header-badge{
+  display:inline-block;
+  padding:6px 14px;
+  font-size:12px;
+  border-radius:20px;
+  border: 1px solid #2aa8ff;
+  color:#2aa8ff;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+
+h1{
+  margin: 0 0 14px 0;
+  font-family:'Orbitron', sans-serif;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color:#fff;
+}
+
+.subtitle{
+  margin: 0 0 22px 0;
+  max-width: 900px;
+  color: var(--textDim);
+  font-size: 15px;
 }
 
 /* =========================
-   TITRES
+   PROGRESS + HUD
 ========================= */
-h1 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 34px;
-    letter-spacing: 3px;
-    text-align: center;
-    margin: 0 0 24px 0;
-    color: #ffffff;
+.hud{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+  margin: 18px 0 22px 0;
+  padding: 16px 18px;
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 18px;
+  backdrop-filter: blur(10px);
 }
 
-#story h2 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 18px;
-    letter-spacing: 2px;
-    color: #3bc4ff;
-    margin-top: 0;
+.hud-left{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  min-width: 240px;
+}
+
+.step-line{
+  font-family:'Orbitron', sans-serif;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: #7fc9ff;
+  text-transform: uppercase;
+}
+
+.progress{
+  width: 260px;
+  max-width: 100%;
+  height: 10px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 999px;
+  overflow:hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.progress > div{
+  height:100%;
+  width: 0%;
+  background: rgba(59,196,255,0.85);
+  transition: width .35s ease;
+}
+
+.stats{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.stat{
+  margin:0;
+  padding: 8px 12px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.10);
+  color:#9ed8ff;
+  font-size:14px;
+  white-space:nowrap;
+}
+.stat strong{ color:#fff; font-weight:700; }
+
+/* =========================
+   STORY (animated)
+========================= */
+#story{
+  margin-top: 8px;
+}
+
+.card{
+  margin-top: 18px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 22px 24px;
+  backdrop-filter: blur(10px);
+}
+
+#story h2{
+  margin:0 0 10px 0;
+  font-family:'Orbitron', sans-serif;
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: var(--cyan);
+  text-transform: uppercase;
+}
+
+#story p{
+  margin:0;
+  color: var(--textDim);
+  font-size: 15px;
+}
+
+.fade-slide{
+  animation: fadeSlide .35s ease both;
+}
+@keyframes fadeSlide{
+  from{ opacity:0; transform: translateY(8px); }
+  to{ opacity:1; transform: translateY(0); }
 }
 
 /* =========================
-   CHOICES / BUTTONS
+   CHOICES (buttons)
 ========================= */
-#choices {
-    margin-top: 20px;
+#choices{ margin-top: 18px; }
+
+.choice-btn{
+  display:block;
+  width:100%;
+  margin: 10px 0;
+  padding: 16px 18px;
+  background: rgba(0,183,255,0.14);
+  color:#fff;
+  border: 1px solid var(--cyan);
+  border-radius: 18px;
+  font-size: 16px;
+  font-weight: 650;
+  cursor:pointer;
+  transition: .25s ease;
+  text-align:left;
+}
+.choice-btn:hover{
+  background: var(--cyan);
+  color:#062035;
+  transform: translateY(-2px);
 }
 
-button {
-    display: block;
-    width: 100%;
-    margin: 10px 0;
-    padding: 16px 20px;
-    background: rgba(0,183,255,0.15);
-    color: #ffffff;
-    border: 1px solid #3bc4ff;
-    border-radius: 18px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.25s ease;
-}
-
-button:hover {
-    background: #3bc4ff;
-    color: #062035;
-    transform: translateY(-2px);
+.choice-meta{
+  display:block;
+  margin-top: 6px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
 }
 
 /* =========================
-   STATS
+   MODAL (replaces confirm)
 ========================= */
-#stats {
-    margin-top: 32px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255,255,255,0.15);
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 16px;
+.modal-overlay{
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0,0,0,0.65);
+  z-index: 9999;
 }
 
-#stats p {
-    margin: 0;
-    padding: 8px 14px;
-    border-radius: 14px;
-    background: rgba(255,255,255,0.08);
-    font-size: 14px;
-    color: #9ed8ff;
+.modal{
+  width: 100%;
+  max-width: 560px;
+  background: rgba(10,18,35,0.85);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 20px;
+  padding: 22px 22px 18px 22px;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 0 22px rgba(0,0,0,0.45);
 }
+
+.modal-title{
+  font-family:'Orbitron', sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: #7fc9ff;
+  text-transform: uppercase;
+  margin: 0 0 10px 0;
+}
+
+.modal-text{
+  margin: 0 0 16px 0;
+  color: #d4e7ff;
+  font-size: 15px;
+}
+
+.modal-actions{
+  display:flex;
+  gap: 12px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.modal-btn{
+  border: 0;
+  border-radius: 16px;
+  padding: 12px 16px;
+  font-weight: 750;
+  cursor: pointer;
+  transition: .2s ease;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.btn-primary{
+  background: var(--cyan);
+  color:#062035;
+}
+.btn-primary:hover{ transform: translateY(-2px); background: #4be9ff; }
+
+.btn-ghost{
+  background: rgba(255,255,255,0.08);
+  color:#fff;
+  border: 1px solid rgba(255,255,255,0.14);
+}
+.btn-ghost:hover{ transform: translateY(-2px); }
+
+.note{
+  margin-top: 10px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.65);
+}
+
+/* =========================
+   FINAL SCORE
+========================= */
+.final-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 14px;
+}
+@media (max-width: 720px){
+  .final-grid{ grid-template-columns: 1fr; }
+}
+.final-tile{
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 14px 16px;
+}
+.final-tile .k{
+  color:#9ed8ff;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.final-tile .v{
+  margin-top: 6px;
+  font-family:'Orbitron', sans-serif;
+  color:#fff;
+  letter-spacing: 1px;
+  font-size: 18px;
+}
+.score-big{
+  font-family:'Orbitron', sans-serif;
+  font-size: 40px;
+  letter-spacing: 3px;
+  color: var(--cyan2);
+  margin: 6px 0 0 0;
+}
+.small-actions{
+  display:flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-top: 18px;
+}
+.small-actions .choice-btn{
+  width: auto;
+  margin: 0;
+  text-align:center;
+}
+.small-actions .choice-btn:hover{ color:#062035; }
 </style>
 </head>
 
 <body>
 
 <main id="game-container">
-    <h1>Connected Mission Heroes</h1>
+  <div class="header-badge">Mission 2 – The Practice</div>
+  <h1>Practice Simulation</h1>
+  <p class="subtitle">
+    Make realistic operational choices during a long-distance connected logistics trip.
+    Your objective: complete the journey efficiently, while managing time and energy.
+  </p>
 
-    <section id="story" aria-live="polite"></section>
-    <section id="choices"></section>
+  <section class="hud" aria-label="Mission HUD">
+    <div class="hud-left">
+      <div class="step-line" id="stepLabel">STEP 1 / 4</div>
+      <div class="progress" aria-hidden="true"><div id="progressBar"></div></div>
+    </div>
 
-    <aside id="stats">
-        <p>⏱ Time: <span id="time">0</span> min</p>
-        <p>🔋 Battery: <span id="battery">50</span>%</p>
-        <p>📍 Distance: <span id="distance">1000</span> km</p>
-    </aside>
+    <div class="stats" aria-label="Stats">
+      <p class="stat">⏱ Time: <strong><span id="time">0</span></strong> min</p>
+      <p class="stat">🔋 Battery: <strong><span id="battery">50</span></strong>%</p>
+      <p class="stat">📍 Distance: <strong><span id="distance">1000</span></strong> km</p>
+    </div>
+  </section>
+
+  <section id="story" aria-live="polite"></section>
+  <section id="choices" aria-label="Choices"></section>
 </main>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <p class="modal-title" id="modalTitle">Decision</p>
+    <p class="modal-text" id="modalText"></p>
+    <div class="modal-actions" id="modalActions"></div>
+    <div class="note" id="modalNote"></div>
+  </div>
+</div>
 
 <script>
 /* =========================
-   GAME VARIABLES
+   GAME VARIABLES (kept logic)
 ========================= */
 let battery = 50;
 let timeTotal = 0;
 let distance = 1000;
 let efficiencyBonus = 0;
 
+let stepIndex = 1; // 1..4
+const totalSteps = 4;
+
 /* =========================
    UI HELPERS
 ========================= */
 function updateStats() {
-    document.getElementById("battery").textContent = battery;
-    document.getElementById("time").textContent = timeTotal;
-    document.getElementById("distance").textContent = distance;
+  document.getElementById("battery").textContent = battery;
+  document.getElementById("time").textContent = timeTotal;
+  document.getElementById("distance").textContent = distance;
+
+  // HUD step + progress
+  document.getElementById("stepLabel").textContent = `STEP ${stepIndex} / ${totalSteps}`;
+  document.getElementById("progressBar").style.width = `${Math.round((stepIndex-1)/(totalSteps-1)*100)}%`;
+  sendHeightDelayed();
 }
 
-function setStory(html) {
-    document.getElementById("story").innerHTML = html;
+function setStory(title, text) {
+  const story = document.getElementById("story");
+  story.innerHTML = `
+    <div class="card fade-slide">
+      <h2>${title}</h2>
+      <p>${text}</p>
+    </div>
+  `;
+  sendHeightDelayed();
 }
 
 function setChoices(choices) {
-    const container = document.getElementById("choices");
-    container.innerHTML = "";
-
-    choices.forEach(choice => {
-        const button = document.createElement("button");
-        button.textContent = choice.label;
-        button.addEventListener("click", choice.action);
-        container.appendChild(button);
-    });
+  const container = document.getElementById("choices");
+  container.innerHTML = "";
+  choices.forEach(choice => {
+    const btn = document.createElement("button");
+    btn.className = "choice-btn fade-slide";
+    btn.innerHTML = `${choice.label}${choice.meta ? `<span class="choice-meta">${choice.meta}</span>` : ""}`;
+    btn.addEventListener("click", choice.action);
+    container.appendChild(btn);
+  });
+  sendHeightDelayed();
 }
 
 /* =========================
-   BATTERY MANAGEMENT
+   MODAL (replaces confirm)
+========================= */
+function openModal({ title, text, note = "", actions = [] }) {
+  const overlay = document.getElementById("modalOverlay");
+  const t = document.getElementById("modalTitle");
+  const p = document.getElementById("modalText");
+  const n = document.getElementById("modalNote");
+  const a = document.getElementById("modalActions");
+
+  t.textContent = title;
+  p.textContent = text;
+  n.textContent = note;
+  a.innerHTML = "";
+
+  actions.forEach(act => {
+    const b = document.createElement("button");
+    b.className = `modal-btn ${act.variant || "btn-ghost"}`;
+    b.textContent = act.label;
+    b.addEventListener("click", () => {
+      closeModal();
+      act.onClick && act.onClick();
+    });
+    a.appendChild(b);
+  });
+
+  overlay.style.display = "flex";
+  sendHeightDelayed();
+}
+
+function closeModal() {
+  document.getElementById("modalOverlay").style.display = "none";
+}
+
+/* =========================
+   BATTERY MANAGEMENT (same logic, modal UI)
 ========================= */
 function recharge(forced = false) {
-    const baseTime = forced ? 45 : 30;
-    const useMarksAgentis = confirm("Use Marks Agentis app?");
-    const penalty = useMarksAgentis ? 0 : 15;
+  const baseTime = forced ? 45 : 30;
 
-    timeTotal += baseTime + penalty;
-    battery = 80;
+  openModal({
+    title: forced ? "Mandatory recharge" : "Recharge decision",
+    text: forced
+      ? "Battery is critically low. A recharge stop is required to continue safely."
+      : "Would you like to use the Marks Agentis app to optimize the recharge stop?",
+    note: forced
+      ? "Recharge base time is 45 minutes. Not using the app adds a +15 minute penalty."
+      : "Using the app avoids the +15 minute penalty and may grant an efficiency bonus.",
+    actions: [
+      {
+        label: "USE APP",
+        variant: "btn-primary",
+        onClick: () => {
+          const penalty = 0;
+          timeTotal += baseTime + penalty;
+          battery = 80;
 
-    if (!forced && useMarksAgentis) {
-        efficiencyBonus = 3;
-    }
+          if (!forced) efficiencyBonus = 3;
 
-    updateStats();
+          updateStats();
+          // continue flow after modal (forced recharge happens during checks)
+        }
+      },
+      {
+        label: "DON'T USE",
+        variant: "btn-ghost",
+        onClick: () => {
+          const penalty = 15;
+          timeTotal += baseTime + penalty;
+          battery = 80;
+
+          updateStats();
+        }
+      }
+    ]
+  });
 }
 
 function checkBattery() {
-    if (battery < 20) {
-        recharge(true);
-    }
+  if (battery < 20) {
+    recharge(true);
+  }
 }
 
 /* =========================
-   GAME FLOW
+   SCORE (ranking-ready)
+   - normalized 0..100
+   - transparent logic: faster + better battery + bonus = higher score
+========================= */
+function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
+
+function computeScore() {
+  // Time component: 0..60 points (lower time better)
+  // Expect a typical run around 60-220 minutes
+  const timeScore = clamp(60 - (timeTotal - 60) * (60/160), 0, 60);
+
+  // Battery component: 0..30 points
+  const batteryScore = clamp((battery/100) * 30, 0, 30);
+
+  // Efficiency bonus: 0..10 points
+  const bonusScore = clamp((efficiencyBonus || 0) * (10/3), 0, 10);
+
+  const total = Math.round(timeScore + batteryScore + bonusScore);
+  return clamp(total, 0, 100);
+}
+
+/* =========================
+   SCENARIO (Mission 2 – The Practice)
+   (keeps same flow/variables; narration is "Practice")
 ========================= */
 function startGame() {
-    setStory("<h2>Step 1 – Departure preparation</h2>");
-    setChoices([
-        { label: "80% + preconditioning", action: () => { battery = 80; timeTotal += 45; choixGPS(); }},
-        { label: "80% without preconditioning", action: () => { battery = 80; timeTotal += 45; choixGPS(); }},
-        { label: "Immediate departure (50%)", action: () => { battery = 50; choixGPS(); }},
-        { label: "100% + preconditioning", action: () => { battery = 100; timeTotal += 135; choixGPS(); }},
-        { label: "100% without preconditioning", action: () => { battery = 100; timeTotal += 135; choixGPS(); }}
-    ]);
+  stepIndex = 1;
+  battery = 50;
+  timeTotal = 0;
+  distance = 1000;
+  efficiencyBonus = 0;
+
+  updateStats();
+
+  setStory(
+    "Step 1 – Departure preparation",
+    "You are about to start a long-distance connected logistics trip. Choose your initial charging strategy to balance time and reliability."
+  );
+
+  setChoices([
+    { label: "80% + preconditioning", meta:"Adds time, increases stability", action: () => { battery = 80; timeTotal += 45; nextGPS(); }},
+    { label: "80% without preconditioning", meta:"Faster start, moderate stability", action: () => { battery = 80; timeTotal += 45; nextGPS(); }},
+    { label: "Immediate departure (50%)", meta:"Fastest start, higher risk later", action: () => { battery = 50; nextGPS(); }},
+    { label: "100% + preconditioning", meta:"Safest start, time consuming", action: () => { battery = 100; timeTotal += 135; nextGPS(); }},
+    { label: "100% without preconditioning", meta:"High battery, still time consuming", action: () => { battery = 100; timeTotal += 135; nextGPS(); }}
+  ]);
 }
 
-function choixGPS() {
-    updateStats();
-    checkBattery();
+function nextGPS() {
+  stepIndex = 2;
+  updateStats();
+  checkBattery();
 
-    setStory("<h2>Step 2 – GPS selection</h2>");
-    setChoices([
-        { label: "Google Maps", action: () => { timeTotal += 20; battery -= 5; choixConduite(); }},
-        { label: "eRoute", action: () => { timeTotal += 10; battery -= 2; choixConduite(); }},
-        { label: "eVrouting", action: () => { choixConduite(); }}
-    ]);
+  setStory(
+    "Step 2 – Route planning",
+    "Select a navigation tool for a connected route. Some options offer better energy prediction and reduce detours."
+  );
+
+  setChoices([
+    { label: "Google Maps", meta:"+20 min, -5% battery (detours & uncertainty)", action: () => { timeTotal += 20; battery -= 5; nextDriving(); }},
+    { label: "eRoute", meta:"+10 min, -2% battery (optimized planning)", action: () => { timeTotal += 10; battery -= 2; nextDriving(); }},
+    { label: "eVrouting", meta:"Best-fit planning (no penalty)", action: () => { nextDriving(); }}
+  ]);
 }
 
-function choixConduite() {
-    updateStats();
-    checkBattery();
+function nextDriving() {
+  stepIndex = 3;
+  updateStats();
+  checkBattery();
 
-    setStory("<h2>Step 3 – Driving style (300 km)</h2>");
-    setChoices([
-        { label: "Eco driving", action: () => { timeTotal += 15; battery -= 10; distance -= 300; choixAssistant(); }},
-        { label: "Balanced driving", action: () => { battery -= 20; distance -= 300; choixAssistant(); }},
-        { label: "Sport driving", action: () => { timeTotal -= 10; battery -= 45; distance -= 300; choixAssistant(); }}
-    ]);
+  setStory(
+    "Step 3 – Driving strategy (300 km)",
+    "You are now entering a 300 km segment. Choose a driving approach to optimize delivery time while keeping energy under control."
+  );
+
+  setChoices([
+    { label: "Eco driving", meta:"+15 min, -10% battery (stable)", action: () => { timeTotal += 15; battery -= 10; distance -= 300; nextAssistant(); }},
+    { label: "Balanced driving", meta:"-20% battery (standard)", action: () => { battery -= 20; distance -= 300; nextAssistant(); }},
+    { label: "Sport driving", meta:"-10 min, -45% battery (risky)", action: () => { timeTotal -= 10; battery -= 45; distance -= 300; nextAssistant(); }}
+  ]);
 }
 
-function choixAssistant() {
-    updateStats();
-    checkBattery();
+function nextAssistant() {
+  stepIndex = 4;
+  updateStats();
+  checkBattery();
 
-    setStory("<h2>Step 4 – Fog ahead</h2>");
-    setChoices([
-        { label: "ChatGPT", action: () => { timeTotal -= 5; efficiencyBonus = 3; endGame(); }},
-        { label: "Alexa", action: () => { timeTotal += 5; battery -= 2; endGame(); }},
-        { label: "Google Assistant", action: () => { timeTotal += 10; battery -= 5; endGame(); }}
-    ]);
+  setStory(
+    "Step 4 – Decision support",
+    "Unexpected fog conditions are reported ahead. Choose an assistant to help you adjust the plan quickly and safely."
+  );
+
+  setChoices([
+    { label: "ChatGPT", meta:"-5 min, efficiency bonus", action: () => { timeTotal -= 5; efficiencyBonus = 3; endGame(); }},
+    { label: "Alexa", meta:"+5 min, -2% battery", action: () => { timeTotal += 5; battery -= 2; endGame(); }},
+    { label: "Google Assistant", meta:"+10 min, -5% battery", action: () => { timeTotal += 10; battery -= 5; endGame(); }}
+  ]);
 }
 
 function endGame() {
-    updateStats();
-    setStory("<h2>Mission completed!</h2>");
-    setChoices([]);
+  updateStats();
+
+  const score = computeScore();
+  const timeText = `${timeTotal} min`;
+  const batteryText = `${battery}%`;
+  const distText = `${distance} km`;
+  const bonusText = efficiencyBonus ? `+${efficiencyBonus}` : "0";
+
+  document.getElementById("story").innerHTML = `
+    <div class="card fade-slide">
+      <h2>Mission completed</h2>
+      <p>
+        Your route has been simulated successfully. Below is a structured summary that can be used for ranking and reporting.
+      </p>
+
+      <div style="margin-top:14px;">
+        <div class="final-tile">
+          <div class="k">Final score</div>
+          <div class="score-big">${score} / 100</div>
+        </div>
+
+        <div class="final-grid">
+          <div class="final-tile">
+            <div class="k">Total time</div>
+            <div class="v">${timeText}</div>
+          </div>
+          <div class="final-tile">
+            <div class="k">Battery remaining</div>
+            <div class="v">${batteryText}</div>
+          </div>
+          <div class="final-tile">
+            <div class="k">Distance remaining</div>
+            <div class="v">${distText}</div>
+          </div>
+          <div class="final-tile">
+            <div class="k">Efficiency bonus</div>
+            <div class="v">${bonusText}</div>
+          </div>
+        </div>
+
+        <div class="small-actions">
+          <button class="choice-btn" onclick="startGame()">RESTART SIMULATION</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  setChoices([]);
+  sendHeightDelayed();
 }
 
 /* =========================
-   START
+   SharePoint iframe auto-resize (same spirit as FAQ/Rules)
 ========================= */
-startGame();
+function sendHeight() {
+  const height = document.documentElement.scrollHeight;
+  parent.postMessage({ type: "resizePracticeSim", height: height }, "*");
+}
+function sendHeightDelayed(){
+  setTimeout(sendHeight, 250);
+}
+
+window.onload = () => { sendHeight(); startGame(); };
+window.onresize = sendHeight;
+setInterval(sendHeight, 1000);
 </script>
 
 </body>
