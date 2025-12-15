@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mission: Connected Heroes – Practice Simulation</title>
+
+<!-- Orbitron + Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* =========================
+   GLOBAL
+========================= */
+html, body {
+    margin: 0;
+    padding: 40px;
+    background: transparent !important;
+    font-family: 'Inter', sans-serif;
+    color: #d4e7ff;
+    line-height: 1.6;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+#game-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+}
+
+/* =========================
+   TITRES
+========================= */
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 34px;
+    letter-spacing: 3px;
+    text-align: center;
+    margin: 0 0 24px 0;
+    color: #ffffff;
+}
+
+#story h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: #3bc4ff;
+    margin-top: 0;
+}
+
+/* =========================
+   CHOICES / BUTTONS
+========================= */
+#choices {
+    margin-top: 20px;
+}
+
+button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 16px 20px;
+    background: rgba(0,183,255,0.15);
+    color: #ffffff;
+    border: 1px solid #3bc4ff;
+    border-radius: 18px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+button:hover {
+    background: #3bc4ff;
+    color: #062035;
+    transform: translateY(-2px);
+}
+
+/* =========================
+   STATS
+========================= */
+#stats {
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+#stats p {
+    margin: 0;
+    padding: 8px 14px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.08);
+    font-size: 14px;
+    color: #9ed8ff;
+}
+</style>
+</head>
+
+<body>
+
+<main id="game-container">
+    <h1>Connected Mission Heroes</h1>
+
+    <section id="story" aria-live="polite"></section>
+    <section id="choices"></section>
+
+    <aside id="stats">
+        <p>⏱ Time: <span id="time">0</span> min</p>
+        <p>🔋 Battery: <span id="battery">50</span>%</p>
+        <p>📍 Distance: <span id="distance">1000</span> km</p>
+    </aside>
+</main>
+
+<script>
+/* =========================
+   GAME VARIABLES
+========================= */
+let battery = 50;
+let timeTotal = 0;
+let distance = 1000;
+let efficiencyBonus = 0;
+
+/* =========================
+   UI HELPERS
+========================= */
+function updateStats() {
+    document.getElementById("battery").textContent = battery;
+    document.getElementById("time").textContent = timeTotal;
+    document.getElementById("distance").textContent = distance;
+}
+
+function setStory(html) {
+    document.getElementById("story").innerHTML = html;
+}
+
+function setChoices(choices) {
+    const container = document.getElementById("choices");
+    container.innerHTML = "";
+
+    choices.forEach(choice => {
+        const button = document.createElement("button");
+        button.textContent = choice.label;
+        button.addEventListener("click", choice.action);
+        container.appendChild(button);
+    });
+}
+
+/* =========================
+   BATTERY MANAGEMENT
+========================= */
+function recharge(forced = false) {
+    const baseTime = forced ? 45 : 30;
+    const useMarksAgentis = confirm("Use Marks Agentis app?");
+    const penalty = useMarksAgentis ? 0 : 15;
+
+    timeTotal += baseTime + penalty;
+    battery = 80;
+
+    if (!forced && useMarksAgentis) {
+        efficiencyBonus = 3;
+    }
+
+    updateStats();
+}
+
+function checkBattery() {
+    if (battery < 20) {
+        recharge(true);
+    }
+}
+
+/* =========================
+   GAME FLOW
+========================= */
+function startGame() {
+    setStory("<h2>Step 1 – Departure preparation</h2>");
+    setChoices([
+        { label: "80% + preconditioning", action: () => { battery = 80; timeTotal += 45; choixGPS(); }},
+        { label: "80% without preconditioning", action: () => { battery = 80; timeTotal += 45; choixGPS(); }},
+        { label: "Immediate departure (50%)", action: () => { battery = 50; choixGPS(); }},
+        { label: "100% + preconditioning", action: () => { battery = 100; timeTotal += 135; choixGPS(); }},
+        { label: "100% without preconditioning", action: () => { battery = 100; timeTotal += 135; choixGPS(); }}
+    ]);
+}
+
+function choixGPS() {
+    updateStats();
+    checkBattery();
+
+    setStory("<h2>Step 2 – GPS selection</h2>");
+    setChoices([
+        { label: "Google Maps", action: () => { timeTotal += 20; battery -= 5; choixConduite(); }},
+        { label: "eRoute", action: () => { timeTotal += 10; battery -= 2; choixConduite(); }},
+        { label: "eVrouting", action: () => { choixConduite(); }}
+    ]);
+}
+
+function choixConduite() {
+    updateStats();
+    checkBattery();
+
+    setStory("<h2>Step 3 – Driving style (300 km)</h2>");
+    setChoices([
+        { label: "Eco driving", action: () => { timeTotal += 15; battery -= 10; distance -= 300; choixAssistant(); }},
+        { label: "Balanced driving", action: () => { battery -= 20; distance -= 300; choixAssistant(); }},
+        { label: "Sport driving", action: () => { timeTotal -= 10; battery -= 45; distance -= 300; choixAssistant(); }}
+    ]);
+}
+
+function choixAssistant() {
+    updateStats();
+    checkBattery();
+
+    setStory("<h2>Step 4 – Fog ahead</h2>");
+    setChoices([
+        { label: "ChatGPT", action: () => { timeTotal -= 5; efficiencyBonus = 3; endGame(); }},
+        { label: "Alexa", action: () => { timeTotal += 5; battery -= 2; endGame(); }},
+        { label: "Google Assistant", action: () => { timeTotal += 10; battery -= 5; endGame(); }}
+    ]);
+}
+
+function endGame() {
+    updateStats();
+    setStory("<h2>Mission completed!</h2>");
+    setChoices([]);
+}
+
+/* =========================
+   START
+========================= */
+startGame();
+</script>
+
+</body>
+</html>
