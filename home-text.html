@@ -2,136 +2,133 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Mission: Connected Heroes – Introduction</title>
+<title>Mission: Connected Heroes – Home Text</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
 html, body {
-  margin: 0;
-  padding: 0;
-  background: transparent !important;
-  font-family: 'Inter', sans-serif;
-  color: #d4e7ff;
+    margin: 0;
+    padding: 0 40px 60px;
+    background: transparent !important;
+    font-family: 'Inter', sans-serif;
+    color: #d4e7ff;
 }
 
-/* ===== Container ===== */
-.intro-wrapper {
-  padding: 48px 5px 32px;
-  text-align: center;
-}
-
-/* ===== Scroll indicator ===== */
-.scroll-indicator {
-  margin: 32px auto 28px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 90px;
+/* =====================
+   SCROLL BEACON
+===================== */
+.scroll-beacon {
+    position: relative;
+    margin: 6px auto 18px; /* ⬅️ SUPPRESSION espace haut */
+    width: 40px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
 }
 
 .scroll-dot {
-  width: 16px;
-  height: 16px;
-  background: #0FDFE3;
-  border-radius: 50%;
-  animation: pulse 2.2s infinite;
-  margin-top: 16px; /* ✅ correction clipping */
+    position: absolute;
+    top: 0;
+    width: 10px;
+    height: 10px;
+    background: #0FDFE3;
+    border-radius: 50%;
+    box-shadow: 0 0 14px rgba(15,223,227,0.9);
+    animation: pulse 1.8s infinite;
 }
 
 .scroll-line {
-  width: 2px;
-  height: 48px;
-  margin-top: 8px;
-  background: linear-gradient(
-    to bottom,
-    rgba(15,223,227,0),
-    rgba(15,223,227,0.8),
-    rgba(15,223,227,0)
-  );
-  animation: scrollLine 2.2s infinite;
+    position: absolute;
+    top: 14px;
+    width: 2px;
+    height: 46px;
+    background: linear-gradient(
+        to bottom,
+        rgba(15,223,227,0.0),
+        rgba(15,223,227,0.9),
+        rgba(15,223,227,0.0)
+    );
+    animation: flow 1.8s infinite;
+    border-radius: 2px;
 }
 
-/* ===== Highlight text card ===== */
-.highlight-card {
-  max-width: 980px;
-  margin: 0 auto;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 20px;
-  padding: 28px 34px;
-  backdrop-filter: blur(14px);
-  box-shadow: 0 0 28px rgba(0,0,0,0.35);
-}
-
-.highlight-card p {
-  margin: 0;
-  font-size: 17px;
-  line-height: 1.8;
-  color: #9feeff;
-  font-weight: 500;
-}
-
-/* ===== Animations ===== */
 @keyframes pulse {
-  0%   { transform: scale(1); opacity: 1; }
-  50%  { transform: scale(1.6); opacity: 0.45; }
-  100% { transform: scale(1); opacity: 1; }
+    0%   { transform: scale(1); opacity: 0.4; }
+    40%  { transform: scale(1.4); opacity: 1; }
+    80%  { transform: scale(1); opacity: 0.6; }
+    100% { opacity: 0.4; }
 }
 
-@keyframes scrollLine {
-  0%   { opacity: 0; transform: translateY(-6px); }
-  50%  { opacity: 1; transform: translateY(6px); }
-  100% { opacity: 0; transform: translateY(12px); }
+@keyframes flow {
+    0%   { transform: translateY(-8px); opacity: 0; }
+    30%  { opacity: 1; }
+    70%  { opacity: 1; }
+    100% { transform: translateY(12px); opacity: 0; }
 }
 
-/* ===== Responsive ===== */
-@media (max-width: 768px) {
-  .intro-wrapper {
-    padding: 36px 22px 28px;
-  }
-  .highlight-card {
-    padding: 22px 24px;
-  }
-  .highlight-card p {
-    font-size: 16px;
-  }
+/* =====================
+   TEXT CARD (BOOSTED)
+===================== */
+.content-card {
+    margin: 0 auto;
+    max-width: 1100px;
+    padding: 30px 36px;
+
+    background: linear-gradient(
+        135deg,
+        rgba(15,223,227,0.14),
+        rgba(20,40,90,0.65)
+    );
+    border-radius: 20px;
+    border: 1px solid rgba(15,223,227,0.35);
+    backdrop-filter: blur(12px);
+
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,0.05),
+        0 0 26px rgba(15,223,227,0.18);
+}
+
+.content-card p {
+    margin: 0;
+    font-size: 16.5px;
+    line-height: 1.65;
+    font-weight: 500;
+    text-align: center;
+    color: #c9f8ff;
+    text-shadow: 0 0 12px rgba(15,223,227,0.25);
 }
 </style>
 </head>
 
 <body>
 
-<div class="intro-wrapper">
-
-  <!-- Scroll indicator -->
-  <div class="scroll-indicator" aria-hidden="true">
+<!-- SCROLL INDICATOR -->
+<div class="scroll-beacon" aria-hidden="true">
     <div class="scroll-dot"></div>
     <div class="scroll-line"></div>
-  </div>
+</div>
 
-  <!-- Highlighted text -->
-  <div class="highlight-card">
+<!-- TEXT -->
+<div class="content-card">
     <p>
-      Become a <b>Stellantis Connected Services hero</b> by taking on our exceptional challenge:
-      learn, practice, innovate, and create to rise to the top of the elite finalist superheroes
-      who will compete for <b>exclusive motorsport experiences</b> in this unprecedented online adventure.
+        Become a Stellantis Connected Services hero by taking on our exceptional challenge:
+        learn, practice, innovate, and create to rise to the top of the elite finalist superheroes
+        who will compete for exclusive motorsport experiences in this unprecedented online adventure!
     </p>
-  </div>
-
 </div>
 
 <script>
 /* SharePoint iframe auto-resize */
 function sendHeight() {
-  const height = document.documentElement.scrollHeight;
-  parent.postMessage({ type: "resizeHomeText", height }, "*");
+    parent.postMessage(
+        { type: "resizeHomeText", height: document.documentElement.scrollHeight },
+        "*"
+    );
 }
-window.addEventListener("load", () => {
-  sendHeight();
-  setInterval(sendHeight, 900);
-});
-window.addEventListener("resize", sendHeight);
+window.onload = sendHeight;
+window.onresize = sendHeight;
+setInterval(sendHeight, 800);
 </script>
 
 </body>
