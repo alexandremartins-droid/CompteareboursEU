@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mission 2 – The Practice (Simulation)</title>
+  <title>Mission 2 – The Practice (Interactive Simulation)</title>
 
-  <!-- Orbitron + Inter (DA globale) -->
+  <!-- Orbitron + Inter (global DA) -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
 
   <style>
@@ -141,7 +141,7 @@
       border:1px solid rgba(255,255,255,0.08);
       border-radius:14px;
       padding:10px 12px;
-      min-width: 220px;
+      min-width: 230px;
       backdrop-filter: blur(10px);
     }
     .stat b{ color:#3bc4ff; letter-spacing:0.2px; }
@@ -154,6 +154,13 @@
       border-radius: 16px;
       padding: 16px 18px;
       backdrop-filter: blur(12px);
+    }
+    .score-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
     }
     .score-title{
       font-family:'Orbitron', sans-serif;
@@ -178,35 +185,36 @@
       line-height:1.6;
     }
 
-    /* Register-like button (end) */
-    .btn-wrapper{
-      margin-top:18px;
+    /* Final button (REGISTER page style vibe) */
+    .final-cta{
+      margin-left:auto;
       display:flex;
-      justify-content:center;
+      justify-content:flex-end;
+      align-items:flex-start;
     }
-    .btn{
+    .btn-enter{
       display:inline-block;
       text-decoration:none;
       font-family:'Orbitron', sans-serif;
-      font-size:18px;
-      font-weight:800;
-      padding:16px 34px;
-      border-radius:18px;
-      color:#fff;
-      transition:0.25s ease;
-      letter-spacing:1px;
+      font-size:16px;
+      font-weight:900;
+      letter-spacing:2px;
       text-transform:uppercase;
+      padding:14px 22px;
+      border-radius:16px;
+      background:#19dfff;
+      color:#062035;
+      border:1px solid rgba(25,223,255,0.55);
+      transition: 0.22s ease;
+      white-space:nowrap;
     }
-    .btn-register{
-      background:#ffb027;
-      color:#0a1c2d;
-    }
-    .btn-register:hover{
-      background:#ffc75a;
+    .btn-enter:hover{
+      background:#4be9ff;
       transform: translateY(-2px);
+      box-shadow: 0 0 18px rgba(25,223,255,0.22);
     }
 
-    /* Modal (replaces confirm) */
+    /* Modal */
     .modal-overlay{
       position:fixed;
       inset:0;
@@ -269,7 +277,6 @@
       border-color: rgba(59,196,255,0.35);
     }
     .modal-btn.secondary:hover{ transform: translateY(-1px); border-color: rgba(59,196,255,0.75); }
-
   </style>
 </head>
 
@@ -277,7 +284,7 @@
   <div class="header-badge">Mission: Connected Heroes · The Practice</div>
   <h1>Interactive Simulation</h1>
   <p class="subtitle">
-    Fais tes choix et avance étape par étape. Chaque décision impacte ton <b>temps</b>, ta <b>batterie</b> et ta <b>progression</b>.
+    Make your choices step by step. Each decision impacts your <b>time</b>, your <b>battery</b> and your <b>progress</b>.
   </p>
 
   <main id="game-container">
@@ -285,9 +292,9 @@
     <section id="choices"></section>
 
     <aside id="stats">
-      <div class="stat">⏱ Temps : <b><span id="time">00:00</span></b></div>
-      <div class="stat">🔋 Batterie : <b><span id="battery">50</span></b>%</div>
-      <div class="stat">📍 Progression : <b><span id="progress">0</span></b> / 1000 km</div>
+      <div class="stat">⏱ Time : <b><span id="time">00:00</span></b></div>
+      <div class="stat">🔋 Battery : <b><span id="battery">50</span></b>%</div>
+      <div class="stat">📍 Progress : <b><span id="progress">0</span></b> / 1000 km</div>
     </aside>
 
     <div id="finalScore" style="display:none;"></div>
@@ -296,42 +303,51 @@
   <!-- Modal -->
   <div id="modalOverlay" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="modal">
-      <h3 id="modalTitle">Choix</h3>
+      <h3 id="modalTitle">Decision</h3>
       <p id="modalText"></p>
       <div class="modal-actions">
-        <button id="modalNo" class="modal-btn secondary" type="button">Non</button>
-        <button id="modalYes" class="modal-btn primary" type="button">Oui</button>
+        <button id="modalNo" class="modal-btn secondary" type="button">No</button>
+        <button id="modalYes" class="modal-btn primary" type="button">Yes</button>
       </div>
     </div>
   </div>
 
   <script>
     /* =========================
-       ÉTAT (logique conservée)
+       GAME STATE
+       (values are aligned with your diagram)
     ========================= */
-    let battery = 50;          // %
-    let minutesTotal = 0;      // minutes (00:00)
-    let kmDone = 0;            // progression sur 1000
-    let gpsChoice = null;      // "gm" | "eroute" | "evrouting"
-    let driveStyle = null;     // "eco" | "balanced" | "sport"
-    let stoppedAtStation = null; // true/false
-    let usedMarksAgentis = null; // true/false
-    let isLost = false;
+    let battery = 50;        // %
+    let timeMin = 0;         // total minutes (never negative)
+    let kmDone = 0;          // progress
+
+    // Tracks choices that impact later branches
+    let gps = "eVrouting";   // "Google Maps" | "eRoute" | "eVrouting"
+    let driving = "Balanced";// "Eco" | "Balanced" | "Sport"
+    let usedMyBrand = null;  // true | false
 
     const TOTAL_KM = 1000;
 
     /* =========================
        HELPERS
     ========================= */
-    function pad2(n){ return String(n).padStart(2,"0"); }
-    function formatTime(min){
-      const h = Math.floor(min/60);
-      const m = min%60;
-      return `${pad2(h)}:${pad2(m)}`;
+    function clampState(){
+      if (timeMin < 0) timeMin = 0;
+      battery = Math.max(0, Math.min(100, battery));
+      kmDone = Math.max(0, Math.min(TOTAL_KM, kmDone));
     }
+
+    function minutesToHHMM(m){
+      const mm = Math.max(0, Math.round(m));
+      const h = Math.floor(mm / 60);
+      const r = mm % 60;
+      return `${String(h).padStart(2,"0")}:${String(r).padStart(2,"0")}`;
+    }
+
     function updateStats(){
+      clampState();
       document.getElementById("battery").textContent = battery;
-      document.getElementById("time").textContent = formatTime(minutesTotal);
+      document.getElementById("time").textContent = minutesToHHMM(timeMin);
       document.getElementById("progress").textContent = kmDone;
       sendHeightDelayed();
     }
@@ -371,7 +387,7 @@
         btn.type = "button";
         btn.textContent = choice.label;
 
-        if(choice.subtext){
+        if (choice.subtext){
           const sub = document.createElement("div");
           sub.className = "choice-sub";
           sub.textContent = choice.subtext;
@@ -386,9 +402,9 @@
     }
 
     /* =========================
-       MODALE (remplace confirm)
+       MODAL (replaces confirm)
     ========================= */
-    function askModal({ title, text, yesLabel="Oui", noLabel="Non" }){
+    function askModal({ title, text, yesLabel="Yes", noLabel="No" }){
       return new Promise(resolve => {
         const overlay = document.getElementById("modalOverlay");
         const t = document.getElementById("modalTitle");
@@ -412,22 +428,33 @@
         };
 
         yes.onclick = () => { cleanup(); resolve(true); };
-        no.onclick = () => { cleanup(); resolve(false); };
+        no.onclick  = () => { cleanup(); resolve(false); };
 
         sendHeightDelayed();
       });
     }
 
     /* =========================
-       SCORE FINAL (SANS bonus efficacité)
+       SCORE (improved: never negative)
+       - timeMin is the main performance driver
+       - faster => higher score
+       - battery helps
     ========================= */
     function computeScore(){
-      // Simple & ranking-ready:
-      // Base 1000 - (temps * 2) + batterie
+      // Reference time: 14h30 (870 min) ~ worst "still valid" mission
+      // Score formula (clamped):
+      //  base 1000
+      //  timeImpact: up to -900
+      //  batteryBonus: up to +250
       const base = 1000;
-      const timePenalty = minutesTotal * 2;
-      const batteryBonus = battery;
-      const score = Math.max(0, Math.round(base - timePenalty + batteryBonus));
+
+      const ref = 870; // minutes
+      const timeDelta = Math.max(0, timeMin - 90); // ignore first 1h30 buffer
+      const timePenalty = Math.min(900, Math.round(timeDelta * 1.15)); // progressive but capped
+
+      const batteryBonus = Math.round((battery / 100) * 250);
+
+      const score = Math.max(0, base - timePenalty + batteryBonus);
       return { score, base, timePenalty, batteryBonus };
     }
 
@@ -437,17 +464,22 @@
       wrap.style.display = "block";
       wrap.innerHTML = `
         <div class="score-card">
-          <p class="score-title">Final Score</p>
-          <p class="score-value">${score}</p>
-          <p class="score-breakdown">
-            Base: <b>${base}</b><br>
-            Time penalty: <b>-${timePenalty}</b><br>
-            Battery bonus: <b>+${batteryBonus}</b>
-          </p>
-          <div class="btn-wrapper">
-            <a class="btn btn-register" href="https://forms.cloud.microsoft/e/iHrWwNt9Bt">
-              ENTRE TON SCORE
-            </a>
+          <div class="score-top">
+            <div>
+              <p class="score-title">Final Score</p>
+              <p class="score-value">${score}</p>
+              <p class="score-breakdown">
+                Base: <b>${base}</b><br>
+                Time impact: <b>-${timePenalty}</b><br>
+                Battery bonus: <b>+${batteryBonus}</b>
+              </p>
+            </div>
+
+            <div class="final-cta">
+              <a class="btn-enter" href="https://forms.cloud.microsoft/e/iHrWwNt9Bt">
+                ENTER YOUR SCORE
+              </a>
+            </div>
           </div>
         </div>
       `;
@@ -455,120 +487,112 @@
     }
 
     /* =========================
-       PARCOURS (selon diagramme)
+       FULL PATH (from your diagram)
     ========================= */
 
     function startGame(){
-      battery = 50; minutesTotal = 0; kmDone = 0;
-      gpsChoice = null; driveStyle = null;
-      stoppedAtStation = null; usedMarksAgentis = null;
-      isLost = false;
+      battery = 50;
+      timeMin = 0;
+      kmDone = 0;
+      gps = "eVrouting";
+      driving = "Balanced";
+      usedMyBrand = null;
 
       setStory(`
-        <h2>Briefing</h2>
-        <p>Tu démarres avec <b>50%</b> de batterie et un trajet total de <b>1 000 km</b>.</p>
-        <p class="hint">Objectif : optimiser ton temps et éviter les situations de panne.</p>
+        <h2>Mission Briefing</h2>
+        <p>Your goal: reach the Laboratory as fast as possible while optimizing your energy.</p>
+        <p class="hint">Start state: <b>00:00</b> · <b>50%</b> · <b>0/1000 km</b></p>
       `);
 
       setChoices([
-        { label: "Commencer la mission", subtext: "Lancer la simulation et effectuer tes premiers choix.", action: step1 }
+        { label: "Start the simulation", subtext: "Begin Mission 2 – The Practice.", action: () => stepVehiclePrep() }
       ]);
 
       updateStats();
     }
 
-    // Étape 1 – Préparation du départ
-    function step1(){
+    function stepVehiclePrep(){
       transitionTo(`
-        <h2>Étape 1 – Préparation du départ</h2>
-        <p>Tu constates que ton véhicule n’a que <b>50%</b> de batterie au moment du départ.</p>
+        <h2>Step 1 – Vehicle preparation</h2>
+        <p>Before entering the mission, you must decide how to prepare your vehicle.</p>
       `);
 
       setChoices([
-        { label:"80% + préchauffage",
-          subtext:"Pré-chauffage = confort / performance, mais temps de départ plus long.",
-          action: () => { battery = 80; minutesTotal = 45; step2(); }
+        {
+          label: "Charge to 80% + preheat cabin & battery",
+          subtext: "Safer for the journey, but costs time at the start.",
+          action: () => { timeMin = 45; battery = 80; kmDone = 0; stepCopilot(); }
         },
-        { label:"80% sans préchauffage",
-          subtext:"Bon compromis : tu sécurises l’autonomie sans trop rallonger la préparation.",
-          action: () => { battery = 80; minutesTotal = 45; step2(); }
+        {
+          label: "Do nothing (leave immediately at 50%)",
+          subtext: "No time lost… but riskier later.",
+          action: () => { timeMin = 0; battery = 50; kmDone = 0; stepCopilot(); }
         },
-        { label:"Départ immédiat (50%)",
-          subtext:"Très rapide… mais tu prends un risque sur la suite du trajet.",
-          action: () => { battery = 50; minutesTotal = 0; step2(); }
-        },
-        { label:"100% + préchauffage",
-          subtext:"Autonomie maximale, mais grosse perte de temps avant de partir.",
-          action: () => { battery = 100; minutesTotal = 135; step2(); }
-        },
-        { label:"100% sans préchauffage",
-          subtext:"Autonomie max au prix d’un temps de charge important.",
-          action: () => { battery = 100; minutesTotal = 135; step2(); }
+        {
+          label: "Charge to 100% + preheat cabin & battery",
+          subtext: "Maximum safety for energy… but very costly in time.",
+          action: () => { timeMin = 135; battery = 100; kmDone = 0; stepCopilot(); }
         }
       ]);
 
       updateStats();
     }
 
-    // Étape 2 – Choix GPS
-    function step2(){
+    function stepCopilot(){
       transitionTo(`
-        <h2>Étape 2 – Choix du GPS</h2>
-        <p>Avant d’aller plus loin, tu dois choisir ton copilote digital.</p>
-        <p class="hint">Note : Google Maps entraîne un <b>malus de 10%</b> sur une séquence plus tard (zones blanches).</p>
+        <h2>Step 2 – Choose your digital co-pilot</h2>
+        <p>Congratulations Hero! You made your first decision.</p>
+        <p>Before you hit the road, choose your digital co-pilot to reach the Laboratory.
+        Not all apps offer the same advantages…</p>
       `);
 
       setChoices([
-        { label:"Google Maps",
-          subtext:"Solution classique, mais moins adaptée à certains segments (malus 10%).",
-          action: () => { gpsChoice = "gm"; step3(); }
-        },
-        { label:"eRoute",
-          subtext:"Optimise mieux l’énergie et l’itinéraire pour l’électrique.",
-          action: () => { gpsChoice = "eroute"; step3(); }
-        },
-        { label:"eVrouting",
-          subtext:"Solution dédiée à la planification EV, plus robuste sur les segments difficiles.",
-          action: () => { gpsChoice = "evrouting"; step3(); }
-        }
+        { label: "Google Maps", subtext: "Reliable, but can add a time penalty later.", action: () => { gps = "Google Maps"; stepDrivingStyle300(); } },
+        { label: "eRoute", subtext: "More optimized for energy and EV planning.", action: () => { gps = "eRoute"; stepDrivingStyle300(); } },
+        { label: "eVrouting", subtext: "Dedicated EV routing approach.", action: () => { gps = "eVrouting"; stepDrivingStyle300(); } },
       ]);
 
       updateStats();
     }
 
-    // Étape 3 – Style de conduite (300 km)
-    function step3(){
+    function stepDrivingStyle300(){
       transitionTo(`
-        <h2>Étape 3 – Style de conduite (300 km)</h2>
-        <p>Tu dois parcourir une première portion de <b>300 km</b>. Quel style de conduite adoptes-tu ?</p>
+        <h2>Step 3 – Driving style (first 300 km)</h2>
+        <p>You reach a long highway stretch of <b>300 km</b>. Your driving style directly impacts time and energy.</p>
       `);
 
       setChoices([
-        { label:"Conduite éco",
-          subtext:"Tu préserves l’autonomie… mais tu perds du temps.",
+        {
+          label: "Eco driving",
+          subtext: "Protects battery, but takes longer.",
           action: () => {
-            driveStyle = "eco";
-            // diagram: 03:20 | 65% | 300/1000
-            minutesTotal = 200; battery = 65; kmDone = 300;
-            step4();
+            driving = "Eco";
+            timeMin = 200;  // 03:20
+            battery = 65;
+            kmDone = 300;
+            stepStationsChoice();
           }
         },
-        { label:"Conduite équilibrée",
-          subtext:"Bon compromis temps / consommation.",
+        {
+          label: "Balanced driving",
+          subtext: "Best overall balance.",
           action: () => {
-            driveStyle = "balanced";
-            // diagram: 02:45 | 45% | 300/1000
-            minutesTotal = 165; battery = 45; kmDone = 300;
-            step4();
+            driving = "Balanced";
+            timeMin = 165;  // 02:45
+            battery = 45;
+            kmDone = 300;
+            stepStationsChoice();
           }
         },
-        { label:"Conduite sportive",
-          subtext:"Rapide… mais très énergivore : risque élevé sur la suite.",
+        {
+          label: "Sport driving",
+          subtext: "Faster… but consumes a lot of battery.",
           action: () => {
-            driveStyle = "sport";
-            // diagram: 02:15 | 20% | 300/1000
-            minutesTotal = 135; battery = 20; kmDone = 300;
-            step4();
+            driving = "Sport";
+            timeMin = 135;  // 02:15
+            battery = 20;
+            kmDone = 300;
+            stepStationsChoice();
           }
         }
       ]);
@@ -576,300 +600,261 @@
       updateStats();
     }
 
-    // Étape 4 – Station de recharge (passage à 320 km)
-    async function step4(){
-      updateStats();
-
+    function stepStationsChoice(){
       transitionTo(`
-        <h2>Étape 4 – Station de recharge</h2>
-        <p>Tu approches des <b>320 km</b>. Souhaites-tu t’arrêter à la prochaine station ?</p>
-        <p class="hint">Dans le diagramme : arrêt = recharge + temps. Sans arrêt = risque de panne sur la route.</p>
+        <h2>Step 4 – Countryside road & charging stations</h2>
+        <p>You exit the highway and reach a countryside road.</p>
+        <p>Two charging stations are available: one in <b>20 km</b>, another in <b>180 km</b>. What do you do?</p>
       `);
 
       setChoices([
-        { label:"S’arrêter à la prochaine station",
-          subtext:"Tu sécurises ta mission : tu repars avec une batterie solide.",
-          action: async () => {
-            stoppedAtStation = true;
-            // On applique les valeurs diagramme après arrêt (15 min + charge)
+        {
+          label: "Stop at the next station (20 km)",
+          subtext: "15 min stop + 30 min charging (safe choice).",
+          action: () => {
+            // Diagram node after stopping early: 320/1000 km and battery 80%
             kmDone = 320;
             battery = 80;
-            if(driveStyle === "balanced") minutesTotal = 210; // 03:30
-            if(driveStyle === "sport")    minutesTotal = 210; // 03:30
-            if(driveStyle === "eco")      minutesTotal = 230; // 03:50
-            updateStats();
-            step5();
+
+            if (driving === "Balanced") timeMin = 210; // 03:30
+            if (driving === "Sport")    timeMin = 210; // 03:30
+            if (driving === "Eco")      timeMin = 230; // 03:50
+
+            stepSegment400();
           }
         },
-        { label:"Ne pas s’arrêter",
-          subtext:"Gain de temps immédiat, mais si ta batterie est trop faible tu risques la panne.",
+        {
+          label: "Keep going (aim for the station at 180 km)",
+          subtext: "No immediate stop… but higher risk.",
           action: () => {
-            stoppedAtStation = false;
-            // Diagramme : sportive = panne avant d’arriver
-            if(driveStyle === "sport"){
-              loseGame(`
-                <h2>Panne…</h2>
-                <p>Tu es tombé en panne <b>avant</b> d’atteindre la station. Mission interrompue.</p>
-              `);
+            if (driving === "Sport") {
+              // Diagram: breakdown before reaching the station
+              stepBreakdown();
               return;
             }
-            // Eco & équilibrée : ils finissent par s’arrêter plus tard (recharge forcée)
-            // On place directement l’état diagramme "arrivée" au checkpoint 480 km
+
+            // Diagram nodes for Eco/Balanced that go further then recharge to 80% at 480 km:
             kmDone = 480;
             battery = 80;
-            if(driveStyle === "balanced") minutesTotal = 330; // 05:30
-            if(driveStyle === "eco")      minutesTotal = 350; // 05:50
-            updateStats();
-            step6();
+
+            if (driving === "Balanced") timeMin = 330; // 05:30
+            if (driving === "Eco")      timeMin = 350; // 05:50
+
+            stepSegment400();
           }
         }
       ]);
-    }
-
-    // Étape 5 – Question Marks Agentis après arrêt (si stop)
-    async function step5(){
-      if(!stoppedAtStation){
-        step6();
-        return;
-      }
-
-      const useApp = await askModal({
-        title:"Recharge",
-        text:"Utiliser l'app Marks Agentis ?",
-        yesLabel:"Oui",
-        noLabel:"Non"
-      });
-      usedMarksAgentis = useApp;
-
-      // Diagramme : utilisation = pénalité d’overcharge (+30 min) et batterie 85
-      if(usedMarksAgentis){
-        battery = 85;
-        minutesTotal += 30; // malus overcharge
-      }else{
-        battery = 80;
-      }
 
       updateStats();
-      step6();
     }
 
-    // Étape 6 – Petite route / station (20 km vs 180 km)
-    function step6(){
-      transitionTo(`
-        <h2>Étape 5 – Prochaine recharge sur une petite route</h2>
-        <p>Une alerte indique une station dans <b>20 km</b> et une autre dans <b>180 km</b>. Que fais-tu ?</p>
-      `);
-
-      setChoices([
-        { label:"S’arrêter dans 20 km",
-          subtext:"Choix prudent : tu réduis le risque sur route isolée.",
-          action: () => {
-            // pas de chiffres explicites ici : on fait un léger coût temps
-            minutesTotal += 10;
-            kmDone += 20;
-            updateStats();
-            step7();
-          }
-        },
-        { label:"Continuer jusqu’à 180 km",
-          subtext:"Tu gagnes du temps… mais la route est plus risquée (zones blanches).",
-          action: () => {
-            minutesTotal += 0;
-            kmDone += 180;
-            updateStats();
-            step7();
-          }
-        }
-      ]);
-    }
-
-    // Étape 7 – Segment 400 km (zones blanches / tunnels) + malus Google Maps
-    function step7(){
-      transitionTo(`
-        <h2>Étape 6 – Segment “zones blanches” (400 km)</h2>
-        <p>Tu entres dans une zone avec tunnels et faible connectivité. Ton choix GPS peut impacter ton temps.</p>
-      `);
-
-      setChoices([
-        { label:"Poursuivre la mission",
-          subtext:"Le segment est calculé en tenant compte du GPS et de ton style de conduite.",
-          action: () => {
-            // Diagramme au checkpoint 720 km (malus GM 10% affiché)
-            kmDone = 720;
-
-            const gmMalus = (gpsChoice === "gm");
-            // États diagramme "Google Maps Malus 10%" :
-            if(driveStyle === "balanced"){
-              minutesTotal = gmMalus ? 415 : 395; // 06:55 vs 06:35 (approx)
-              battery = 30;
-            }
-            if(driveStyle === "sport"){
-              minutesTotal = gmMalus ? 345 : 335; // 05:45 vs 05:35 (approx)
-              battery = 10;
-            }
-            if(driveStyle === "eco"){
-              minutesTotal = gmMalus ? 510 : 480; // 08:30 vs 08:00 (approx)
-              battery = 55;
-            }
-
-            updateStats();
-            step8();
-          }
-        }
-      ]);
-    }
-
-    // Étape 8 – Long stop: eat + recharge to 80 / 85
-    async function step8(){
-      transitionTo(`
-        <h2>Étape 7 – Pause & recharge</h2>
-        <p>Tu arrives à une station : tu recharges et tu prends une pause pour manger.</p>
-        <p class="hint">Le diagramme distingue “avec app” (overcharge malus) / “sans app”.</p>
-      `);
-
-      const useApp = await askModal({
-        title:"Recharge",
-        text:"Utiliser l'app Marks Agentis ?",
-        yesLabel:"Oui",
-        noLabel:"Non"
-      });
-      usedMarksAgentis = useApp;
-
-      // Diagramme states (approximés en minutes, cohérents avec les timestamps fournis)
-      if(usedMarksAgentis){
-        battery = 85;
-        if(driveStyle === "balanced") minutesTotal = 505; // 08:25
-        if(driveStyle === "sport")    minutesTotal = 555; // 09:15
-        if(driveStyle === "eco")      minutesTotal = 585; // 09:45
-      } else {
-        battery = 80;
-        if(driveStyle === "balanced") minutesTotal = 475; // 07:55
-        if(driveStyle === "sport")    minutesTotal = 495; // 08:15
-        if(driveStyle === "eco")      minutesTotal = 555; // 09:15
-      }
-
-      updateStats();
-      step9();
-    }
-
-    // Étape 9 – Final segment (arrive at 940 km, tire alert)
-    function step9(){
-      transitionTo(`
-        <h2>Étape 8 – Alerte pression pneus</h2>
-        <p>À <b>60 km</b> de l’arrivée (progression <b>940 / 1000 km</b>), une alerte indique un sous-gonflage.</p>
-        <p class="hint">Le diagramme montre qu’il faut agir tout de suite, sinon risque d’éclatement.</p>
-      `);
-
-      // On positionne à 940 km (diagramme)
-      kmDone = 940;
-
-      // On mappe les 3 états du diagramme selon style (cohérent avec les trois lignes)
-      if(driveStyle === "eco"){      minutesTotal = 735; battery = 60; } // 12:15 | 60%
-      if(driveStyle === "balanced"){ minutesTotal = 660; battery = 30; } // 11:00 | 30%
-      if(driveStyle === "sport"){    minutesTotal = 625; battery = 50; } // 10:25 | 50%
-
-      updateStats();
-
-      setChoices([
-        { label:"Appeler le Call Center immédiatement",
-          subtext:"Le bon réflexe : prise en charge et sécurisation du trajet.",
-          action: () => step10_callCenter()
-        },
-        { label:"Continuer sans s’arrêter",
-          subtext:"Très risqué : le pneu peut éclater et te faire perdre la mission.",
-          action: () => step10_continue()
-        }
-      ]);
-    }
-
-    // Branche Call Center
-    function step10_callCenter(){
-      transitionTo(`
-        <h2>Assistance – Call Center</h2>
-        <p>Le Call Center te guide et organise la suite. Quelle option choisis-tu ?</p>
-      `);
-
-      setChoices([
-        { label:"Aller à la station-service la plus proche",
-          subtext:"Option rapide : tu limites le retard, mais tu consommes un peu.",
-          action: () => {
-            // États diagramme (arrivée)
-            if(driveStyle === "eco"){      minutesTotal = 805; battery = 50; } // 13:25 | 50%
-            if(driveStyle === "balanced"){ minutesTotal = 685; battery = 25; } // 11:25 | ~25/35
-            if(driveStyle === "sport"){    minutesTotal = 710; battery = 35; } // 11:50 | 35% (approx)
-            kmDone = 1000;
-            updateStats();
-            endGame(true);
-          }
-        },
-        { label:"Roadside assistance (dépannage)",
-          subtext:"Plus long, mais solution complète et sécurisée.",
-          action: () => {
-            if(driveStyle === "eco"){      minutesTotal = 865; battery = 55; } // 14:25 | 55%
-            if(driveStyle === "balanced"){ minutesTotal = 745; battery = 55; } // 12:25 | 55%
-            if(driveStyle === "sport"){    minutesTotal = 740; battery = 20; } // 12:20 | 20% (approx)
-            kmDone = 1000;
-            updateStats();
-            endGame(true);
-          }
-        }
-      ]);
-    }
-
-    // Branche continuer -> éclatement
-    function step10_continue(){
+    function stepBreakdown(){
       transitionTo(`
         <h2>Incident</h2>
-        <p>Le pneu éclate. Tu dois choisir qui appeler.</p>
+        <p><b>Sport driving</b> pushed you too far… you broke down before reaching the charging station.</p>
+        <p class="hint">Roadside Assistance is required to continue.</p>
       `);
 
       setChoices([
-        { label:"Appeler l’assurance",
-          subtext:"Mauvais réflexe ici : tu perds trop de temps, mission échouée (diagramme).",
+        {
+          label: "Call Roadside Assistance",
+          subtext: "Continue the journey with a heavy time penalty.",
           action: () => {
-            loseGame(`
-              <h2>YOU LOSE</h2>
-              <p>Tu as appelé l’assurance : prise en charge trop lente. Mission échouée.</p>
-            `);
-          }
-        },
-        { label:"Appeler le Call Center",
-          subtext:"Le Call Center est le point d’entrée le plus efficace dans ce contexte.",
-          action: () => {
-            // On revient sur une issue “dépannage” mais avec pénalité
-            minutesTotal += 90;
-            battery = Math.max(5, battery - 10);
-            kmDone = 1000;
-            updateStats();
-            endGame(false);
+            // Send to the “after 400 km segment” state with the sport baseline used in the diagram later
+            // We align with the diagram’s sport line at 720 km (05:45 · 10%).
+            // First, move to the segment start as if assistance put you back on track.
+            stepSegment400(true);
           }
         }
       ]);
+
+      updateStats();
     }
 
-    function endGame(cleanFinish){
+    function stepSegment400(fromBreakdown=false){
       transitionTo(`
-        <h2>Mission terminée !</h2>
-        <p>
-          Bravo Héros. Tu as terminé la simulation ${cleanFinish ? "avec une exécution maîtrisée" : "malgré un incident"}.
-          Ton score est basé sur ton <b>temps total</b> et ta <b>batterie finale</b>.
-        </p>
+        <h2>Step 5 – New 400 km segment</h2>
+        <p>You enter a new <b>400 km</b> segment.</p>
+        <p>The road is clear, but there are many dead zones and tunnels.</p>
+        <p class="hint">Google Maps can add a <b>+10% time penalty</b> on this segment.</p>
+      `);
+
+      setChoices([
+        {
+          label: "Continue",
+          subtext: "Complete the 400 km segment and update your mission status.",
+          action: () => {
+            // After 400 km: progress should be 720/1000 (per diagram)
+            kmDone = 720;
+
+            // Diagram provides end states with Google Maps malus already applied.
+            // We set a baseline (no malus) then apply +10% if GPS is Google Maps.
+            // Baselines (approx): use diagram values / 1.1
+            let endTimeWithGM, endBattery;
+
+            if (driving === "Balanced") { endTimeWithGM = 415; endBattery = 30; } // 06:55
+            if (driving === "Sport")    { endTimeWithGM = 345; endBattery = 10; } // 05:45
+            if (driving === "Eco")      { endTimeWithGM = 510; endBattery = 55; } // 08:30
+
+            // If player came from breakdown, enforce Sport line
+            if (fromBreakdown) { driving = "Sport"; endTimeWithGM = 345; endBattery = 10; }
+
+            if (gps === "Google Maps") {
+              timeMin = endTimeWithGM;
+            } else {
+              timeMin = Math.round(endTimeWithGM / 1.10); // remove GM malus
+            }
+
+            battery = endBattery;
+
+            stepLongBreakCharge();
+          }
+        }
+      ]);
+
+      updateStats();
+    }
+
+    function stepLongBreakCharge(){
+      transitionTo(`
+        <h2>Step 6 – Long break & charging station</h2>
+        <p>Great job! After these 400 km, you decide to stop at a charging station for a well-deserved break.</p>
+        <p>You will eat, rest, and charge your car to continue your journey.</p>
+        <p class="hint">Would you like to use your <b>my[Brand]</b> app during charging?</p>
+      `);
+
+      setChoices([
+        {
+          label: "Yes – charge while using my[Brand] app",
+          subtext: "Optimized charging time (no overcharge penalty).",
+          action: async () => {
+            usedMyBrand = true;
+
+            // Diagram nodes “Yes” -> 80% at 720 km
+            if (driving === "Balanced") { timeMin = 475; battery = 80; } // 07:55
+            if (driving === "Sport")    { timeMin = 495; battery = 80; } // 08:15
+            if (driving === "Eco")      { timeMin = 555; battery = 80; } // 09:15
+
+            stepTireAlert();
+          }
+        },
+        {
+          label: "No – just plug in and charge",
+          subtext: "Overcharge +30 min penalty, ends at 85%.",
+          action: async () => {
+            usedMyBrand = false;
+
+            // Diagram nodes “No” -> 85% at 720 km (with +30 min overcharge malus)
+            if (driving === "Balanced") { timeMin = 505; battery = 85; } // 08:25
+            if (driving === "Sport")    { timeMin = 555; battery = 85; } // 09:15
+            if (driving === "Eco")      { timeMin = 585; battery = 85; } // 09:45
+
+            stepTireAlert();
+          }
+        }
+      ]);
+
+      updateStats();
+    }
+
+    function stepTireAlert(){
+      transitionTo(`
+        <h2>Step 7 – Tire pressure alert</h2>
+        <p>Only <b>280 km</b> left to reach the Laboratory!</p>
+        <p>You start driving again… but at <b>60 km</b> from the finish line, disaster strikes:</p>
+        <p><b>Tire underinflation alert</b>. What do you do?</p>
+      `);
+
+      setChoices([
+        {
+          label: "Call the CALL CENTER immediately",
+          subtext: "Saves your tires and helps you identify the next station to reinflate.",
+          action: () => stepCallCenterPath()
+        },
+        {
+          label: "Keep driving (it’s almost finished anyway)",
+          subtext: "High risk: your tire may explode and you could lose the mission.",
+          action: () => stepKeepDrivingExplosion()
+        }
+      ]);
+
+      updateStats();
+    }
+
+    function stepCallCenterPath(){
+      transitionTo(`
+        <h2>Call Center Support</h2>
+        <p>You call the Call Center. They help you locate the next station to reinflate your tires.</p>
+        <p class="hint">You lose some time… but you save your tires.</p>
+      `);
+
+      // Align to diagram final outcomes depending on driving style:
+      // Eco -> 11:25 35% 1000
+      // Balanced -> 13:25 50% 1000
+      // Sport -> 11:50 25% 1000
+      setChoices([
+        {
+          label: "Continue to the Laboratory",
+          subtext: "Complete the mission and display your final score.",
+          action: () => {
+            kmDone = 1000;
+
+            if (driving === "Eco")      { timeMin = 685; battery = 35; } // 11:25
+            if (driving === "Balanced") { timeMin = 805; battery = 50; } // 13:25
+            if (driving === "Sport")    { timeMin = 710; battery = 25; } // 11:50
+
+            endWin();
+          }
+        }
+      ]);
+
+      updateStats();
+    }
+
+    function stepKeepDrivingExplosion(){
+      transitionTo(`
+        <h2>Critical Failure</h2>
+        <p>Your tire explodes. You can’t keep driving.</p>
+        <p><b>Who do you call?</b></p>
+      `);
+
+      setChoices([
+        {
+          label: "Call your insurance",
+          subtext: "YOU LOSE — you didn’t make it to the Laboratory.",
+          action: () => endLose()
+        }
+      ]);
+
+      updateStats();
+    }
+
+    function endWin(){
+      updateStats();
+
+      transitionTo(`
+        <h2>Mission completed!</h2>
+        <p>Congratulations Hero. You reached the Laboratory.</p>
+        <p class="hint">Your score is based on your total time and remaining battery.</p>
       `);
 
       setChoices([]);
       showFinalScore();
     }
 
-    function loseGame(html){
-      isLost = true;
-      transitionTo(html);
-      setChoices([
-        { label:"Rejouer la simulation",
-          subtext:"Repars du début pour optimiser tes décisions.",
-          action: startGame
-        }
-      ]);
+    function endLose(){
       updateStats();
+
+      transitionTo(`
+        <h2>Mission failed</h2>
+        <p><b>YOU LOSE</b> — you didn’t make it to the Laboratory.</p>
+        <p class="hint">Try again and optimize your decisions to improve your time and energy management.</p>
+      `);
+
+      setChoices([
+        { label: "Restart simulation", subtext: "Play again from the beginning.", action: () => startGame() }
+      ]);
+
       document.getElementById("finalScore").style.display = "none";
       sendHeightDelayed();
     }
