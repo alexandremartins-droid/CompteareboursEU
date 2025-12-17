@@ -1,607 +1,264 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mission 2 – The Practice (Simulation)</title>
+<meta charset="UTF-8" />
+<title>Mission 2 – The Practice Simulation</title>
 
-  <!-- Orbitron + Inter (DA globale) -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-  <style>
-    html, body{
-      margin:0;
-      padding:40px;
-      background:transparent !important;
-      font-family:'Inter', sans-serif;
-      color:#d4e7ff;
-      line-height:1.65;
-    }
+<style>
+html, body {
+    margin: 0;
+    padding: 40px;
+    background: transparent !important;
+    font-family: 'Inter', sans-serif;
+    color: #d4e7ff;
+    line-height: 1.7;
+}
 
-    /* Header */
-    .header-badge{
-      display:inline-block;
-      padding:6px 14px;
-      font-size:12px;
-      border-radius:20px;
-      border:1px solid #2aa8ff;
-      color:#2aa8ff;
-      margin-bottom:12px;
-      letter-spacing:1px;
-      text-transform:uppercase;
-      background: rgba(0,0,0,0.20);
-      backdrop-filter: blur(10px);
-    }
-    h1{
-      font-family:'Orbitron', sans-serif;
-      font-size:40px;
-      font-weight:800;
-      letter-spacing:3px;
-      color:#ffffff;
-      margin:0 0 18px 0;
-    }
-    .subtitle{
-      max-width:1100px;
-      color:#b8dfff;
-      margin:0 0 26px 0;
-    }
+/* ===== CARD ===== */
+#game-container {
+    max-width: 900px;
+    margin: auto;
+    background: rgba(255,255,255,0.06);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 28px 32px;
+    backdrop-filter: blur(10px);
+}
 
-    /* Card */
-    #game-container{
-      max-width:1100px;
-      background:rgba(255,255,255,0.06);
-      border:1px solid rgba(255,255,255,0.08);
-      border-radius:18px;
-      padding:28px 30px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 20px rgba(0,0,0,0.35);
-    }
+/* ===== HEADER ===== */
+.header-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    font-size: 12px;
+    border-radius: 20px;
+    border: 1px solid #2aa8ff;
+    color: #2aa8ff;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
 
-    /* Story panel (animated) */
-    .panel{
-      opacity:1;
-      transform: translateY(0);
-      transition: opacity 260ms ease, transform 260ms ease;
-    }
-    .panel.is-leaving{
-      opacity:0;
-      transform: translateY(10px);
-    }
-    .panel.is-entering{
-      opacity:0;
-      transform: translateY(-10px);
-    }
-    .panel.is-entered{
-      opacity:1;
-      transform: translateY(0);
-    }
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    margin: 0 0 20px 0;
+}
 
-    #story h2{
-      font-family:'Orbitron', sans-serif;
-      font-size:18px;
-      letter-spacing:2px;
-      color:#3bc4ff;
-      text-transform:uppercase;
-      margin:0 0 10px 0;
-    }
-    #story p{
-      margin:0;
-      font-size:15px;
-      color:#d4e7ff;
-    }
-    .hint{
-      margin-top:10px;
-      font-size:13px;
-      color:#9ed8ff;
-      opacity:0.95;
-    }
+/* ===== STORY ===== */
+#story h2 {
+    font-family: 'Orbitron';
+    font-size: 20px;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
 
-    /* Choices */
-    #choices{
-      margin-top:18px;
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:12px;
-    }
-    @media (min-width: 860px){
-      #choices{
-        grid-template-columns: 1fr 1fr;
-      }
-    }
+/* ===== BUTTONS ===== */
+button {
+    width: 100%;
+    margin: 10px 0;
+    padding: 14px 18px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(42,168,255,0.15);
+    color: #ffffff;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
 
-    .choice-btn{
-      width:100%;
-      border:1px solid rgba(59,196,255,0.45);
-      background: rgba(0,0,0,0.35);
-      color:#ffffff;
-      border-radius:14px;
-      padding:14px 16px;
-      cursor:pointer;
-      font-size:15px;
-      font-weight:700;
-      letter-spacing:0.2px;
-      text-align:left;
-      transition: 0.22s ease;
-      backdrop-filter: blur(10px);
-    }
-    .choice-btn:hover{
-      transform: translateY(-2px);
-      border-color: rgba(59,196,255,0.8);
-      box-shadow: 0 0 18px rgba(59,196,255,0.18);
-    }
-    .choice-sub{
-      margin-top:6px;
-      font-size:13px;
-      font-weight:500;
-      color:#b8dfff;
-      opacity:0.95;
-    }
+button:hover {
+    background: #2aa8ff;
+    color: #062035;
+}
 
-    /* Stats */
-    #stats{
-      margin-top:22px;
-      padding-top:14px;
-      border-top:1px solid rgba(255,255,255,0.12);
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px 18px;
-      justify-content:space-between;
-    }
-    .stat{
-      background: rgba(0,0,0,0.28);
-      border:1px solid rgba(255,255,255,0.08);
-      border-radius:14px;
-      padding:10px 12px;
-      min-width: 200px;
-      backdrop-filter: blur(10px);
-    }
-    .stat b{
-      color:#3bc4ff;
-      letter-spacing:0.2px;
-    }
+/* ===== STATS ===== */
+#stats {
+    margin-top: 26px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 14px;
+}
 
-    /* Final score card */
-    .score-card{
-      margin-top:18px;
-      background: rgba(0,0,0,0.35);
-      border: 1px solid rgba(59,196,255,0.35);
-      border-radius: 16px;
-      padding: 16px 18px;
-      backdrop-filter: blur(12px);
-    }
-    .score-title{
-      font-family:'Orbitron', sans-serif;
-      color:#ffffff;
-      letter-spacing:2px;
-      text-transform:uppercase;
-      margin:0 0 8px 0;
-      font-size:16px;
-    }
-    .score-value{
-      font-family:'Orbitron', sans-serif;
-      font-size:34px;
-      font-weight:900;
-      letter-spacing:3px;
-      color:#19dfff;
-      margin:0 0 8px 0;
-    }
-    .score-breakdown{
-      margin:0;
-      color:#b8dfff;
-      font-size:14px;
-      line-height:1.6;
-    }
+/* ===== FINAL SCORE ===== */
+#finalScore {
+    display: none;
+    margin-top: 30px;
+    text-align: center;
+}
 
-    /* Modal (replaces confirm) */
-    .modal-overlay{
-      position:fixed;
-      inset:0;
-      background: rgba(0,0,0,0.55);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding: 22px;
-      z-index:9999;
-    }
-    .modal{
-      width: min(720px, 100%);
-      background: rgba(10,20,35,0.85);
-      border:1px solid rgba(255,255,255,0.10);
-      border-radius: 18px;
-      padding: 18px 18px 14px 18px;
-      backdrop-filter: blur(14px);
-      box-shadow: 0 0 30px rgba(0,0,0,0.50);
-    }
-    .modal h3{
-      margin:0 0 10px 0;
-      font-family:'Orbitron', sans-serif;
-      color:#ffffff;
-      letter-spacing:2px;
-      text-transform:uppercase;
-      font-size:16px;
-    }
-    .modal p{
-      margin:0 0 14px 0;
-      color:#d4e7ff;
-      font-size:14px;
-      line-height:1.6;
-    }
-    .modal-actions{
-      display:flex;
-      gap:10px;
-      justify-content:flex-end;
-      flex-wrap:wrap;
-    }
-    .modal-btn{
-      border:1px solid rgba(255,255,255,0.12);
-      border-radius: 14px;
-      padding: 10px 14px;
-      font-weight:800;
-      cursor:pointer;
-      transition: 0.2s ease;
-      font-family:'Orbitron', sans-serif;
-      letter-spacing:1px;
-      text-transform:uppercase;
-    }
-    .modal-btn.primary{
-      background:#19dfff;
-      color:#062035;
-      border-color: rgba(25,223,255,0.55);
-    }
-    .modal-btn.primary:hover{ transform: translateY(-1px); background:#4be9ff; }
-    .modal-btn.secondary{
-      background: rgba(0,0,0,0.25);
-      color:#ffffff;
-      border-color: rgba(59,196,255,0.35);
-    }
-    .modal-btn.secondary:hover{ transform: translateY(-1px); border-color: rgba(59,196,255,0.75); }
+.score-card {
+    background: rgba(255,255,255,0.08);
+    border-radius: 18px;
+    padding: 26px;
+}
 
-  </style>
+.score-title {
+    font-family: 'Orbitron';
+    letter-spacing: 2px;
+    font-size: 16px;
+    color: #7fc9ff;
+}
+
+.score-value {
+    font-family: 'Orbitron';
+    font-size: 54px;
+    font-weight: 900;
+    color: #ffffff;
+    margin: 10px 0;
+}
+
+.score-breakdown {
+    font-size: 14px;
+    color: #b8dfff;
+}
+
+/* ===== REGISTER BUTTON STYLE ===== */
+.btn-enter-score {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    padding: 16px 40px;
+    border-radius: 20px;
+    color: #ffffff;
+    background: #19dfff;
+    transition: 0.25s ease;
+}
+
+.btn-enter-score:hover {
+    background: #4be9ff;
+    transform: translateY(-2px);
+}
+</style>
 </head>
 
 <body>
-  <div class="header-badge">Mission: Connected Heroes · The Practice</div>
-  <h1>Interactive Simulation</h1>
-  <p class="subtitle">
-    Faites vos choix et optimisez votre trajet. Chaque décision impacte votre <b>temps</b>, votre <b>batterie</b> et votre <b>distance</b>.
-  </p>
 
-  <main id="game-container">
-    <section id="story" class="panel" aria-live="polite"></section>
+<div id="game-container">
+
+    <div class="header-badge">Mission 2 – The Practice</div>
+    <h1>Logistics Simulation</h1>
+
+    <section id="story"></section>
     <section id="choices"></section>
 
     <aside id="stats">
-      <div class="stat">⏱ Temps : <b><span id="time">0</span></b> min</div>
-      <div class="stat">🔋 Batterie : <b><span id="battery">50</span></b>%</div>
-      <div class="stat">📍 Distance : <b><span id="distance">1000</span></b> km</div>
-      <div class="stat">⚡ Bonus efficacité : <b><span id="bonus">0</span></b></div>
+        <p>⏱ Time: <span id="time">0</span> min</p>
+        <p>🔋 Battery: <span id="battery">50</span>%</p>
+        <p>📍 Distance: <span id="distance">1000</span> km</p>
     </aside>
 
-    <div id="finalScore" style="display:none;"></div>
-  </main>
+    <div id="finalScore"></div>
+</div>
 
-  <!-- Modal -->
-  <div id="modalOverlay" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="modal">
-      <h3 id="modalTitle">Choix</h3>
-      <p id="modalText"></p>
-      <div class="modal-actions">
-        <button id="modalNo" class="modal-btn secondary" type="button">Non</button>
-        <button id="modalYes" class="modal-btn primary" type="button">Oui</button>
-      </div>
-    </div>
-  </div>
+<script>
+let battery = 50;
+let timeTotal = 0;
+let distance = 1000;
 
-  <script>
-    /* =========================
-       VARIABLES DE JEU (logique conservée)
-    ========================= */
-    let battery = 50;      // %
-    let timeTotal = 0;     // minutes
-    let distance = 1000;   // km restant
-    let efficiencyBonus = 0;
+function updateStats() {
+    document.getElementById("battery").textContent = battery;
+    document.getElementById("time").textContent = timeTotal;
+    document.getElementById("distance").textContent = distance;
+    sendHeightDelayed();
+}
 
-    /* =========================
-       OUTILS UI
-    ========================= */
-    function updateStats() {
-      document.getElementById("battery").textContent = battery;
-      document.getElementById("time").textContent = timeTotal;
-      document.getElementById("distance").textContent = distance;
-      document.getElementById("bonus").textContent = efficiencyBonus;
-      sendHeightDelayed();
-    }
+function setStory(html) {
+    document.getElementById("story").innerHTML = html;
+}
 
-    function transitionTo(html) {
-      const story = document.getElementById("story");
-      story.classList.add("is-leaving");
-      setChoices([]); // on vide pendant la transition
-
-      setTimeout(() => {
-        story.classList.remove("is-leaving");
-        story.classList.add("is-entering");
-        story.innerHTML = html;
-
-        requestAnimationFrame(() => {
-          story.classList.add("is-entered");
-          story.classList.remove("is-entering");
-          setTimeout(() => story.classList.remove("is-entered"), 260);
-        });
-
-        sendHeightDelayed();
-      }, 220);
-    }
-
-    function setStory(html) {
-      // first render without animation glitch
-      document.getElementById("story").innerHTML = html;
-      sendHeightDelayed();
-    }
-
-    function setChoices(choices) {
-      const container = document.getElementById("choices");
-      container.innerHTML = "";
-
-      choices.forEach(choice => {
+function setChoices(choices) {
+    const container = document.getElementById("choices");
+    container.innerHTML = "";
+    choices.forEach(choice => {
         const btn = document.createElement("button");
-        btn.className = "choice-btn";
-        btn.type = "button";
         btn.textContent = choice.label;
-
-        if (choice.subtext) {
-          const sub = document.createElement("div");
-          sub.className = "choice-sub";
-          sub.textContent = choice.subtext;
-          btn.appendChild(sub);
-        }
-
-        btn.addEventListener("click", choice.action);
+        btn.onclick = choice.action;
         container.appendChild(btn);
-      });
+    });
+}
 
-      sendHeightDelayed();
-    }
+function startGame() {
+    setStory("<h2>Step 1 – Departure preparation</h2>");
+    setChoices([
+        { label: "80% charge + preheating", action: () => { battery = 80; timeTotal += 45; stepGPS(); }},
+        { label: "Immediate departure (50%)", action: () => { battery = 50; stepGPS(); }}
+    ]);
+    updateStats();
+}
 
-    /* =========================
-       MODALE (remplace confirm)
-    ========================= */
-    function askModal({ title, text, yesLabel="Oui", noLabel="Non" }) {
-      return new Promise(resolve => {
-        const overlay = document.getElementById("modalOverlay");
-        const t = document.getElementById("modalTitle");
-        const p = document.getElementById("modalText");
-        const yes = document.getElementById("modalYes");
-        const no = document.getElementById("modalNo");
+function stepGPS() {
+    setStory("<h2>Step 2 – Route planning</h2>");
+    setChoices([
+        { label: "Standard GPS", action: () => { timeTotal += 20; battery -= 5; stepDrive(); }},
+        { label: "Optimized EV routing", action: () => { timeTotal += 10; battery -= 2; stepDrive(); }}
+    ]);
+    updateStats();
+}
 
-        t.textContent = title;
-        p.textContent = text;
-        yes.textContent = yesLabel;
-        no.textContent = noLabel;
+function stepDrive() {
+    setStory("<h2>Step 3 – Driving style</h2>");
+    setChoices([
+        { label: "Eco driving", action: () => { timeTotal += 15; battery -= 10; distance -= 300; endGame(); }},
+        { label: "Balanced driving", action: () => { battery -= 20; distance -= 300; endGame(); }}
+    ]);
+    updateStats();
+}
 
-        overlay.style.display = "flex";
-        overlay.setAttribute("aria-hidden", "false");
+function computeScore() {
+    const base = 1000;
+    const timePenalty = timeTotal * 2;
+    const batteryBonus = battery;
+    return Math.max(0, Math.round(base - timePenalty + batteryBonus));
+}
 
-        const cleanup = () => {
-          overlay.style.display = "none";
-          overlay.setAttribute("aria-hidden", "true");
-          yes.onclick = null;
-          no.onclick = null;
-        };
-
-        yes.onclick = () => { cleanup(); resolve(true); };
-        no.onclick = () => { cleanup(); resolve(false); };
-
-        sendHeightDelayed();
-      });
-    }
-
-    /* =========================
-       SCORE FINAL (ranking-ready)
-       - Simple, lisible, extensible
-    ========================= */
-    function computeScore() {
-      // Base: 1000 points
-      // Malus temps: 2 pts / minute
-      // Bonus efficacité: +50 par bonus
-      // Batterie finale: +1 pt / %
-      const base = 1000;
-      const timePenalty = timeTotal * 2;
-      const bonus = efficiencyBonus * 50;
-      const batteryBonus = battery;
-
-      const score = Math.max(0, Math.round(base - timePenalty + bonus + batteryBonus));
-      return { score, base, timePenalty, bonus, batteryBonus };
-    }
-
-    function showFinalScore() {
-      const { score, base, timePenalty, bonus, batteryBonus } = computeScore();
-      const wrap = document.getElementById("finalScore");
-      wrap.style.display = "block";
-      wrap.innerHTML = `
+function endGame() {
+    const score = computeScore();
+    document.getElementById("finalScore").style.display = "block";
+    document.getElementById("finalScore").innerHTML = `
         <div class="score-card">
-          <p class="score-title">Final Score</p>
-          <p class="score-value">${score}</p>
-          <p class="score-breakdown">
-            Base: <b>${base}</b><br>
-            Time penalty: <b>-${timePenalty}</b><br>
-            Efficiency bonus: <b>+${bonus}</b><br>
-            Battery bonus: <b>+${batteryBonus}</b>
-          </p>
+            <div class="score-title">FINAL SCORE</div>
+            <div class="score-value">${score}</div>
+            <a class="btn-enter-score" target="_blank"
+               href="https://forms.cloud.microsoft/e/iHrWwNt9Bt">
+               ENTER YOUR SCORE
+            </a>
         </div>
-      `;
-      sendHeightDelayed();
-    }
+    `;
+    setChoices([]);
+    sendHeightDelayed();
+}
 
-    /* =========================
-       BATTERIE / RECHARGE (logique conservée + modale)
-    ========================= */
-    async function recharge({ forced=false } = {}) {
-      const baseTime = forced ? 45 : 30;
+function sendHeight() {
+    parent.postMessage(
+        { type: "resizeMissionPractice", height: document.documentElement.scrollHeight },
+        "*"
+    );
+}
+function sendHeightDelayed() {
+    setTimeout(sendHeight, 300);
+}
 
-      const useMarksAgentis = await askModal({
-        title: "Recharge",
-        text: "Utiliser l'app Marks Agentis ?",
-        yesLabel: "Oui",
-        noLabel: "Non"
-      });
-
-      const penalty = useMarksAgentis ? 0 : 15;
-
-      timeTotal += (baseTime + penalty);
-      battery = 80;
-
-      if (!forced && useMarksAgentis) {
-        efficiencyBonus = Math.max(efficiencyBonus, 3);
-      }
-
-      updateStats();
-    }
-
-    async function checkBattery() {
-      if (battery < 20) {
-        await recharge({ forced:true });
-      }
-    }
-
-    /* =========================
-       SCÉNARIO (étapes issues du diagramme)
-       NB: textes sous boutons = explication du choix
-    ========================= */
-
-    function startGame() {
-      setStory(`
-        <h2>Briefing</h2>
-        <p>Avant d’entrer en mission, tu dois préparer le départ de ton trajet de <b>1 000 km</b>.</p>
-        <p class="hint">Objectif : optimiser ton temps tout en gardant une batterie suffisante pour éviter les pénalités.</p>
-      `);
-
-      setChoices([
-        { label: "Commencer la mission", subtext: "Lancer la simulation et effectuer tes premiers choix.", action: () => step1() }
-      ]);
-
-      updateStats();
-    }
-
-    function step1() {
-      transitionTo(`
-        <h2>Étape 1 – Préparation du départ</h2>
-        <p>Tu constates que ton véhicule n’a que <b>50%</b> de batterie au moment du départ.</p>
-      `);
-
-      setChoices([
-        { label: "80% + préchauffage", subtext: "Plus confortable, mais plus long au départ.", action: () => { battery = 80; timeTotal += 45; step2(); } },
-        { label: "80% sans préchauffage", subtext: "Bon compromis si tu veux limiter le temps.", action: () => { battery = 80; timeTotal += 45; step2(); } },
-        { label: "Départ immédiat (50%)", subtext: "Rapide… mais attention au risque de recharge forcée.", action: () => { battery = 50; step2(); } },
-        { label: "100% + préchauffage", subtext: "Le plus sûr pour l’autonomie, mais très coûteux en temps.", action: () => { battery = 100; timeTotal += 135; step2(); } },
-        { label: "100% sans préchauffage", subtext: "Autonomie max au prix d’un gros temps de départ.", action: () => { battery = 100; timeTotal += 135; step2(); } },
-      ]);
-
-      updateStats();
-    }
-
-    function step2() {
-      transitionTo(`
-        <h2>Étape 2 – Choix du GPS</h2>
-        <p>Félicitations Héros ! Tu as pris ta première décision. Avant d’aller plus loin, tu dois choisir ton copilote digital pour rejoindre le Laboratoire :</p>
-      `);
-
-      setChoices([
-        { label: "Google Maps", subtext: "Solution classique, mais moins optimisée pour l’énergie.", action: async () => { timeTotal += 20; battery -= 5; await step3(); } },
-        { label: "eRoute", subtext: "Optimisation plus efficace, meilleur compromis.", action: async () => { timeTotal += 10; battery -= 2; await step3(); } },
-        { label: "eVrouting", subtext: "Approche dédiée, focus sur l’itinéraire électrique.", action: async () => { await step3(); } },
-      ]);
-
-      updateStats();
-    }
-
-    async function step3() {
-      updateStats();
-      await checkBattery();
-
-      transitionTo(`
-        <h2>Étape 3 – Style de conduite (320 km)</h2>
-        <p>Tu dois rouler sur une portion de <b>320 km</b>. Quel style de conduite adoptes-tu ?</p>
-      `);
-
-      setChoices([
-        { label: "Conduite éco", subtext: "Tu protèges ta batterie, mais tu perds un peu de temps.", action: async () => { timeTotal += 15; battery -= 10; distance -= 320; await step4(); } },
-        { label: "Conduite équilibrée", subtext: "Stable et efficace : bon équilibre global.", action: async () => { battery -= 20; distance -= 320; await step4(); } },
-        { label: "Conduite sportive", subtext: "Plus rapide… mais très coûteux en batterie.", action: async () => { timeTotal -= 10; battery -= 45; distance -= 320; await step4(); } },
-      ]);
-
-      updateStats();
-    }
-
-    async function step4() {
-      updateStats();
-      await checkBattery();
-
-      transitionTo(`
-        <h2>Étape 4 – Choix de la recharge</h2>
-        <p>Après cette portion, tu dois encore parcourir <b>480 km</b> avant le prochain point stratégique. Souhaites-tu t’arrêter à une station de recharge ?</p>
-        <p class="hint">Attention : si la batterie passe trop bas, une recharge forcée peut ajouter du temps.</p>
-      `);
-
-      setChoices([
-        { label: "S’arrêter à la prochaine station", subtext: "Tu sécurises la mission (et peux optimiser avec Marks Agentis).", action: async () => { await recharge({ forced:false }); distance -= 480; await step5(); } },
-        { label: "Ne pas s’arrêter", subtext: "Gain de temps immédiat, mais risque élevé de recharge forcée.", action: async () => {
-            // On simule la consommation sur 480 km (simple) :
-            distance -= 480;
-            battery -= 35;
-            await checkBattery();
-            await step5();
-          }
-        },
-      ]);
-
-      updateStats();
-    }
-
-    async function step5() {
-      updateStats();
-      await checkBattery();
-
-      transitionTo(`
-        <h2>Étape 5 – Gestion des pneus</h2>
-        <p>Sur ton trajet, tu reçois une notification concernant la pression des pneus. Quelle décision prends-tu ?</p>
-      `);
-
-      setChoices([
-        { label: "S’arrêter à une station-service", subtext: "Réaction rapide et efficace pour sécuriser le trajet.", action: () => { timeTotal += 10; endGame(); } },
-        { label: "S’arrêter à une aire de repos", subtext: "Possible, mais moins adapté à une intervention technique rapide.", action: () => { timeTotal += 20; endGame(); } },
-      ]);
-
-      updateStats();
-    }
-
-    function endGame() {
-      updateStats();
-
-      transitionTo(`
-        <h2>Mission terminée !</h2>
-        <p>Bravo Héros. Ta simulation est terminée. Ton score a été calculé sur le temps total, la batterie finale et ton bonus d’efficacité.</p>
-      `);
-
-      setChoices([]);
-      showFinalScore();
-    }
-
-    /* =========================
-       SHAREPOINT IFRAME RESIZE
-    ========================= */
-    function sendHeight() {
-      const height = document.documentElement.scrollHeight;
-      parent.postMessage({ type: "resizePracticeSim", height }, "*");
-    }
-    function sendHeightDelayed() { setTimeout(sendHeight, 250); }
-
-    window.addEventListener("load", () => { sendHeight(); setInterval(sendHeight, 900); });
-    window.addEventListener("resize", sendHeight);
-
-    /* =========================
-       START
-    ========================= */
+window.onload = () => {
     startGame();
-  </script>
+    sendHeight();
+};
+window.onresize = sendHeight;
+setInterval(sendHeight, 1000);
+</script>
+
 </body>
 </html>
