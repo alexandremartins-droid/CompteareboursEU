@@ -20,7 +20,7 @@ html, body {
 ===================== */
 .scroll-beacon {
     position: relative;
-    margin: 6px auto 24px; /* ⬅️ SUPPRESSION espace haut */
+    margin: 6px auto 24px;
     width: 40px;
     height: 70px;
     display: flex;
@@ -68,7 +68,7 @@ html, body {
 }
 
 /* =====================
-   TEXT CARD (BOOSTED)
+   TEXT CARD (ANIMATED)
 ===================== */
 .content-card {
     margin: 0 auto;
@@ -87,6 +87,30 @@ html, body {
     box-shadow:
         0 0 0 1px rgba(255,255,255,0.05),
         0 0 26px rgba(15,223,227,0.18);
+
+    /* Fade-in from bottom */
+    opacity: 0;
+    transform: translateY(24px);
+    animation: fadeUp 0.8s ease-out forwards;
+    animation-delay: 0.2s;
+
+    /* Hover prep */
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* Hover subtle scale */
+.content-card:hover {
+    transform: translateY(-2px) scale(1.015);
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,0.08),
+        0 0 36px rgba(15,223,227,0.35);
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .content-card p {
@@ -129,6 +153,19 @@ function sendHeight() {
 window.onload = sendHeight;
 window.onresize = sendHeight;
 setInterval(sendHeight, 800);
+
+/* Optional: hide scroll beacon after first scroll */
+let beaconHidden = false;
+window.addEventListener("scroll", () => {
+    if (!beaconHidden && window.scrollY > 40) {
+        const beacon = document.querySelector(".scroll-beacon");
+        if (beacon) {
+            beacon.style.opacity = "0";
+            beacon.style.transition = "opacity 0.4s ease";
+            beaconHidden = true;
+        }
+    }
+});
 </script>
 
 </body>
