@@ -38,7 +38,7 @@ h1 {
     margin: 0 0 14px 0;
 }
 
-/* Card */
+/* Card with animation */
 .content-card {
     margin-top: 24px;
     background: rgba(255,255,255,0.06);
@@ -47,11 +47,36 @@ h1 {
     padding: 24px 26px;
     backdrop-filter: blur(10px);
     max-width: 900px;
+
+    /* animation init */
+    opacity: 0;
+    transform: translateY(14px);
+    animation: fadeUp 0.6s ease-out forwards;
+
+    transition: 
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+/* Hover effect (same spirit as home) */
+.content-card:hover {
+    transform: translateY(8px) scale(1.015);
+    border-color: rgba(59,196,255,0.45);
+    box-shadow: 0 0 22px rgba(59,196,255,0.25);
 }
 
 .content-card p {
     margin: 0;
     font-size: 15px;
+}
+
+/* Fade in keyframe */
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 </style>
 </head>
