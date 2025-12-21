@@ -28,6 +28,7 @@ html, body {
     letter-spacing: 1px;
     text-transform: uppercase;
 }
+
 h1 {
     font-family: 'Orbitron', sans-serif;
     font-size: 34px;
@@ -37,7 +38,7 @@ h1 {
     margin: 0 0 14px 0;
 }
 
-/* Card */
+/* Content card with animation */
 .content-card {
     margin-top: 24px;
     background: rgba(255,255,255,0.06);
@@ -46,12 +47,37 @@ h1 {
     padding: 24px 26px;
     backdrop-filter: blur(10px);
     max-width: 900px;
+
+    /* Fade-in from bottom */
+    opacity: 0;
+    transform: translateY(14px);
+    animation: fadeUp 0.6s ease-out forwards;
+
+    /* Hover animation */
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
 }
+
+.content-card:hover {
+    transform: translateY(8px) scale(1.015);
+    border-color: rgba(59,196,255,0.45);
+    box-shadow: 0 0 22px rgba(59,196,255,0.25);
+}
+
 .content-card p {
     margin: 0;
     font-size: 15px;
 }
 
+/* Keyframe */
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 </style>
 </head>
 
@@ -64,10 +90,11 @@ h1 {
 <div class="content-card">
     <p>
         Join The Academy of Connected Heroes and master the key skills that will make you a Stellantis expert:
-        an introduction and three exciting sessions each week to discover how to <b>DRIVE SMARTER</b>, make your <b>LIFE EASIER</b>,
-        and your <b>TRIP ENJOYABLE</b>!
+        an introduction and three exciting sessions each week to discover how to <b>DRIVE SMARTER</b>,
+        make your <b>LIFE EASIER</b>, and your <b>TRIP ENJOYABLE</b>.
         <br><br>
-        Take on the challenge by answering questions after each session and stand out with your expertise to reach the top of the rankings!
+        Take on the challenge by answering questions after each session and stand out with your expertise
+        to reach the top of the rankings!
     </p>
 </div>
 
