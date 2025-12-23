@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Mission 2 – Ideal Journey</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+html, body{
+  margin:0;
+  padding:40px 20px 80px;
+  background:transparent !important;
+  font-family:'Inter', sans-serif;
+  color:#d4e7ff;
+}
+
+/* ===== HEADER ===== */
+.header-badge{
+  display:inline-block;
+  padding:6px 14px;
+  font-size:12px;
+  border-radius:20px;
+  border:1px solid #2aa8ff;
+  color:#2aa8ff;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  background:rgba(0,0,0,0.25);
+}
+
+h1{
+  font-family:'Orbitron', sans-serif;
+  font-size:42px;
+  font-weight:900;
+  letter-spacing:3px;
+  margin:14px 0 10px;
+  color:#ffffff;
+}
+
+.subtitle{
+  max-width:900px;
+  color:#b8dfff;
+  font-size:16px;
+}
+
+/* ===== TIMELINE ===== */
+.timeline{
+  max-width:1000px;
+  margin:50px auto 0;
+  position:relative;
+}
+
+.timeline::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:0;
+  width:2px;
+  height:100%;
+  background:linear-gradient(to bottom, rgba(15,223,227,0), rgba(15,223,227,0.6), rgba(15,223,227,0));
+}
+
+.step{
+  display:flex;
+  margin-bottom:60px;
+  opacity:0;
+  transform: translateY(30px);
+  animation: reveal 0.8s ease forwards;
+}
+
+.step:nth-child(odd){ justify-content:flex-start; }
+.step:nth-child(even){ justify-content:flex-end; }
+
+.step-content{
+  width:45%;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:18px;
+  padding:24px 26px;
+  backdrop-filter: blur(12px);
+  box-shadow:0 0 30px rgba(0,0,0,0.35);
+  transition:transform 0.3s ease;
+}
+
+.step-content:hover{
+  transform: scale(1.03);
+}
+
+.step h2{
+  font-family:'Orbitron', sans-serif;
+  font-size:18px;
+  letter-spacing:2px;
+  color:#19dfff;
+  margin:0 0 8px;
+  text-transform:uppercase;
+}
+
+.choice{
+  font-size:17px;
+  font-weight:700;
+  color:#ffffff;
+  margin-bottom:8px;
+}
+
+.impact{
+  font-size:14px;
+  color:#b8dfff;
+  line-height:1.6;
+}
+
+/* ===== FINAL ===== */
+.final{
+  max-width:900px;
+  margin:80px auto 0;
+  text-align:center;
+  padding:34px;
+  border-radius:22px;
+  background:linear-gradient(135deg, rgba(15,223,227,0.2), rgba(20,40,90,0.6));
+  border:1px solid rgba(15,223,227,0.4);
+  box-shadow:0 0 40px rgba(15,223,227,0.25);
+  animation: reveal 1s ease forwards;
+}
+
+.final h2{
+  font-family:'Orbitron', sans-serif;
+  font-size:28px;
+  letter-spacing:3px;
+  color:#ffffff;
+}
+
+.final p{
+  color:#c9f8ff;
+  font-size:16px;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes reveal{
+  to{
+    opacity:1;
+    transform: translateY(0);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header-badge">Mission: Connected Heroes · The Practice</div>
+<h1>The Ideal Journey</h1>
+<p class="subtitle">
+This is the optimal path to reach the Laboratory with the best performance.
+Follow these decisions to minimize time, preserve battery, and maximize your score.
+</p>
+
+<div class="timeline">
+
+  <div class="step" style="animation-delay:0.1s">
+    <div class="step-content">
+      <h2>Step 1 · Preparation</h2>
+      <div class="choice">Charge to 80% + Preheat</div>
+      <div class="impact">
+        Balanced start that limits initial time loss while securing energy.
+      </div>
+    </div>
+  </div>
+
+  <div class="step" style="animation-delay:0.25s">
+    <div class="step-content">
+      <h2>Step 2 · Digital Co-Pilot</h2>
+      <div class="choice">eVrouting</div>
+      <div class="impact">
+        No routing penalties, optimal EV-specific navigation.
+      </div>
+    </div>
+  </div>
+
+  <div class="step" style="animation-delay:0.4s">
+    <div class="step-content">
+      <h2>Step 3 · Driving Style</h2>
+      <div class="choice">Balanced Driving</div>
+      <div class="impact">
+        Best compromise between speed and battery consumption.
+      </div>
+    </div>
+  </div>
+
+  <div class="step" style="animation-delay:0.55s">
+    <div class="step-content">
+      <h2>Step 4 · Charging Strategy</h2>
+      <div class="choice">Stop at the First Station</div>
+      <div class="impact">
+        Avoids breakdowns and preserves mission continuity.
+      </div>
+    </div>
+  </div>
+
+  <div class="step" style="animation-delay:0.7s">
+    <div class="step-content">
+      <h2>Step 5 · Charging App</h2>
+      <div class="choice">Use my[Brand] App</div>
+      <div class="impact">
+        Optimized charging time with no overcharge penalty.
+      </div>
+    </div>
+  </div>
+
+  <div class="step" style="animation-delay:0.85s">
+    <div class="step-content">
+      <h2>Final Alert</h2>
+      <div class="choice">Call the Call Center</div>
+      <div class="impact">
+        Saves your tires and ensures arrival without critical failure.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="final">
+  <h2>Mission Mastered</h2>
+  <p>
+    This path guarantees arrival at the Laboratory with an optimized time,
+    solid battery level, and maximum performance.
+    <br><br>
+    Now you know how to become a true Connected Hero.
+  </p>
+</div>
+
+<script>
+function sendHeight(){
+  parent.postMessage(
+    { type:"resizeIdealJourney", height: document.documentElement.scrollHeight },
+    "*"
+  );
+}
+window.onload = sendHeight;
+window.onresize = sendHeight;
+setInterval(sendHeight, 900);
+</script>
+
+</body>
+</html>
