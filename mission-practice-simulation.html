@@ -468,6 +468,19 @@
       sendHeightDelayed();
     }
 
+    function statusCardHTML(label){
+      return `
+        <div class="status-card">
+          <div class="status-left">${label}</div>
+          <div class="pills">
+            <div class="pill">⏱ <b>${minutesToHHMM(timeMin)}</b></div>
+            <div class="pill">🔋 <b>${battery}%</b></div>
+            <div class="pill">📍 <b>${kmDone}</b> / ${TOTAL_KM} km</div>
+          </div>
+        </div>
+      `;
+    }
+
     function transitionTo(html){
       const story = document.getElementById("story");
       story.classList.add("is-leaving");
