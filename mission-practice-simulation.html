@@ -5,13 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mission 2 – The Practice (Interactive Simulation)</title>
 
-  <!-- Orbitron + Inter (global DA) -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
 
   <style>
     html, body{
       margin:0;
-      padding:40px;
+      padding:28px 0 40px; /* ✅ no left/right padding */
       background:transparent !important;
       font-family:'Inter', sans-serif;
       color:#d4e7ff;
@@ -24,13 +23,18 @@
       padding:6px 14px;
       font-size:12px;
       border-radius:20px;
-      border:1px solid #2aa8ff;f
+      border:1px solid #2aa8ff;
       color:#2aa8ff;
-      margin-bottom:12px;
+      margin:0 0 12px 0;
       letter-spacing:1px;
       text-transform:uppercase;
       background: rgba(0,0,0,0.20);
       backdrop-filter: blur(10px);
+    }
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:0 0; /* ✅ keep 0 */
     }
     h1{
       font-family:'Orbitron', sans-serif;
@@ -38,12 +42,13 @@
       font-weight:800;
       letter-spacing:3px;
       color:#ffffff;
-      margin:0 0 18px 0;
+      margin:0 0 14px 0;
     }
     .subtitle{
       max-width:1100px;
       color:#b8dfff;
-      margin:0 0 26px 0;
+      margin:0 0 22px 0;
+      font-size:15px;
     }
 
     /* Card */
@@ -52,35 +57,36 @@
       background:rgba(255,255,255,0.06);
       border:1px solid rgba(255,255,255,0.08);
       border-radius:18px;
-      padding:28px 30px;
+      padding:26px 26px;
       backdrop-filter: blur(10px);
       box-shadow: 0 0 20px rgba(0,0,0,0.35);
     }
 
-    /* Story panel (animated) */
+    /* Panel transition */
     .panel{
       opacity:1;
       transform: translateY(0);
-      transition: opacity 260ms ease, transform 260ms ease;
+      transition: opacity 300ms ease, transform 300ms ease;
     }
-    .panel.is-leaving{ opacity:0; transform: translateY(10px); }
-    .panel.is-entering{ opacity:0; transform: translateY(-10px); }
+    .panel.is-leaving{ opacity:0; transform: translateY(14px); }
+    .panel.is-entering{ opacity:0; transform: translateY(-14px); }
     .panel.is-entered{ opacity:1; transform: translateY(0); }
 
+    /* Story typography */
     #story h2{
       font-family:'Orbitron', sans-serif;
-      font-size:18px;
+      font-size:22px; /* ✅ bigger question */
       letter-spacing:2px;
       color:#3bc4ff;
       text-transform:uppercase;
       margin:0 0 10px 0;
     }
     #story p{
-      margin:0;
-      font-size:15px;
+      margin:0 0 10px 0;
+      font-size:16px; /* ✅ bigger text */
       color:#d4e7ff;
     }
-    .hint{
+    .meta{
       margin-top:10px;
       font-size:13px;
       color:#9ed8ff;
@@ -103,25 +109,38 @@
       border:1px solid rgba(59,196,255,0.45);
       background: rgba(0,0,0,0.35);
       color:#ffffff;
-      border-radius:14px;
-      padding:14px 16px;
+      border-radius:16px;
+      padding:18px 18px; /* ✅ bigger */
       cursor:pointer;
-      font-size:15px;
-      font-weight:700;
+      font-size:16px;    /* ✅ bigger */
+      font-weight:800;
       letter-spacing:0.2px;
       text-align:left;
       transition: 0.22s ease;
       backdrop-filter: blur(10px);
+      position:relative;
+      overflow:hidden;
     }
     .choice-btn:hover{
       transform: translateY(-2px);
-      border-color: rgba(59,196,255,0.8);
+      border-color: rgba(59,196,255,0.85);
       box-shadow: 0 0 18px rgba(59,196,255,0.18);
     }
+    .choice-btn::after{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background: radial-gradient(circle at 20% 20%, rgba(25,223,255,0.18), transparent 55%);
+      opacity:0;
+      transition: 0.22s ease;
+      pointer-events:none;
+    }
+    .choice-btn:hover::after{ opacity:1; }
+
     .choice-sub{
-      margin-top:6px;
+      margin-top:8px;
       font-size:13px;
-      font-weight:500;
+      font-weight:600;
       color:#b8dfff;
       opacity:0.95;
     }
@@ -141,8 +160,9 @@
       border:1px solid rgba(255,255,255,0.08);
       border-radius:14px;
       padding:10px 12px;
-      min-width: 230px;
+      min-width: 240px;
       backdrop-filter: blur(10px);
+      font-size:14px;
     }
     .stat b{ color:#3bc4ff; letter-spacing:0.2px; }
 
@@ -154,7 +174,13 @@
       border-radius: 16px;
       padding: 16px 18px;
       backdrop-filter: blur(12px);
+      animation: popIn 280ms ease both;
     }
+    @keyframes popIn{
+      from{ opacity:0; transform: translateY(10px); }
+      to{ opacity:1; transform: translateY(0); }
+    }
+
     .score-top{
       display:flex;
       align-items:flex-start;
@@ -162,30 +188,22 @@
       gap:14px;
       flex-wrap:wrap;
     }
-    .score-title{
-      font-family:'Orbitron', sans-serif;
-      color:#ffffff;
-      letter-spacing:2px;
-      text-transform:uppercase;
-      margin:0 0 8px 0;
-      font-size:16px;
-    }
     .score-value{
       font-family:'Orbitron', sans-serif;
       font-size:34px;
       font-weight:900;
       letter-spacing:3px;
       color:#19dfff;
-      margin:0 0 8px 0;
-    }
-    .score-breakdown{
       margin:0;
+    }
+    .score-line{
+      margin:8px 0 0 0;
       color:#b8dfff;
       font-size:14px;
       line-height:1.6;
     }
 
-    /* Final button (REGISTER page style vibe) */
+    /* Final button (DA) */
     .final-cta{
       margin-left:auto;
       display:flex;
@@ -207,11 +225,25 @@
       border:1px solid rgba(25,223,255,0.55);
       transition: 0.22s ease;
       white-space:nowrap;
+      position:relative;
+      overflow:hidden;
+    }
+    .btn-enter::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,0.35) 45%, transparent 70%);
+      transform: translateX(-140%);
+      transition: transform 0.55s ease;
+      opacity:0.55;
     }
     .btn-enter:hover{
       background:#4be9ff;
       transform: translateY(-2px);
       box-shadow: 0 0 18px rgba(25,223,255,0.22);
+    }
+    .btn-enter:hover::after{
+      transform: translateX(140%);
     }
 
     /* Modal */
@@ -233,6 +265,7 @@
       padding: 18px 18px 14px 18px;
       backdrop-filter: blur(14px);
       box-shadow: 0 0 30px rgba(0,0,0,0.50);
+      animation: popIn 260ms ease both;
     }
     .modal h3{
       margin:0 0 10px 0;
@@ -258,7 +291,7 @@
       border:1px solid rgba(255,255,255,0.12);
       border-radius: 14px;
       padding: 10px 14px;
-      font-weight:800;
+      font-weight:900;
       cursor:pointer;
       transition: 0.2s ease;
       font-family:'Orbitron', sans-serif;
@@ -281,24 +314,26 @@
 </head>
 
 <body>
-  <div class="header-badge">Mission: Connected Heroes · The Practice</div>
-  <h1>Interactive Simulation</h1>
-  <p class="subtitle">
-    Make your choices step by step. Each decision impacts your <b>time</b>, your <b>battery</b> and your <b>progress</b>.
-  </p>
+  <div class="wrap">
+    <div class="header-badge">Mission: Connected Heroes · The Practice</div>
+    <h1>Interactive Simulation</h1>
+    <p class="subtitle">
+      Make your choices step by step. Each decision impacts your <b>time</b>, your <b>battery</b> and your <b>progress</b>.
+    </p>
 
-  <main id="game-container">
-    <section id="story" class="panel" aria-live="polite"></section>
-    <section id="choices"></section>
+    <main id="game-container">
+      <section id="story" class="panel" aria-live="polite"></section>
+      <section id="choices"></section>
 
-    <aside id="stats">
-      <div class="stat">⏱ Time : <b><span id="time">00:00</span></b></div>
-      <div class="stat">🔋 Battery : <b><span id="battery">50</span></b>%</div>
-      <div class="stat">📍 Progress : <b><span id="progress">0</span></b> / 1000 km</div>
-    </aside>
+      <aside id="stats">
+        <div class="stat">⏱ Time : <b><span id="time">00:00</span></b></div>
+        <div class="stat">🔋 Battery : <b><span id="battery">50</span></b>%</div>
+        <div class="stat">📍 Progress : <b><span id="progress">0</span></b> / 1000 km</div>
+      </aside>
 
-    <div id="finalScore" style="display:none;"></div>
-  </main>
+      <div id="finalScore" style="display:none;"></div>
+    </main>
+  </div>
 
   <!-- Modal -->
   <div id="modalOverlay" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
@@ -314,27 +349,26 @@
 
   <script>
     /* =========================
-       GAME STATE
-       (values are aligned with your diagram)
+       GAME STATE (diagram-driven)
     ========================= */
+    const TOTAL_KM = 1000;
+
     let battery = 50;        // %
     let timeMin = 0;         // total minutes (never negative)
     let kmDone = 0;          // progress
 
-    // Tracks choices that impact later branches
-    let gps = "eVrouting";   // "Google Maps" | "eRoute" | "eVrouting"
-    let driving = "Balanced";// "Eco" | "Balanced" | "Sport"
+    let prep = "50";         // "50" | "80" | "100"
+    let gps = "EVR";         // "GM" | "ER" | "EVR"
+    let driving = "BAL";     // "ECO" | "BAL" | "SPT"
     let usedMyBrand = null;  // true | false
-
-    const TOTAL_KM = 1000;
 
     /* =========================
        HELPERS
     ========================= */
     function clampState(){
       if (timeMin < 0) timeMin = 0;
-      battery = Math.max(0, Math.min(100, battery));
-      kmDone = Math.max(0, Math.min(TOTAL_KM, kmDone));
+      battery = Math.max(0, Math.min(100, Math.round(battery)));
+      kmDone = Math.max(0, Math.min(TOTAL_KM, Math.round(kmDone)));
     }
 
     function minutesToHHMM(m){
@@ -365,11 +399,11 @@
         requestAnimationFrame(() => {
           story.classList.add("is-entered");
           story.classList.remove("is-entering");
-          setTimeout(() => story.classList.remove("is-entered"), 260);
+          setTimeout(() => story.classList.remove("is-entered"), 300);
         });
 
         sendHeightDelayed();
-      }, 220);
+      }, 240);
     }
 
     function setStory(html){
@@ -402,7 +436,7 @@
     }
 
     /* =========================
-       MODAL (replaces confirm)
+       MODAL
     ========================= */
     function askModal({ title, text, yesLabel="Yes", noLabel="No" }){
       return new Promise(resolve => {
@@ -435,31 +469,20 @@
     }
 
     /* =========================
-       SCORE (improved: never negative)
-       - timeMin is the main performance driver
-       - faster => higher score
-       - battery helps
+       SCORE (stable, never negative)
     ========================= */
     function computeScore(){
-      // Reference time: 14h30 (870 min) ~ worst "still valid" mission
-      // Score formula (clamped):
-      //  base 1000
-      //  timeImpact: up to -900
-      //  batteryBonus: up to +250
+      // Faster + higher battery => better score
+      // Time penalty is capped so it won't go negative.
       const base = 1000;
-
-      const ref = 870; // minutes
-      const timeDelta = Math.max(0, timeMin - 90); // ignore first 1h30 buffer
-      const timePenalty = Math.min(900, Math.round(timeDelta * 1.15)); // progressive but capped
-
+      const timePenalty = Math.min(900, Math.round(Math.max(0, timeMin - 120) * 1.05));
       const batteryBonus = Math.round((battery / 100) * 250);
-
       const score = Math.max(0, base - timePenalty + batteryBonus);
-      return { score, base, timePenalty, batteryBonus };
+      return { score, timePenalty, batteryBonus };
     }
 
     function showFinalScore(){
-      const { score, base, timePenalty, batteryBonus } = computeScore();
+      const { score } = computeScore();
       const wrap = document.getElementById("finalScore");
       wrap.style.display = "block";
       wrap.innerHTML = `
@@ -467,11 +490,12 @@
           <div class="score-top">
             <div>
               <p class="score-value">${score}</p>
+              <p class="score-line">Final time: <b>${minutesToHHMM(timeMin)}</b> · Battery: <b>${battery}%</b></p>
             </div>
 
             <div class="final-cta">
-              <a class="btn-enter" href="https://forms.cloud.microsoft/e/iHrWwNt9Bt">
-                ENTER YOUR CODE
+              <a class="btn-enter" href="https://forms.cloud.microsoft/e/iHrWwNt9Bt" target="_blank" rel="noopener">
+                ENTER THE CODE
               </a>
             </div>
           </div>
@@ -481,21 +505,35 @@
     }
 
     /* =========================
-       FULL PATH (from your diagram)
+       COPILOT MALUS (diagram note)
+       GM = +10% / e-Routes = +5% / EVR = 0%
+    ========================= */
+    function applyCopilotMalusOnSegment(segmentMinutes){
+      const m = Math.max(0, segmentMinutes);
+      const rate = (gps === "GM") ? 0.10 : (gps === "ER") ? 0.05 : 0.0;
+      return Math.round(m * (1 + rate));
+    }
+
+    /* =========================
+       PATH (full logic)
     ========================= */
 
     function startGame(){
       battery = 50;
       timeMin = 0;
       kmDone = 0;
-      gps = "eVrouting";
-      driving = "Balanced";
+
+      prep = "50";
+      gps = "EVR";
+      driving = "BAL";
       usedMyBrand = null;
+
+      document.getElementById("finalScore").style.display = "none";
 
       setStory(`
         <h2>Mission Briefing</h2>
-        <p>Your goal: reach the Laboratory as fast as possible while optimizing your energy.</p>
-        <p class="hint">Start state: <b>00:00</b> · <b>50%</b> · <b>0/1000 km</b></p>
+        <p>Your goal: reach the Laboratory as fast as possible while optimizing energy.</p>
+        <p class="meta">Start: <b>00:00</b> · <b>50%</b> · <b>0/1000 km</b></p>
       `);
 
       setChoices([
@@ -508,24 +546,36 @@
     function stepVehiclePrep(){
       transitionTo(`
         <h2>Step 1 – Vehicle preparation</h2>
-        <p>Before entering the mission, you must decide how to prepare your vehicle.</p>
+        <p>Before entering the mission, decide how to prepare your vehicle.</p>
       `);
 
       setChoices([
         {
           label: "Charge to 80% + preheat cabin & battery",
-          subtext: "Safer for the journey, but costs time at the start.",
-          action: () => { timeMin = 45; battery = 80; kmDone = 0; stepCopilot(); }
+          subtext: "Safer start, costs time.",
+          action: () => {
+            prep = "80";
+            timeMin = 45; battery = 80; kmDone = 0;
+            stepCopilot();
+          }
         },
         {
-          label: "Do nothing (leave immediately at 50%)",
+          label: "Leave immediately (50%)",
           subtext: "No time lost… but riskier later.",
-          action: () => { timeMin = 0; battery = 50; kmDone = 0; stepCopilot(); }
+          action: () => {
+            prep = "50";
+            timeMin = 0; battery = 50; kmDone = 0;
+            stepCopilot();
+          }
         },
         {
           label: "Charge to 100% + preheat cabin & battery",
-          subtext: "Maximum safety for energy… but very costly in time.",
-          action: () => { timeMin = 135; battery = 100; kmDone = 0; stepCopilot(); }
+          subtext: "Maximum energy, very costly in time.",
+          action: () => {
+            prep = "100";
+            timeMin = 135; battery = 100; kmDone = 0;
+            stepCopilot();
+          }
         }
       ]);
 
@@ -535,15 +585,13 @@
     function stepCopilot(){
       transitionTo(`
         <h2>Step 2 – Choose your digital co-pilot</h2>
-        <p>Congratulations Hero! You made your first decision.</p>
-        <p>Before you hit the road, choose your digital co-pilot to reach the Laboratory.
-        Not all apps offer the same advantages…</p>
+        <p>Choose the app you will use to reach the Laboratory.</p>
       `);
 
       setChoices([
-        { label: "Google Maps", subtext: "Reliable, but can add a time penalty later.", action: () => { gps = "Google Maps"; stepDrivingStyle300(); } },
-        { label: "eRoute", subtext: "More optimized for energy and EV planning.", action: () => { gps = "eRoute"; stepDrivingStyle300(); } },
-        { label: "eVrouting", subtext: "Dedicated EV routing approach.", action: () => { gps = "eVrouting"; stepDrivingStyle300(); } },
+        { label: "Google Maps", subtext: "Copilot malus later: +10% time on the dead-zones segment.", action: () => { gps = "GM"; stepDrivingStyle300(); } },
+        { label: "e-Routes", subtext: "Copilot malus later: +5% time on the dead-zones segment.", action: () => { gps = "ER"; stepDrivingStyle300(); } },
+        { label: "EV Routing", subtext: "No copilot malus on the dead-zones segment.", action: () => { gps = "EVR"; stepDrivingStyle300(); } }
       ]);
 
       updateStats();
@@ -551,40 +599,43 @@
 
     function stepDrivingStyle300(){
       transitionTo(`
-        <h2>Step 3 – Driving style (first 300 km)</h2>
-        <p>You reach a long highway stretch of <b>300 km</b>. Your driving style directly impacts time and energy.</p>
+        <h2>Step 3 – Driving style (300 km)</h2>
+        <p>You enter a long 300 km stretch. Your driving style affects time and energy.</p>
       `);
 
       setChoices([
         {
           label: "Eco driving",
-          subtext: "Protects battery, but takes longer.",
+          subtext: "Lower energy consumption, slower.",
           action: () => {
-            driving = "Eco";
-            timeMin = 200;  // 03:20
-            battery = 65;
+            driving = "ECO";
+            if (prep === "50"){ timeMin = 200; battery = 65; }
+            if (prep === "80"){ timeMin = 245; battery = 65; }
+            if (prep === "100"){ timeMin = 335; battery = 85; }
             kmDone = 300;
             stepStationsChoice();
           }
         },
         {
           label: "Balanced driving",
-          subtext: "Best overall balance.",
+          subtext: "Best overall compromise.",
           action: () => {
-            driving = "Balanced";
-            timeMin = 165;  // 02:45
-            battery = 45;
+            driving = "BAL";
+            if (prep === "50"){ timeMin = 165; battery = 45; }
+            if (prep === "80"){ timeMin = 210; battery = 45; }
+            if (prep === "100"){ timeMin = 300; battery = 65; }
             kmDone = 300;
             stepStationsChoice();
           }
         },
         {
           label: "Sport driving",
-          subtext: "Faster… but consumes a lot of battery.",
+          subtext: "Faster, much higher consumption.",
           action: () => {
-            driving = "Sport";
-            timeMin = 135;  // 02:15
-            battery = 20;
+            driving = "SPT";
+            if (prep === "50"){ timeMin = 135; battery = 20; }
+            if (prep === "80"){ timeMin = 165; battery = 20; }
+            if (prep === "100"){ timeMin = 255; battery = 40; }
             kmDone = 300;
             stepStationsChoice();
           }
@@ -597,44 +648,69 @@
     function stepStationsChoice(){
       transitionTo(`
         <h2>Step 4 – Countryside road & charging stations</h2>
-        <p>You exit the highway and reach a countryside road.</p>
-        <p>Two charging stations are available: one in <b>20 km</b>, another in <b>180 km</b>. What do you do?</p>
+        <p>You exit the highway. Two charging stations are available: one in <b>20 km</b>, another in <b>180 km</b>.</p>
       `);
 
       setChoices([
         {
           label: "Stop at the next station (20 km)",
-          subtext: "15 min stop + 30 min charging (safe choice).",
+          subtext: "Short stop + charging (safer choice).",
           action: () => {
-            // Diagram node after stopping early: 320/1000 km and battery 80%
             kmDone = 320;
-            battery = 80;
 
-            if (driving === "Balanced") timeMin = 210; // 03:30
-            if (driving === "Sport")    timeMin = 210; // 03:30
-            if (driving === "Eco")      timeMin = 230; // 03:50
+            // Diagram-aligned states
+            if (prep === "50"){
+              battery = 80;
+              if (driving === "BAL") timeMin = 210;   // 03:30
+              if (driving === "SPT") timeMin = 210;   // 03:30
+              if (driving === "ECO") timeMin = 230;   // 03:50
+            }
 
-            stepSegment400();
+            if (prep === "80"){
+              battery = 80;
+              if (driving === "BAL") timeMin = 255;   // 04:15
+              if (driving === "SPT") timeMin = 210;   // 03:30 (as per provided branch)
+              if (driving === "ECO") timeMin = 350;   // 05:50 (as per provided branch)
+            }
+
+            if (prep === "100"){
+              if (driving === "ECO"){ battery = 100; timeMin = 380; } // 06:20
+              else { battery = 80; }
+              if (driving === "BAL") timeMin = 345;   // 05:45
+              if (driving === "SPT") timeMin = 300;   // 05:00
+            }
+
+            stepDeadZonesSegment();
           }
         },
         {
           label: "Keep going (aim for the station at 180 km)",
-          subtext: "No immediate stop… but higher risk.",
+          subtext: "No immediate stop… higher risk.",
           action: () => {
-            if (driving === "Sport") {
-              // Diagram: breakdown before reaching the station
+            // Sport + prep 50/80 => breakdown (diagram)
+            if (driving === "SPT" && (prep === "50" || prep === "80")){
               stepBreakdown();
               return;
             }
 
-            // Diagram nodes for Eco/Balanced that go further then recharge to 80% at 480 km:
+            // Reach later station (diagram-aligned for prep 50 & 100, computed fallback for 80)
             kmDone = 480;
             battery = 80;
 
-            if (driving === "Balanced") timeMin = 330; // 05:30
-            if (driving === "Eco")      timeMin = 350; // 05:50
+            if (prep === "50"){
+              if (driving === "BAL") timeMin = 330; // 05:30
+              if (driving === "ECO") timeMin = 350; // 05:50
+            } else if (prep === "80"){
+              // fallback: +45 min compared to prep 50 branch
+              if (driving === "BAL") timeMin = 375; // 06:15
+              if (driving === "ECO") timeMin = 395; // 06:35
+            } else if (prep === "100"){
+              if (driving === "SPT") timeMin = 390; // 06:30
+              if (driving === "BAL") timeMin = 435; // 07:15
+              if (driving === "ECO") timeMin = 515; // 08:35
+            }
 
-            stepSegment400();
+            stepDeadZonesSegment();
           }
         }
       ]);
@@ -644,20 +720,21 @@
 
     function stepBreakdown(){
       transitionTo(`
-        <h2>Incident</h2>
-        <p><b>Sport driving</b> pushed you too far… you broke down before reaching the charging station.</p>
-        <p class="hint">Roadside Assistance is required to continue.</p>
+        <h2>Breakdown</h2>
+        <p>Sport driving pushed you too far… you broke down before reaching the charging station.</p>
+        <p class="meta">Roadside Assistance is required to continue.</p>
       `);
 
       setChoices([
         {
           label: "Call Roadside Assistance",
-          subtext: "Continue the journey with a heavy time penalty.",
+          subtext: "Continue with a heavy time penalty.",
           action: () => {
-            // Send to the “after 400 km segment” state with the sport baseline used in the diagram later
-            // We align with the diagram’s sport line at 720 km (05:45 · 10%).
-            // First, move to the segment start as if assistance put you back on track.
-            stepSegment400(true);
+            // Diagram node: 03:45 | 0% | 450/1000 (prep 50 path)
+            if (prep === "50"){ timeMin = 225; battery = 0; kmDone = 450; }
+            // Fallback for prep 80 sport breakdown
+            if (prep === "80"){ timeMin = 270; battery = 0; kmDone = 450; }
+            stepDeadZonesSegment(true);
           }
         }
       ]);
@@ -665,40 +742,32 @@
       updateStats();
     }
 
-    function stepSegment400(fromBreakdown=false){
+    function stepDeadZonesSegment(fromBreakdown=false){
       transitionTo(`
-        <h2>Step 5 – New 400 km segment</h2>
-        <p>You enter a new <b>400 km</b> segment.</p>
-        <p>The road is clear, but there are many dead zones and tunnels.</p>
-        <p class="hint">Google Maps can add a <b>+10% time penalty</b> on this segment.</p>
+        <h2>Step 5 – Dead zones & tunnels (segment)</h2>
+        <p>You enter a new segment with many dead zones and tunnels.</p>
+        <p class="meta">Copilot malus applies here (Google Maps +10%, e-Routes +5%, EV Routing 0%).</p>
       `);
 
       setChoices([
         {
           label: "Continue",
-          subtext: "Complete the 400 km segment and update your mission status.",
+          subtext: "Complete the segment and reach the next strategic stop.",
           action: () => {
-            // After 400 km: progress should be 720/1000 (per diagram)
-            kmDone = 720;
+            // Move to 700 km as in diagram
+            kmDone = 700;
 
-            // Diagram provides end states with Google Maps malus already applied.
-            // We set a baseline (no malus) then apply +10% if GPS is Google Maps.
-            // Baselines (approx): use diagram values / 1.1
-            let endTimeWithGM, endBattery;
+            // Segment base durations (diagram: +3h35 / +3h / +4h25)
+            let baseSeg = 0;
+            let endBattery = 0;
 
-            if (driving === "Balanced") { endTimeWithGM = 415; endBattery = 30; } // 06:55
-            if (driving === "Sport")    { endTimeWithGM = 345; endBattery = 10; } // 05:45
-            if (driving === "Eco")      { endTimeWithGM = 510; endBattery = 55; } // 08:30
+            if (driving === "BAL"){ baseSeg = 215; endBattery = 30; } // 3h35
+            if (driving === "SPT"){ baseSeg = 180; endBattery = 10; } // 3h00
+            if (driving === "ECO"){ baseSeg = 265; endBattery = 55; } // 4h25
 
-            // If player came from breakdown, enforce Sport line
-            if (fromBreakdown) { driving = "Sport"; endTimeWithGM = 345; endBattery = 10; }
+            if (fromBreakdown){ driving = "SPT"; baseSeg = 180; endBattery = 10; }
 
-            if (gps === "Google Maps") {
-              timeMin = endTimeWithGM;
-            } else {
-              timeMin = Math.round(endTimeWithGM / 1.10); // remove GM malus
-            }
-
+            timeMin += applyCopilotMalusOnSegment(baseSeg);
             battery = endBattery;
 
             stepLongBreakCharge();
@@ -711,39 +780,31 @@
 
     function stepLongBreakCharge(){
       transitionTo(`
-        <h2>Step 6 – Long break & charging station</h2>
-        <p>Great job! After these 400 km, you decide to stop at a charging station for a well-deserved break.</p>
-        <p>You will eat, rest, and charge your car to continue your journey.</p>
-        <p class="hint">Would you like to use your <b>my[Brand]</b> app during charging?</p>
+        <h2>Step 6 – Long break & charging</h2>
+        <p>Great job! You stop at a charging station for a long break: eat, rest, and recharge.</p>
+        <p class="meta">Would you like to use your <b>my[Brand]</b> app during charging?</p>
       `);
 
       setChoices([
         {
-          label: "Yes – charge while using my[Brand] app",
-          subtext: "Optimized charging time (no overcharge penalty).",
-          action: async () => {
+          label: "Yes – use my[Brand] during charging",
+          subtext: "Optimized charging (no overcharge penalty).",
+          action: () => {
             usedMyBrand = true;
-
-            // Diagram nodes “Yes” -> 80% at 720 km
-            if (driving === "Balanced") { timeMin = 475; battery = 80; } // 07:55
-            if (driving === "Sport")    { timeMin = 495; battery = 80; } // 08:15
-            if (driving === "Eco")      { timeMin = 555; battery = 80; } // 09:15
-
-            stepTireAlert();
+            // Simplified but consistent with diagram logic
+            timeMin += 65;  // charging + break
+            battery = 80;
+            stepFinalRunAndTires();
           }
         },
         {
           label: "No – just plug in and charge",
-          subtext: "Overcharge +30 min penalty, ends at 85%.",
-          action: async () => {
+          subtext: "Overcharge penalty (+30 min), ends higher but slower.",
+          action: () => {
             usedMyBrand = false;
-
-            // Diagram nodes “No” -> 85% at 720 km (with +30 min overcharge malus)
-            if (driving === "Balanced") { timeMin = 505; battery = 85; } // 08:25
-            if (driving === "Sport")    { timeMin = 555; battery = 85; } // 09:15
-            if (driving === "Eco")      { timeMin = 585; battery = 85; } // 09:45
-
-            stepTireAlert();
+            timeMin += 95; // +30 min penalty
+            battery = 85;
+            stepFinalRunAndTires();
           }
         }
       ]);
@@ -751,53 +812,60 @@
       updateStats();
     }
 
-    function stepTireAlert(){
+    function stepFinalRunAndTires(){
       transitionTo(`
-        <h2>Step 7 – Tire pressure alert</h2>
-        <p>Only <b>280 km</b> left to reach the Laboratory!</p>
-        <p>You start driving again… but at <b>60 km</b> from the finish line, disaster strikes:</p>
-        <p><b>Tire underinflation alert</b>. What do you do?</p>
+        <h2>Step 7 – Final run & tire alert</h2>
+        <p>Only <b>300 km</b> left to reach the Laboratory.</p>
+        <p>At <b>60 km</b> from the finish line, you receive a critical alert: <b>Tire underinflation</b>.</p>
       `);
 
       setChoices([
         {
-          label: "Call the CALL CENTER immediately",
-          subtext: "Saves your tires and helps you identify the next station to reinflate.",
-          action: () => stepCallCenterPath()
+          label: "Use the SOS button to call the Call Center",
+          subtext: "You lose time, but you save your tires.",
+          action: () => {
+            // Move to 940 km (diagram node shows 940/1000 at this step)
+            kmDone = 940;
+            timeMin += 110; // travel + handling delay (keeps multiple endings realistic)
+            battery = 60;
+
+            stepCallCenterOutcome();
+          }
         },
         {
-          label: "Keep driving (it’s almost finished anyway)",
-          subtext: "High risk: your tire may explode and you could lose the mission.",
-          action: () => stepKeepDrivingExplosion()
+          label: "Keep driving (it’s almost finished)",
+          subtext: "High risk: your tire may fully deflate.",
+          action: () => {
+            kmDone = 940;
+            timeMin += 110;
+            battery = 60;
+
+            stepTireDeflated();
+          }
         }
       ]);
 
       updateStats();
     }
 
-    function stepCallCenterPath(){
+    function stepCallCenterOutcome(){
       transitionTo(`
-        <h2>Call Center Support</h2>
-        <p>You call the Call Center. They help you locate the next station to reinflate your tires.</p>
-        <p class="hint">You lose some time… but you save your tires.</p>
+        <h2>Call Center guidance</h2>
+        <p>Thanks to the Call Center, you locate the next station to reinflate.</p>
+        <p class="meta">You lose time… but you save your tires.</p>
       `);
 
-      // Align to diagram final outcomes depending on driving style:
-      // Eco -> 11:25 35% 1000
-      // Balanced -> 13:25 50% 1000
-      // Sport -> 11:50 25% 1000
       setChoices([
         {
           label: "Continue to the Laboratory",
-          subtext: "Complete the mission and display your final score.",
+          subtext: "Reach the finish and complete the final riddle.",
           action: () => {
+            // Finish line reached (base completion)
             kmDone = 1000;
+            timeMin += 30;  // reinflate + final approach
+            battery = 50;
 
-            if (driving === "Eco")      { timeMin = 685; battery = 35; } // 11:25
-            if (driving === "Balanced") { timeMin = 805; battery = 50; } // 13:25
-            if (driving === "Sport")    { timeMin = 710; battery = 25; } // 11:50
-
-            endWin();
+            stepFinalRiddle();
           }
         }
       ]);
@@ -805,52 +873,89 @@
       updateStats();
     }
 
-    function stepKeepDrivingExplosion(){
+    function stepTireDeflated(){
       transitionTo(`
-        <h2>Critical Failure</h2>
-        <p>Your tire explodes. You can’t keep driving.</p>
+        <h2>Tire fully deflated</h2>
+        <p>Your tire is completely deflated. You cannot keep driving.</p>
         <p><b>Who do you call?</b></p>
       `);
 
       setChoices([
         {
-          label: "Call your insurance",
-          subtext: "YOU LOSE — you didn’t make it to the Laboratory.",
-          action: () => endLose()
+          label: "Roadside Assistance",
+          subtext: "Penalty: +1h30 + 0h40 (diagram).",
+          action: () => {
+            kmDone = 1000;
+            timeMin += (90 + 40);
+            battery = 55;
+            stepFinalRiddle();
+          }
+        },
+        {
+          label: "Nearest dealership / point of sale",
+          subtext: "Penalty: +24h (diagram).",
+          action: () => {
+            kmDone = 1000;
+            timeMin += (24 * 60);
+            battery = 35;
+            stepFinalRiddle();
+          }
         }
       ]);
 
       updateStats();
     }
 
-    function endWin(){
+    function stepFinalRiddle(){
+      transitionTo(`
+        <h2>Final riddle</h2>
+        <p>You anticipate your arrival. You receive a mysterious call:</p>
+        <p><b>"The room name is the physicist who 'invented' the electric light bulb!"</b></p>
+        <p class="meta">What do you do?</p>
+      `);
+
+      setChoices([
+        {
+          label: "Ask ChatGPT",
+          subtext: "You find the EDISON room immediately.",
+          action: () => {
+            // +0 min per diagram
+            endMission(0);
+          }
+        },
+        {
+          label: "Use 'Alexa Vehicle to Home'",
+          subtext: "You lose a bit of time in the corridors.",
+          action: () => {
+            // +5 min per diagram
+            endMission(5);
+          }
+        },
+        {
+          label: "Ask a friend",
+          subtext: "Wrong hint (EINSTEIN) — you lose more time.",
+          action: () => {
+            // +15 min per diagram
+            endMission(15);
+          }
+        }
+      ]);
+
       updateStats();
+    }
+
+    function endMission(extraMin){
+      timeMin += extraMin;
 
       transitionTo(`
         <h2>Mission completed!</h2>
-        <p>Congratulations Hero. You reached the Laboratory.</p>
-        <p class="hint">Your score is based on your total time and remaining battery.</p>
+        <p>You reached the Laboratory.</p>
+        <p class="meta">Your score is based on your total time and remaining battery.</p>
       `);
 
       setChoices([]);
       showFinalScore();
-    }
-
-    function endLose(){
       updateStats();
-
-      transitionTo(`
-        <h2>Mission failed</h2>
-        <p><b>YOU LOSE</b> — you didn’t make it to the Laboratory.</p>
-        <p class="hint">Try again and optimize your decisions to improve your time and energy management.</p>
-      `);
-
-      setChoices([
-        { label: "Restart simulation", subtext: "Play again from the beginning.", action: () => startGame() }
-      ]);
-
-      document.getElementById("finalScore").style.display = "none";
-      sendHeightDelayed();
     }
 
     /* =========================
@@ -858,7 +963,7 @@
     ========================= */
     function sendHeight(){
       const height = document.documentElement.scrollHeight;
-      parent.postMessage({ type: "resizePracticeSim", height }, "*");
+      parent.postMessage({ type: "resizePracticeSimV2", height }, "*");
     }
     function sendHeightDelayed(){ setTimeout(sendHeight, 250); }
 
