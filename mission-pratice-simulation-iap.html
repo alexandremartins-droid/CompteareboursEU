@@ -1,0 +1,942 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mission 2 – The Practice (Interactive Simulation)</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --c-cyan:#19dfff;
+      --c-cyan2:#3bc4ff;
+      --c-text:#d4e7ff;
+      --c-text2:#b8dfff;
+      --c-border:rgba(255,255,255,0.10);
+      --c-card:rgba(255,255,255,0.06);
+      --c-dark:rgba(0,0,0,0.35);
+      --shadow: 0 0 20px rgba(0,0,0,0.35);
+      --glow: 0 0 22px rgba(25,223,255,0.22);
+    }
+
+    html, body{
+      margin:0;
+      padding: 34px 0 46px; /* ✅ no left/right margin */
+      background:transparent !important;
+      font-family:'Inter', sans-serif;
+      color:var(--c-text);
+      line-height:1.65;
+    }
+
+    /* Header */
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:0 0; /* ✅ no left/right padding */
+    }
+
+    .header-badge{
+      display:inline-block;
+      padding:7px 16px;
+      font-size:12px;
+      border-radius:22px;
+      border:1px solid rgba(42,168,255,0.65);
+      color:#2aa8ff;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      background: rgba(0,0,0,0.20);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.04);
+      animation: popIn 520ms ease both;
+    }
+
+    h1{
+      font-family:'Orbitron', sans-serif;
+      font-size:44px;
+      font-weight:900;
+      letter-spacing:3px;
+      color:#ffffff;
+      margin:14px 0 10px 0;
+      animation: popIn 560ms ease both;
+    }
+
+    .subtitle{
+      max-width:1100px;
+      color:var(--c-text2);
+      margin:0 0 22px 0;
+      font-size:15px;
+      animation: popIn 650ms ease both;
+      opacity:0.95;
+    }
+
+    /* Game container */
+    #game-container{
+      max-width:1100px;
+      margin: 18px auto 0;
+      background:var(--c-card);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:18px;
+      padding:26px 26px;
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* Ambient animated highlight */
+    #game-container:before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(900px 320px at 15% 0%, rgba(25,223,255,0.16), transparent 60%),
+        radial-gradient(700px 280px at 85% 15%, rgba(59,196,255,0.12), transparent 60%);
+      pointer-events:none;
+      animation: shimmer 5.8s ease-in-out infinite;
+      opacity:0.85;
+    }
+
+    /* Story panel animation */
+    .panel{
+      position:relative;
+      opacity:1;
+      transform: translateY(0);
+      transition: opacity 260ms ease, transform 260ms ease;
+    }
+    .panel.is-leaving{ opacity:0; transform: translateY(12px); }
+    .panel.is-entering{ opacity:0; transform: translateY(-10px); }
+    .panel.is-entered{ opacity:1; transform: translateY(0); }
+
+    /* ✅ Question (more visible) */
+    #story h2{
+      font-family:'Orbitron', sans-serif;
+      font-size:26px;           /* ✅ bigger */
+      letter-spacing:3px;
+      color:var(--c-cyan2);
+      text-transform:uppercase;
+      margin:0 0 12px 0;
+      text-shadow: 0 0 18px rgba(59,196,255,0.22);
+    }
+    #story p{
+      margin:0;
+      font-size:18px;           /* ✅ bigger */
+      color:#ffffff;            /* ✅ more readable */
+      opacity:0.95;
+    }
+
+    /* ✅ Status mini-card shown between steps (like diagram cards) */
+    .status-card{
+      margin-top:14px;
+      background: rgba(0,0,0,0.32);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius:14px;
+      padding:12px 14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      backdrop-filter: blur(12px);
+      animation: popIn 420ms ease both;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.03);
+    }
+    .status-left{
+      font-size:14px;
+      color: var(--c-text2);
+      letter-spacing:0.2px;
+    }
+    .pills{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    .pill{
+      background: rgba(0,0,0,0.25);
+      border:1px solid rgba(255,255,255,0.10);
+      border-radius:12px;
+      padding:6px 10px;
+      font-size:13px;
+      color:#ffffff;
+      display:flex;
+      gap:8px;
+      align-items:center;
+      box-shadow: 0 0 16px rgba(0,0,0,0.18);
+    }
+    .pill b{ color: var(--c-cyan2); }
+
+    /* Choices */
+    #choices{
+      position:relative;
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+    }
+    @media (min-width: 860px){
+      #choices{ grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ✅ Answers more readable/bigger */
+    .choice-btn{
+      width:100%;
+      border:1px solid rgba(59,196,255,0.38);
+      background: rgba(0,0,0,0.34);
+      color:#ffffff;
+      border-radius:16px;
+      padding:18px 18px;
+      cursor:pointer;
+      font-size:18px;       /* ✅ bigger */
+      font-weight:900;      /* ✅ stronger */
+      letter-spacing:0.4px;
+      text-align:left;
+      transition: 0.22s ease;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.03);
+      position:relative;
+      overflow:hidden;
+    }
+    .choice-btn:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: radial-gradient(500px 140px at 20% 0%, rgba(25,223,255,0.12), transparent 60%);
+      opacity:0;
+      transition: 0.25s ease;
+    }
+    .choice-btn:hover{
+      transform: translateY(-2px);
+      border-color: rgba(59,196,255,0.78);
+      box-shadow: 0 0 20px rgba(59,196,255,0.18);
+    }
+    .choice-btn:hover:before{ opacity:1; }
+
+    /* Stats */
+    #stats{
+      position:relative;
+      margin-top:22px;
+      padding-top:14px;
+      border-top:1px solid rgba(255,255,255,0.12);
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px 16px;
+      justify-content:space-between;
+    }
+    .stat{
+      background: rgba(0,0,0,0.26);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:14px;
+      padding:10px 12px;
+      min-width: 260px;
+      backdrop-filter: blur(10px);
+      animation: popIn 520ms ease both;
+    }
+    .stat b{
+      color:var(--c-cyan2);
+      letter-spacing:0.2px;
+      font-weight:900;
+    }
+
+    /* Final score card */
+    .score-card{
+      margin-top:18px;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(59,196,255,0.35);
+      border-radius: 16px;
+      padding: 16px 18px;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--glow);
+      animation: popIn 520ms ease both;
+    }
+    .score-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+    .score-left{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .score-label{
+      font-family:'Orbitron', sans-serif;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      color:#ffffff;
+      font-size:14px;
+      opacity:0.9;
+    }
+    .score-value{
+      font-family:'Orbitron', sans-serif;
+      font-size:40px;
+      font-weight:900;
+      letter-spacing:3px;
+      color:var(--c-cyan);
+      margin:0;
+      text-shadow: 0 0 18px rgba(25,223,255,0.26);
+    }
+
+    /* Final button */
+    .final-cta{
+      margin-left:auto;
+      display:flex;
+      justify-content:flex-end;
+      align-items:center;
+    }
+    .btn-enter{
+      display:inline-block;
+      text-decoration:none;
+      font-family:'Orbitron', sans-serif;
+      font-size:16px;
+      font-weight:900;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      padding:14px 22px;
+      border-radius:16px;
+      background:var(--c-cyan);
+      color:#ffffff;              /* ✅ text white */
+      border:1px solid rgba(25,223,255,0.55);
+      transition: 0.22s ease;
+      white-space:nowrap;
+      box-shadow: 0 0 18px rgba(25,223,255,0.18);
+    }
+    .btn-enter:hover{
+      background:#4be9ff;
+      transform: translateY(-2px);
+      box-shadow: 0 0 24px rgba(25,223,255,0.26);
+    }
+
+    /* Modal */
+    .modal-overlay{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,0.58);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 22px;
+      z-index:9999;
+    }
+    .modal{
+      width: min(720px, 100%);
+      background: rgba(10,20,35,0.88);
+      border:1px solid rgba(255,255,255,0.10);
+      border-radius: 18px;
+      padding: 18px 18px 14px 18px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 0 30px rgba(0,0,0,0.55);
+      animation: popIn 260ms ease both;
+    }
+    .modal h3{
+      margin:0 0 10px 0;
+      font-family:'Orbitron', sans-serif;
+      color:#ffffff;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      font-size:16px;
+    }
+    .modal p{
+      margin:0 0 14px 0;
+      color:#d4e7ff;
+      font-size:14px;
+      line-height:1.6;
+    }
+    .modal-actions{
+      display:flex;
+      gap:10px;
+      justify-content:flex-end;
+      flex-wrap:wrap;
+    }
+    .modal-btn{
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-weight:900;
+      cursor:pointer;
+      transition: 0.2s ease;
+      font-family:'Orbitron', sans-serif;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      color:#ffffff;
+    }
+    .modal-btn.primary{
+      background:var(--c-cyan);
+      border-color: rgba(25,223,255,0.55);
+    }
+    .modal-btn.primary:hover{ transform: translateY(-1px); background:#4be9ff; }
+    .modal-btn.secondary{
+      background: rgba(0,0,0,0.25);
+      border-color: rgba(59,196,255,0.35);
+    }
+    .modal-btn.secondary:hover{ transform: translateY(-1px); border-color: rgba(59,196,255,0.75); }
+
+    @keyframes popIn{
+      from{ opacity:0; transform: translateY(10px); }
+      to{ opacity:1; transform: translateY(0); }
+    }
+    @keyframes shimmer{
+      0%,100%{ transform: translateY(0); filter: blur(0px); opacity:0.80; }
+      50%{ transform: translateY(-6px); filter: blur(0.2px); opacity:1; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="header-badge">Mission: Connected Heroes · The Practice</div>
+    <h1>Interactive Simulation</h1>
+    <p class="subtitle">
+      Make your choices step by step. Each decision impacts your <b>time</b>, your <b>battery</b> and your <b>progress</b>.
+    </p>
+
+    <main id="game-container">
+      <section id="story" class="panel" aria-live="polite"></section>
+      <section id="choices"></section>
+
+      <aside id="stats">
+        <div class="stat">⏱ Time : <b><span id="time">00:00</span></b></div>
+        <div class="stat">🔋 Battery : <b><span id="battery">50</span></b>%</div>
+        <div class="stat">📍 Progress : <b><span id="progress">0</span></b> / 1000 km</div>
+      </aside>
+
+      <div id="finalScore" style="display:none;"></div>
+    </main>
+  </div>
+
+  <!-- Modal -->
+  <div id="modalOverlay" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal">
+      <h3 id="modalTitle">Decision</h3>
+      <p id="modalText"></p>
+      <div class="modal-actions">
+        <button id="modalNo" class="modal-btn secondary" type="button">No</button>
+        <button id="modalYes" class="modal-btn primary" type="button">Yes</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* =========================
+       GAME STATE
+       (branch-ready + full path implemented)
+    ========================= */
+    let battery = 50;        // %
+    let timeMin = 0;         // minutes (never negative)
+    let kmDone = 0;          // progress
+
+    let prep = "50";         // "50" | "80" | "100"
+    let gps = "eVrouting";   // "Google Maps" | "eRoute" | "eVrouting"
+    let driving = "Balanced";// "Eco" | "Balanced" | "Sport"
+    let usedMyBrand = null;  // true | false
+
+    const TOTAL_KM = 1000;
+
+    /* =========================
+       HELPERS
+    ========================= */
+    function clampState(){
+      if (timeMin < 0) timeMin = 0;
+      battery = Math.max(0, Math.min(100, Math.round(battery)));
+      kmDone = Math.max(0, Math.min(TOTAL_KM, Math.round(kmDone)));
+    }
+
+    function minutesToHHMM(m){
+      const mm = Math.max(0, Math.round(m));
+      const h = Math.floor(mm / 60);
+      const r = mm % 60;
+      return `${String(h).padStart(2,"0")}:${String(r).padStart(2,"0")}`;
+    }
+
+    function gpsPenaltyFactor(){
+      // ✅ Per diagram note: add malus if Google Maps or eRoute
+      // Google Maps: +10% time
+      // eRoute: +5% time
+      if (gps === "Google Maps") return 1.10;
+      if (gps === "eRoute") return 1.05;
+      return 1.00;
+    }
+
+    function updateStats(){
+      clampState();
+      document.getElementById("battery").textContent = battery;
+      document.getElementById("time").textContent = minutesToHHMM(timeMin);
+      document.getElementById("progress").textContent = kmDone;
+      sendHeightDelayed();
+    }
+
+    function statusCardHTML(label){
+      return `
+        <div class="status-card">
+          <div class="status-left">${label}</div>
+          <div class="pills">
+            <div class="pill">⏱ <b>${minutesToHHMM(timeMin)}</b></div>
+            <div class="pill">🔋 <b>${battery}%</b></div>
+            <div class="pill">📍 <b>${kmDone}</b> / ${TOTAL_KM} km</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function transitionTo(html){
+      const story = document.getElementById("story");
+      story.classList.add("is-leaving");
+      setChoices([]);
+
+      setTimeout(() => {
+        story.classList.remove("is-leaving");
+        story.classList.add("is-entering");
+        story.innerHTML = html;
+
+        requestAnimationFrame(() => {
+          story.classList.add("is-entered");
+          story.classList.remove("is-entering");
+          setTimeout(() => story.classList.remove("is-entered"), 260);
+        });
+
+        sendHeightDelayed();
+      }, 220);
+    }
+
+    function setStory(html){
+      document.getElementById("story").innerHTML = html;
+      sendHeightDelayed();
+    }
+
+    function setChoices(choices){
+      const container = document.getElementById("choices");
+      container.innerHTML = "";
+
+      choices.forEach(choice => {
+        const btn = document.createElement("button");
+        btn.className = "choice-btn";
+        btn.type = "button";
+        btn.textContent = choice.label;
+        btn.addEventListener("click", choice.action);
+        container.appendChild(btn);
+      });
+
+      sendHeightDelayed();
+    }
+
+    /* =========================
+       MODAL
+    ========================= */
+    function askModal({ title, text, yesLabel="Yes", noLabel="No" }){
+      return new Promise(resolve => {
+        const overlay = document.getElementById("modalOverlay");
+        const t = document.getElementById("modalTitle");
+        const p = document.getElementById("modalText");
+        const yes = document.getElementById("modalYes");
+        const no = document.getElementById("modalNo");
+
+        t.textContent = title;
+        p.textContent = text;
+        yes.textContent = yesLabel;
+        no.textContent = noLabel;
+
+        overlay.style.display = "flex";
+        overlay.setAttribute("aria-hidden", "false");
+
+        const cleanup = () => {
+          overlay.style.display = "none";
+          overlay.setAttribute("aria-hidden", "true");
+          yes.onclick = null;
+          no.onclick = null;
+        };
+
+        yes.onclick = () => { cleanup(); resolve(true); };
+        no.onclick  = () => { cleanup(); resolve(false); };
+
+        sendHeightDelayed();
+      });
+    }
+
+    /* =========================
+       SCORE (never negative)
+    ========================= */
+    function computeScore(){
+      // ✅ stable / never negative
+      // Faster time => higher score, battery helps.
+      // Reference: 16h35 = 995 min (very slow)
+      const base = 1000;
+      const refSlow = 995;
+
+      const timeRatio = Math.min(1, timeMin / refSlow); // 0..1
+      const timePenalty = Math.round(timeRatio * 850);  // max -850
+
+      const batteryBonus = Math.round((battery / 100) * 250); // +0..250
+
+      const score = Math.max(0, base - timePenalty + batteryBonus);
+      return { score };
+    }
+
+    function showFinalScore(){
+      const { score } = computeScore();
+      const wrap = document.getElementById("finalScore");
+      wrap.style.display = "block";
+      wrap.innerHTML = `
+        <div class="score-card">
+          <div class="score-top">
+            <div class="score-left">
+              <div class="score-value">${score}</div>
+            </div>
+            <div class="final-cta">
+              <a class="btn-enter" href="https://forms.cloud.microsoft/e/6kj8Hbvhki" target="_blank" rel="noopener">
+                ENTER THE CODE
+              </a>
+            </div>
+          </div>
+        </div>
+      `;
+      sendHeightDelayed();
+    }
+
+    /* =========================
+       PATH (FULL FLOW)
+       - includes 50/80/100 variants
+       - includes Google Maps +10% / eRoute +5% malus on final "arrival question"
+       - includes final question (Alexa/ChatGPT/Friend) before the end
+       - end screen: ONLY big sentence (no extra panels)
+    ========================= */
+
+    function startGame(){
+      battery = 50;
+      timeMin = 0;
+      kmDone = 0;
+      prep = "50";
+      gps = "eVrouting";
+      driving = "Balanced";
+      usedMyBrand = null;
+
+      document.getElementById("finalScore").style.display = "none";
+
+      setStory(`
+        <h2>Mission briefing</h2>
+        <p>Your goal: reach the Laboratory as fast as possible while optimizing your energy.</p>
+      `);
+
+      setChoices([
+        { label: "START THE SIMULATION", action: () => step1VehiclePrep() }
+      ]);
+
+      updateStats();
+    }
+
+    function step1VehiclePrep(){
+      transitionTo(`
+        <h2>Step 1 – Vehicle preparation</h2>
+        <p>Before entering the mission, choose how you prepare your vehicle.</p>
+      `);
+
+      // ✅ full variants (50 / 80 / 100) incl. preheat variants
+      setChoices([
+        { label: "Charge to 80% + preheat cabin & battery", action: () => { prep="80"; timeMin += 45; battery=80; kmDone=0; step2Copilot(); } },
+        { label: "Charge to 80% (no preheat)",             action: () => { prep="80"; timeMin += 45; battery=80; kmDone=0; step2Copilot(); } },
+        { label: "Leave immediately (50%)",                action: () => { prep="50"; battery=50; kmDone=0; step2Copilot(); } },
+        { label: "Charge to 100% + preheat cabin & battery",action: () => { prep="100"; timeMin += 135; battery=100; kmDone=0; step2Copilot(); } },
+        { label: "Charge to 100% (no preheat)",            action: () => { prep="100"; timeMin += 135; battery=100; kmDone=0; step2Copilot(); } }
+      ]);
+
+      updateStats();
+    }
+
+    function step2Copilot(){
+      transitionTo(`
+        <h2>Step 2 – Choose your digital co-pilot</h2>
+        <p>Before you hit the road, choose your navigation app.</p>
+      `);
+
+      setChoices([
+        { label: "Google Maps", action: () => { gps="Google Maps"; step3DrivingStyle(); } },
+        { label: "eRoute",      action: () => { gps="eRoute";      step3DrivingStyle(); } },
+        { label: "eVrouting",   action: () => { gps="eVrouting";   step3DrivingStyle(); } }
+      ]);
+
+      updateStats();
+    }
+
+    function step3DrivingStyle(){
+      transitionTo(`
+        <h2>Step 3 – Driving style (first 300 km)</h2>
+        <p>You enter a long highway stretch of <b>300 km</b>. Choose your driving style.</p>
+      `);
+
+      setChoices([
+        { label: "Eco driving", action: () => {
+            driving="Eco";
+            // baseline aligned with your previous mapping
+            timeMin = Math.max(timeMin, 200); // 03:20
+            battery = 65; kmDone = 300;
+            step4Stations();
+          }
+        },
+        { label: "Balanced driving", action: () => {
+            driving="Balanced";
+            timeMin = Math.max(timeMin, 165); // 02:45
+            battery = 45; kmDone = 300;
+            step4Stations();
+          }
+        },
+        { label: "Sport driving", action: () => {
+            driving="Sport";
+            timeMin = Math.max(timeMin, 135); // 02:15
+            battery = 20; kmDone = 300;
+            step4Stations();
+          }
+        }
+      ]);
+
+      updateStats();
+    }
+
+    function step4Stations(){
+      transitionTo(`
+        <h2>Step 4 – Countryside road & charging stations</h2>
+        <p>Two charging stations are available: one in <b>20 km</b>, another in <b>180 km</b>. What do you do?</p>
+      `);
+
+      setChoices([
+        { label: "Stop at the next station (20 km)", action: () => {
+            kmDone = 320;
+            battery = 80;
+
+            if (driving === "Balanced") timeMin = Math.max(timeMin, 210); // 03:30
+            if (driving === "Sport")    timeMin = Math.max(timeMin, 210); // 03:30
+            if (driving === "Eco")      timeMin = Math.max(timeMin, 230); // 03:50
+
+            step5Segment400();
+          }
+        },
+        { label: "Keep going (aim for the station at 180 km)", action: () => {
+            if (driving === "Sport") { stepBreakdown(); return; }
+
+            kmDone = 480;
+            battery = 80;
+
+            if (driving === "Balanced") timeMin = Math.max(timeMin, 330); // 05:30
+            if (driving === "Eco")      timeMin = Math.max(timeMin, 350); // 05:50
+
+            step5Segment400();
+          }
+        }
+      ]);
+
+      updateStats();
+    }
+
+    function stepBreakdown(){
+      transitionTo(`
+        <h2>Incident</h2>
+        <p>Your vehicle breaks down before you reach the charging station.</p>
+      `);
+
+      setChoices([
+        { label: "Call Roadside Assistance", action: () => {
+            // back on track but forces SPORT branch later
+            step5Segment400(true);
+          }
+        }
+      ]);
+
+      updateStats();
+    }
+
+    function step5Segment400(fromBreakdown=false){
+      transitionTo(`
+        <h2>Step 5 – 400 km segment</h2>
+        <p>You enter a new <b>400 km</b> segment.</p>
+      `);
+
+      setChoices([
+        { label: "Continue", action: () => {
+            kmDone = 720;
+
+            // End states at 720km depending driving (reference values)
+            let endTimeWithPenalty, endBattery;
+
+            if (driving === "Balanced"){ endTimeWithPenalty = 415; endBattery = 30; } // 06:55
+            if (driving === "Sport"){    endTimeWithPenalty = 345; endBattery = 10; } // 05:45
+            if (driving === "Eco"){      endTimeWithPenalty = 510; endBattery = 55; } // 08:30
+
+            if (fromBreakdown){
+              driving = "Sport";
+              endTimeWithPenalty = 345;
+              endBattery = 10;
+            }
+
+            // Here: penalty is already applied later; we keep raw time for now
+            timeMin = Math.max(timeMin, endTimeWithPenalty);
+            battery = endBattery;
+
+            step6LongBreakCharge();
+          }
+        }
+      ]);
+
+      updateStats();
+    }
+
+    function step6LongBreakCharge(){
+      transitionTo(`
+        <h2>Step 6 – Long break & charging station</h2>
+        <p>You stop for a long break and charge your vehicle.</p>
+      `);
+
+      setChoices([
+        { label: "Use my[Brand] app during charging", action: () => {
+            usedMyBrand = true;
+            if (driving === "Balanced"){ timeMin = Math.max(timeMin, 475); battery = 80; } // 07:55
+            if (driving === "Sport"){    timeMin = Math.max(timeMin, 495); battery = 80; } // 08:15
+            if (driving === "Eco"){      timeMin = Math.max(timeMin, 555); battery = 80; } // 09:15
+            step7TireAlert();
+          }
+        },
+        { label: "Do not use the app", action: () => {
+            usedMyBrand = false;
+            if (driving === "Balanced"){ timeMin = Math.max(timeMin, 505); battery = 85; } // 08:25
+            if (driving === "Sport"){    timeMin = Math.max(timeMin, 555); battery = 85; } // 09:15
+            if (driving === "Eco"){      timeMin = Math.max(timeMin, 585); battery = 85; } // 09:45
+            step7TireAlert();
+          }
+        }
+      ]);
+
+      updateStats();
+    }
+
+    function step7TireAlert(){
+      transitionTo(`
+        <h2>Step 7 – Tire pressure alert</h2>
+        <p>Only <b>280 km</b> left to reach the Laboratory.</p>
+        <p>At <b>60 km</b> from the finish line: <b>Tire underinflation alert</b>.</p>
+      `);
+
+      setChoices([
+        { label: "Call the CALL CENTER", action: () => stepCallCenterPath() },
+        { label: "Keep driving anyway",  action: () => stepKeepDrivingExplosion() }
+      ]);
+
+      updateStats();
+    }
+
+    function stepCallCenterPath(){
+      transitionTo(`
+        <h2>CALL CENTER</h2>
+        <p>You locate the next station to reinflate your tires.</p>
+      `);
+
+      setChoices([
+        { label: "Continue", action: () => {
+            kmDone = 1000;
+
+            // Base outcomes (then final question will add +0/+5/+15 minutes + GPS penalty)
+            if (driving === "Eco"){      timeMin = Math.max(timeMin, 685); battery = 35; } // 11:25
+            if (driving === "Balanced"){ timeMin = Math.max(timeMin, 805); battery = 50; } // 13:25
+            if (driving === "Sport"){    timeMin = Math.max(timeMin, 710); battery = 25; } // 11:50
+
+            stepFinalQuestion();
+          }
+        }
+      ]);
+
+      updateStats();
+    }
+
+    function stepKeepDrivingExplosion(){
+      transitionTo(`
+        <h2>Critical failure</h2>
+        <p>Your tire explodes. You can’t keep driving.</p>
+      `);
+
+      setChoices([
+        { label: "Call your insurance", action: () => endLose() }
+      ]);
+
+      updateStats();
+    }
+
+    function stepFinalQuestion(){
+      transitionTo(`
+        <h2>Final question</h2>
+        <p>
+          You receive an enigmatic call: <br/>
+          <b>“The room name is the physicist who invented the electric light bulb!”</b><br/>
+          You don’t really remember… What do you do?
+        </p>
+      `);
+
+      setChoices([
+        { label: "Ask ChatGPT", action: () => applyArrivalDelta(0) },
+        { label: "Ask Alexa", action: () => applyArrivalDelta(5) },
+        { label: "Ask a friend", action: () => applyArrivalDelta(15) }
+      ]);
+
+      updateStats();
+    }
+
+    function applyArrivalDelta(deltaMinutes){
+      // ✅ Apply GPS malus (Google Maps +10% / eRoute +5%)
+      const factor = gpsPenaltyFactor();
+      const adjusted = Math.round(deltaMinutes * factor);
+
+      timeMin += adjusted;
+
+      endWin();
+    }
+
+    function endWin(){
+      updateStats();
+
+      // ✅ End screen: ONLY the big sentence, very visible
+      transitionTo(`
+        <h2 style="font-size:30px; color: #ffffff; text-shadow: 0 0 20px rgba(25,223,255,0.25);">
+          Congratulations Hero. You reached the Laboratory.
+        </h2>
+        <p style="font-size:16px; color: rgba(212,231,255,0.92); margin-top:6px;">
+          Your run is complete. You can now submit your code.
+        </p>
+      `);
+
+      setChoices([]); // ✅ only Enter the code below
+      showFinalScore();
+    }
+
+    function endLose(){
+      updateStats();
+
+      transitionTo(`
+        <h2>Mission failed</h2>
+        <p><b>YOU LOSE</b> — you didn’t make it to the Laboratory.</p>
+      `);
+
+      // ✅ per your instruction: at the end, only Enter the code (so here we offer restart)
+      setChoices([
+        { label: "Restart simulation", action: () => startGame() }
+      ]);
+
+      document.getElementById("finalScore").style.display = "none";
+      sendHeightDelayed();
+    }
+
+    /* =========================
+       SHAREPOINT IFRAME RESIZE
+    ========================= */
+    function sendHeight(){
+      const height = document.documentElement.scrollHeight;
+      parent.postMessage({ type: "resizePracticeSim", height }, "*");
+    }
+    function sendHeightDelayed(){ setTimeout(sendHeight, 220); }
+
+    window.addEventListener("load", () => { sendHeight(); setInterval(sendHeight, 900); });
+    window.addEventListener("resize", sendHeight);
+
+    /* START */
+    startGame();
+  </script>
+</body>
+</html>
