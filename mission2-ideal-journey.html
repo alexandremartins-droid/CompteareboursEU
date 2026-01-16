@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>Mission 2 – Ideal Journey</title>
 
-  <!-- Orbitron + Inter (DA globale) -->
+  <!-- Orbitron + Inter (same DA as other missions) -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
 
   <style>
@@ -15,7 +15,6 @@
       --cardBorder: rgba(255,255,255,0.08);
       --blue: #2aa8ff;
       --cyan: #19dfff;
-      --cyan2:#4be9ff;
       --text: #d4e7ff;
       --muted:#b8dfff;
       --title:#ffffff;
@@ -27,7 +26,7 @@
       margin:0;
       padding:40px;
       background:transparent !important;
-      font-family:'Inter', sans-serif;
+      font-family:'Inter', sans-serif; /* same as missions */
       color:var(--text);
       line-height:1.65;
       overflow-x:hidden;
@@ -45,13 +44,12 @@
       letter-spacing:1px;
       text-transform:uppercase;
       background: rgba(0,0,0,0.20);
-      backdrop-filter: blur(10px);
       box-shadow: 0 0 0 1px rgba(255,255,255,0.04);
     }
 
     h1{
       font-family:'Orbitron', sans-serif;
-      font-size:40px;
+      font-size:40px; /* unchanged */
       font-weight:800;
       letter-spacing:3px;
       color:var(--title);
@@ -62,67 +60,26 @@
       max-width:1100px;
       color:var(--muted);
       margin:0 0 22px 0;
-      font-size:15px;
+      font-size:17px; /* +2px */
     }
 
-    /* Page background glow (subtle, immersive) */
-    .bg-glow{
-      position:fixed;
-      inset:-20%;
-      pointer-events:none;
-      background:
-        radial-gradient(600px 380px at 15% 20%, rgba(25,223,255,0.18), rgba(25,223,255,0) 60%),
-        radial-gradient(720px 420px at 85% 15%, rgba(59,196,255,0.14), rgba(59,196,255,0) 60%),
-        radial-gradient(900px 540px at 50% 95%, rgba(42,168,255,0.12), rgba(42,168,255,0) 60%);
-      filter: blur(10px);
-      opacity:0.9;
-      z-index:-1;
-      animation: drift 12s ease-in-out infinite alternate;
-    }
-    @keyframes drift{
-      0%{ transform: translate3d(0,0,0) scale(1); }
-      100%{ transform: translate3d(0,-12px,0) scale(1.02); }
-    }
-
-    /* Main card */
+    /* Main card (NO "glass" effect) */
     .wrap{
       max-width:1100px;
       background:var(--card);
       border:1px solid var(--cardBorder);
       border-radius:18px;
       padding:26px 28px;
-      backdrop-filter: blur(10px);
       box-shadow: var(--shadow);
       position:relative;
       overflow:hidden;
-    }
-
-    /* “Energy scan” line */
-    .scanline{
-      position:absolute;
-      left:-30%;
-      top:0;
-      width:60%;
-      height:100%;
-      background: linear-gradient(90deg, transparent, rgba(25,223,255,0.08), transparent);
-      transform: skewX(-18deg);
-      animation: scan 5.6s ease-in-out infinite;
-      opacity:0.55;
-      pointer-events:none;
-    }
-    @keyframes scan{
-      0%{ transform: translateX(-40%) skewX(-18deg); opacity:0.0; }
-      15%{ opacity:0.55; }
-      50%{ opacity:0.35; }
-      85%{ opacity:0.55; }
-      100%{ transform: translateX(260%) skewX(-18deg); opacity:0.0; }
     }
 
     /* Section title */
     .section-title{
       margin:26px 0 10px 0;
       font-family:'Orbitron', sans-serif;
-      font-size:16px;
+      font-size:18px; /* +2px */
       letter-spacing:2px;
       color:var(--accent);
       text-transform:uppercase;
@@ -143,8 +100,7 @@
       background: rgba(0,0,0,0.30);
       border:1px solid rgba(59,196,255,0.35);
       border-radius:16px;
-      padding:14px 14px;
-      backdrop-filter: blur(10px);
+      padding:16px 16px; /* slightly bigger */
       box-shadow: 0 0 18px rgba(59,196,255,0.10);
       position:relative;
       overflow:hidden;
@@ -160,7 +116,7 @@
       font-family:'Orbitron', sans-serif;
       text-transform:uppercase;
       letter-spacing:1.6px;
-      font-size:12px;
+      font-size:14px; /* +2px */
       color:#ffffff;
       margin:0 0 6px 0;
     }
@@ -169,13 +125,13 @@
       font-weight:900;
       letter-spacing:2px;
       color:var(--cyan);
-      font-size:22px;
+      font-size:24px; /* +2px */
       margin:0;
     }
     .score-note{
-      margin:6px 0 0 0;
+      margin:8px 0 0 0;
       color:var(--muted);
-      font-size:13px;
+      font-size:15px; /* +2px */
     }
 
     /* Journey timeline */
@@ -190,8 +146,7 @@
       background: rgba(0,0,0,0.32);
       border:1px solid rgba(255,255,255,0.10);
       border-radius:16px;
-      padding:16px 16px 14px 16px;
-      backdrop-filter: blur(10px);
+      padding:18px 18px 16px 18px; /* slightly bigger */
       position:relative;
       overflow:hidden;
       transform: translateY(0);
@@ -215,7 +170,7 @@
       border-radius:50%;
       background: var(--cyan);
       box-shadow: 0 0 16px rgba(25,223,255,0.35);
-      margin-top:4px;
+      margin-top:6px;
       flex:0 0 auto;
       position:relative;
     }
@@ -236,21 +191,21 @@
     }
 
     .step h3{
-      margin:0 0 6px 0;
+      margin:0 0 8px 0;
       font-family:'Orbitron', sans-serif;
       color:#ffffff;
       letter-spacing:2px;
       text-transform:uppercase;
-      font-size:15px;
+      font-size:17px; /* +2px */
     }
     .step p{
       margin:0;
       color:var(--text);
-      font-size:15px;
+      font-size:17px; /* +2px */
     }
     .step .micro{
-      margin-top:8px;
-      font-size:13px;
+      margin-top:10px;
+      font-size:15px; /* +2px */
       color:var(--muted);
     }
 
@@ -261,7 +216,6 @@
       border: 1px solid rgba(25,223,255,0.28);
       border-radius:16px;
       padding:16px 16px;
-      backdrop-filter: blur(12px);
       box-shadow: 0 0 22px rgba(25,223,255,0.10);
     }
     .outcome-title{
@@ -270,16 +224,16 @@
       letter-spacing:2px;
       text-transform:uppercase;
       color:#ffffff;
-      font-size:15px;
+      font-size:17px; /* +2px */
     }
     .outcome p{
       margin:0;
       color:var(--muted);
-      font-size:14px;
+      font-size:16px; /* +2px */
       line-height:1.6;
     }
 
-    /* Reveal animations */
+    /* Reveal animations (keep immersive) */
     .reveal{
       opacity:0;
       transform: translateY(14px);
@@ -293,14 +247,11 @@
       transition-delay: var(--d, 0ms);
     }
 
-    /* SharePoint iframe resize safety */
     .spacer{ height:2px; }
   </style>
 </head>
 
 <body>
-  <div class="bg-glow" aria-hidden="true"></div>
-
   <div class="header-badge">Mission: Connected Heroes · Mission 2</div>
   <h1>Ideal Journey</h1>
   <p class="subtitle">
@@ -308,7 +259,6 @@
   </p>
 
   <main class="wrap">
-    <div class="scanline" aria-hidden="true"></div>
 
     <!-- SCORE EXPLANATION -->
     <div class="reveal">
@@ -418,7 +368,7 @@
     revealEls.forEach((el) => io.observe(el));
 
     /* =========================================================
-       SHAREPOINT IFRAME AUTO-RESIZE (same logic as Rules/FAQ)
+       SHAREPOINT IFRAME AUTO-RESIZE
     ========================================================= */
     function sendHeight() {
       const height = document.documentElement.scrollHeight;
