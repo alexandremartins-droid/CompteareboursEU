@@ -10,7 +10,6 @@
 
   <style>
     :root{
-      --bgA: rgba(0,0,0,0.35);
       --card: rgba(255,255,255,0.06);
       --cardBorder: rgba(255,255,255,0.08);
       --blue: #2aa8ff;
@@ -26,9 +25,9 @@
       margin:0;
       padding:40px;
       background:transparent !important;
-      font-family:'Inter', sans-serif; /* same as missions */
+      font-family:'Inter', sans-serif;
       color:var(--text);
-      line-height:1.65;
+      line-height:1.75;
       overflow-x:hidden;
     }
 
@@ -49,7 +48,7 @@
 
     h1{
       font-family:'Orbitron', sans-serif;
-      font-size:40px; /* unchanged */
+      font-size:40px;
       font-weight:800;
       letter-spacing:3px;
       color:var(--title);
@@ -60,10 +59,10 @@
       max-width:1100px;
       color:var(--muted);
       margin:0 0 22px 0;
-      font-size:17px; /* +2px */
+      font-size:17px; /* +2px vs older */
     }
 
-    /* Main card (NO "glass" effect) */
+    /* Main card (NO glass / NO blur) */
     .wrap{
       max-width:1100px;
       background:var(--card);
@@ -100,7 +99,7 @@
       background: rgba(0,0,0,0.30);
       border:1px solid rgba(59,196,255,0.35);
       border-radius:16px;
-      padding:16px 16px; /* slightly bigger */
+      padding:16px 16px;
       box-shadow: 0 0 18px rgba(59,196,255,0.10);
       position:relative;
       overflow:hidden;
@@ -146,7 +145,7 @@
       background: rgba(0,0,0,0.32);
       border:1px solid rgba(255,255,255,0.10);
       border-radius:16px;
-      padding:18px 18px 16px 18px; /* slightly bigger */
+      padding:18px 18px 16px 18px;
       position:relative;
       overflow:hidden;
       transform: translateY(0);
@@ -191,7 +190,7 @@
     }
 
     .step h3{
-      margin:0 0 8px 0;
+      margin:0 0 10px 0;
       font-family:'Orbitron', sans-serif;
       color:#ffffff;
       letter-spacing:2px;
@@ -199,12 +198,14 @@
       font-size:17px; /* +2px */
     }
     .step p{
-      margin:0;
+      margin:0 0 10px 0;
       color:var(--text);
       font-size:17px; /* +2px */
     }
+    .step p:last-child{ margin-bottom:0; }
+
     .step .micro{
-      margin-top:10px;
+      margin-top:2px;
       font-size:15px; /* +2px */
       color:var(--muted);
     }
@@ -212,7 +213,7 @@
     /* Outcome card */
     .outcome{
       margin-top:18px;
-      background: linear-gradient(135deg, rgba(25,223,255,0.10), rgba(0,0,0,0.34));
+      background: rgba(0,0,0,0.30);
       border: 1px solid rgba(25,223,255,0.28);
       border-radius:16px;
       padding:16px 16px;
@@ -220,7 +221,7 @@
     }
     .outcome-title{
       font-family:'Orbitron', sans-serif;
-      margin:0 0 8px 0;
+      margin:0 0 10px 0;
       letter-spacing:2px;
       text-transform:uppercase;
       color:#ffffff;
@@ -230,10 +231,10 @@
       margin:0;
       color:var(--muted);
       font-size:16px; /* +2px */
-      line-height:1.6;
+      line-height:1.65;
     }
 
-    /* Reveal animations (keep immersive) */
+    /* Reveal animations */
     .reveal{
       opacity:0;
       transform: translateY(14px);
@@ -255,47 +256,62 @@
   <div class="header-badge">Mission: Connected Heroes · Mission 2</div>
   <h1>Ideal Journey</h1>
   <p class="subtitle">
-    This page summarizes the best decisions to achieve the most efficient route in Mission 2. Follow the optimal path step by step — like a true Connected Hero.
+    This part summarizes the best decisions to achieve the most efficient route in Mission 2.
   </p>
 
   <main class="wrap">
 
-    <!-- SCORE EXPLANATION -->
+    <!-- SCORE EXPLANATION (kept) -->
     <div class="reveal">
       <div class="section-title">Score explanation</div>
       <div class="score-grid stagger">
         <div class="score-card reveal" style="--d:80ms">
           <p class="score-label">Score range</p>
           <p class="score-value">300 – 500 = 1 pt</p>
-          <p class="score-note">Basic performance</p>
         </div>
 
         <div class="score-card reveal" style="--d:160ms">
           <p class="score-label">Score range</p>
           <p class="score-value">500 – 600 = 2 pts</p>
-          <p class="score-note">Strong performance</p>
         </div>
 
         <div class="score-card reveal" style="--d:240ms">
           <p class="score-label">Score range</p>
           <p class="score-value">600+ = 3 pts</p>
-          <p class="score-note">Top performance</p>
         </div>
       </div>
     </div>
 
-    <!-- IDEAL PATH -->
+    <!-- IDEAL PATH (updated content from doc) -->
     <div class="reveal" style="margin-top:28px;">
-      <div class="section-title">Optimal path</div>
+      <div class="section-title">Ideal path</div>
 
       <div class="timeline stagger">
+
         <div class="step reveal" style="--d:80ms">
           <div class="step-top">
             <div class="node" aria-hidden="true"></div>
             <div>
               <h3>01 · Vehicle preparation</h3>
-              <p>Start strong: charge to <b>80%</b> and <b>preheat</b> before departure for better overall balance.</p>
-              <p class="micro">There’s no need to charge to 100%, as this wastes time without optimizing your battery further.</p>
+              <p>
+                Start strong: charge to <b>80%</b> and <b>preheat</b> before departure for better overall balance.
+                There's no need to charge to 100%, as this will waste time and won't optimize your battery any further.
+              </p>
+              <p class="micro">
+                For an optimal start to a long journey, it's important to use a service that helps you optimize your trip when driving an electric vehicle.
+                Fully charging your electric vehicle before setting off is always beneficial for long journeys, provided the charging has been planned in advance.
+              </p>
+              <p class="micro">
+                However, when it's necessary to recharge the car during your trip, it's advisable, for the sake of optimizing time versus distance traveled,
+                to charge the battery to 80%.
+              </p>
+              <p class="micro">
+                Furthermore, limiting the charge to 80% also helps extend the battery's lifespan.
+              </p>
+              <p class="micro">
+                In addition, if you have a connected navigation system and use the EV Routing Embedded function, the battery will automatically preheat as you approach the charging station,
+                facilitating faster charging.
+              </p>
             </div>
           </div>
         </div>
@@ -305,8 +321,26 @@
             <div class="node" aria-hidden="true"></div>
             <div>
               <h3>02 · Digital co-pilot</h3>
-              <p><b>EV Routing onboard</b> outperforms e-Route and Google Maps by offering the fastest and most optimized routes.</p>
-              <p class="micro">You get reliable charging/travel estimates, and navigation stays active even in areas without network coverage.</p>
+              <p>
+                <b>EV Routing onboard</b> outperforms eRoute and Google Maps by offering the fastest and most optimized routes.
+                You get reliable estimates for your charging and travel times, and your navigation remains active even when you are traveling through areas without network coverage.
+              </p>
+              <p class="micro">
+                While the proposed solutions offer largely equivalent technology in terms of features, there are some differences that, depending on the situation,
+                provide advantages for using EV Routing Onboard.
+              </p>
+              <p class="micro">
+                Indeed, with connected navigation and EV Routing Onboard, connectivity stability will be better in areas without network coverage.
+                If you need to correct your route, voice recognition can easily be used to avoid the risks of using the car's touchscreen.
+              </p>
+              <p class="micro">
+                With e-ROUTES, users of vehicles without an infotainment screen can benefit from this solution thanks to the smartphone station included in the vehicles and thus share their smartphone screen.
+                For vehicles with an infotainment screen, e-ROUTES works in mirroring mode.
+              </p>
+              <p class="micro">
+                As for solutions like Waze or Google Maps, the information provided is less reliable because these solutions do not take into account vehicle information or driver behavior
+                (since the applications are not synchronized with the vehicle's telematics unit).
+              </p>
             </div>
           </div>
         </div>
@@ -316,7 +350,13 @@
             <div class="node" aria-hidden="true"></div>
             <div>
               <h3>03 · Driving style</h3>
-              <p>Choose <b>Balanced</b> driving during the first long segment to keep a strong pace without draining the battery.</p>
+              <p>
+                Go for <b>Balanced</b> driving during the first long segment to keep good pace without draining the battery.
+              </p>
+              <p class="micro">
+                Adopting a balanced driving style is always preferable for optimizing your journeys, especially when you're on highways or expressways.
+                Sporty driving will certainly impact your electric battery's energy consumption much more significantly than balanced or eco-friendly driving.
+              </p>
             </div>
           </div>
         </div>
@@ -326,7 +366,13 @@
             <div class="node" aria-hidden="true"></div>
             <div>
               <h3>04 · Long break & charging</h3>
-              <p>Use the <b>my eRemote App</b> during charging to optimize time and avoid unnecessary delays due to overcharging.</p>
+              <p>
+                Using the <b>eRemote app</b> during charging optimizes time and avoids unnecessary delays due to overcharging.
+              </p>
+              <p class="micro">
+                Using the Brand app and the e-Remote control service while charging optimizes time and avoids unnecessary delays due to overcharging.
+                You can see your battery's charging progress in real time.
+              </p>
             </div>
           </div>
         </div>
@@ -336,16 +382,31 @@
             <div class="node" aria-hidden="true"></div>
             <div>
               <h3>05 · Tire pressure alert</h3>
-              <p>Call the <b>Call Center</b> immediately to check your tire pressure before taking any unnecessary risks.</p>
+              <p>
+                Call the <b>call center</b> immediately to check your tire pressure before taking any unnecessary risks.
+              </p>
+              <p class="micro">
+                When an alert is issued, it is obviously important to carry out the necessary checks.
+                In the event of a low tire pressure warning, it is strongly advised against driving on highways and expressways to avoid a tire blowout and the risk of a serious accident.
+              </p>
+              <p class="micro">
+                The best solution is to check if it is possible to inflate your tire as soon as possible.
+                Finding a tire inflator on your own can sometimes be a difficult task.
+              </p>
+              <p class="micro">
+                Therefore, do not hesitate to contact the call center for information.
+                The assistance button is available for any emergency situation or in the event of a potential accident.
+              </p>
             </div>
           </div>
         </div>
+
       </div>
 
       <div class="outcome reveal" style="--d:520ms">
         <p class="outcome-title">Outcome</p>
         <p>
-          With these choices, you follow the most reliable and efficient path — maximizing your chances to reach the Laboratory with a strong final outcome.
+          These choices allow you to follow the most reliable and efficient path, thus maximizing your chances of reaching the laboratory with the most valuable final result.
         </p>
       </div>
     </div>
