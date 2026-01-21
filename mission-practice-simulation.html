@@ -620,7 +620,7 @@
 manufacturer worldwide).</p>
 <p><strong>
 The goal is to reach the superhero laboratory that will take you to Mission #3, optimizing your route as much as possible to arrive at your destination as quickly as possible, but above all within a maximum of 16 hours.
-</strong></p>
+</strong></p><br></br>
 
 <p><strong>Here is the briefing information available to you:</strong></p>
 
@@ -632,7 +632,7 @@ The goal is to reach the superhero laboratory that will take you to Mission #3, 
 
 <p>🛜 Your vehicle is already connected.</p>
 
-<p>📱 You have a latest-generation smartphone with access to your vehicle's brand app.</p>
+<p>📱 You have a latest-generation smartphone with access to your vehicle's brand app.</p><br></br>
 
 <p><strong>PLEASE NOTE:</strong> This mission is a simulated journey. Under no circumstances do the calculated data provide results that correspond to reality on the ground. This is a game in which the data are consistent with each other but do not represent reality.</p>
 
@@ -649,16 +649,19 @@ The goal is to reach the superhero laboratory that will take you to Mission #3, 
     function step1VehiclePrep(){
       transitionTo(`
         <h2>Step 1 – Vehicle preparation</h2>
-        <p>Before entering the mission, choose how you prepare your vehicle.</p>
+        <p>The mission begins... your commander hands you an envelope containing the key to your electric vehicle, a smartphone, and the phone number.
+When you open the smartphone, you see that you have received a text message with your username and password for your Brand app.</p><br></br>
+<p>The car is connected and ready to go, and the battery is 50% charged. The only slight problem is that the mission countdown has started...</p><br></br>
+<p><strong>What do you do?</strong></p>
       `);
 
       // ✅ full variants (50 / 80 / 100) incl. preheat variants
       setChoices([
-        { label: "Do nothing, you won't waste any time and you can leave immediately",                action: () => { prep="50"; battery=50; kmDone=0; step2Copilot(); } },
-        { label: "Charge up to 80% + preheat your cabin", action: () => { prep="80"; timeMin += 45; battery=80; kmDone=0; step2Copilot(); } },
-        { label: "Charge up to 80% + no preheat your cabin",             action: () => { prep="80"; timeMin += 45; battery=80; kmDone=0; step2Copilot(); } },
-        { label: "Charge to 100% + preheat your cabin",action: () => { prep="100"; timeMin += 135; battery=100; kmDone=0; step2Copilot(); } },
-        { label: "Charge to 100% + no preheat your cabin",            action: () => { prep="100"; timeMin += 135; battery=100; kmDone=0; step2Copilot(); } }
+        { label: "You leave immediately",                action: () => { prep="50"; battery=50; kmDone=0; step2Copilot(); } },
+        { label: "You charge the battery to 80% while planning to preheat the cabin", action: () => { prep="80"; timeMin += 45; battery=80; kmDone=0; step2Copilot(); } },
+        { label: "You charge the battery to 80% without preheating the cabin.",             action: () => { prep="80"; timeMin += 45; battery=80; kmDone=0; step2Copilot(); } },
+        { label: "You charge the battery to 100% while planning to preheat the cabin.",action: () => { prep="100"; timeMin += 135; battery=100; kmDone=0; step2Copilot(); } },
+        { label: "You charge the battery to 100% without preheating the cabin.",            action: () => { prep="100"; timeMin += 135; battery=100; kmDone=0; step2Copilot(); } }
       ]);
 
       updateStats();
@@ -667,13 +670,14 @@ The goal is to reach the superhero laboratory that will take you to Mission #3, 
     function step2Copilot(){
       transitionTo(`
         <h2>Step 2 – Choose your digital co-pilot</h2>
-        <p>Before you hit the road, choose your navigation app.</p>
+        <p>The route to the Mission 3 laboratory is completely unfamiliar to you. You need a GPS to guide you.</p><br></br>
+        <p><strong>Which service will you choose to accompany you on your journey?</strong><p>
       `);
 
       setChoices([
         { label: "Google Maps", action: () => { gps="Google Maps"; step3DrivingStyle(); } },
-        { label: "e-Routes",      action: () => { gps="eRoute";      step3DrivingStyle(); } },
-        { label: "EV Routing",   action: () => { gps="eVrouting";   step3DrivingStyle(); } }
+        { label: "e-Routes by Free2move Charge",      action: () => { gps="eRoute";      step3DrivingStyle(); } },
+        { label: "EV Routing Embedded",   action: () => { gps="eVrouting";   step3DrivingStyle(); } }
       ]);
 
       updateStats();
