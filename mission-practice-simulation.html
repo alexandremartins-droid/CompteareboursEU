@@ -622,20 +622,20 @@ manufacturer worldwide).</p>
       <p><strong>Here is the briefing information available to you:</strong></p>
       <p>🥶 It is cold, with temperatures below freezing.</p>
       <p>🛣 The terrain along the route is sometimes hostile: tunnels, white zones, accident-prone roads, significant elevation changes, uninhabited areas over varying distances, etc.</p>
-      <p>⚡ Gas stations are not always very close to each other.</p>
+      <p>⚡ Service stations are not always very close to each other.</p>
       <p>🛜 Your vehicle is already connected.</p>
       <p>📱 You have a latest-generation smartphone with access to your vehicle's brand app.</p>
       <p><br><strong>PLEASE NOTE:</strong> This mission is a simulated journey. Under no circumstances do the calculated data provide results that correspond to reality on the ground. This is a game in which the data are consistent with each other but do not represent reality.</br></p>
     `);
 
-    setChoices([{ label: "Let's go! 🚀", action: () => step1VehiclePrep() }]);
+    setChoices([{ label: "Sometimes, being a hero is all about playing it safe. Let's go! 🚀", action: () => step1VehiclePrep() }]);
     updateStats();
   }
 
   function step1VehiclePrep(){
     transitionTo(`
       <h2>Step 1 – Vehicle preparation</h2>
-      <p><br>The mission begins... your commander hands you an envelope containing the key to your electric vehicle, a smartphone, and the phone number.
+      <p>The mission begins... your commander hands you an envelope containing the key to your electric vehicle, a smartphone, and the phone number.
 When you open the smartphone, you see that you have received a text message with your username and password for your Brand app.</br></p>
       <p><br>The car is connected and ready to go, and the battery is 50% charged. The only slight problem is that the mission countdown has started...</br></p>
       <p><strong>What do you do?</strong></p>
@@ -655,7 +655,7 @@ When you open the smartphone, you see that you have received a text message with
   function step2Copilot(){
     transitionTo(`
       <h2>Step 2 – Choose your digital co-pilot</h2>
-      <p>The route to the Mission 3 laboratory is completely unfamiliar to you. You need a GPS to guide you.</p><br></br>
+      <p>The route to the Mission 3 laboratory is completely unfamiliar to you. You need a GPS to guide you.</p><br>
       <p><strong>Which service will you choose to accompany you on your journey?</strong><p>
     `);
 
@@ -712,7 +712,7 @@ When you open the smartphone, you see that you have received a text message with
   function step4Stations(){
     transitionTo(`
       <h2>Step 4 – Countryside road & charging stations</h2>
-      <p><br>You are in a white zone with a winding road and a slight incline. <strong>What do you do?</strong></br>
+      <p>You are in a white zone with a winding road and a slight incline. <strong>What do you do?</strong></br>
       You have two options: Go to the station <strong>20 km away</strong>, where the charging stations are not immediately available, or drive <strong>180 km</strong> to the second station with
 available charging stations.</p>
     `);
@@ -866,7 +866,7 @@ available charging stations.</p>
     transitionTo(`
       <h2>Step 7 – Tire pressure alert</h2>
       <p>There are only 280 km left to reach the laboratory. You are on a beautiful highway, but the weather conditions are poor. It is raining heavily.
-60 km from your destination, you receive a low tire pressure alert.</p>
+60 km from your destination, you receive a low tire pressure alert.</p><br>
       <p>Bad luck! You were almost there! You can't acord to make the wrong decision.</p>
       <p>The highway is in a valley, enclosed in the middle of a canyon, and cell phone reception is poor.</p><br></br>
       <p><strong>What do you do?</strong></p>
