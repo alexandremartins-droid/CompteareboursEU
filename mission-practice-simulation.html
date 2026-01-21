@@ -720,12 +720,14 @@ When you open the smartphone, you see that you have received a text message with
     function step4Stations(){
   transitionTo(`
     <h2>Step 4 – Countryside road & charging stations</h2>
-    <p>Two charging stations are available: one in <b>20 km</b>, another in <b>180 km</b>. What do you do?</p>
+    <p>You are in a white zone with a winding road and a slight incline. <strong>What do you do?</strong></p><br></br>
+    <p>You have two options: Go to the station <strong>20 km away</strong>, where the charging stations are not immediately available, or drive <strong>180 km</strong> to the second station with
+available charging stations.</p><br></br>
   `);
 
   setChoices([
     {
-      label: "Stop at the next station (20 km)",
+      label: "I will stop at the first charging station 20 km away, even if I must wait.",
       action: () => {
         stationsChoice = "stop20";
 
@@ -740,7 +742,7 @@ When you open the smartphone, you see that you have received a text message with
       }
     },
     {
-      label: "Keep going (aim for the station at 180 km)",
+      label: "I prefer not to waste time and will continue to the second charging station.",
       action: () => {
         stationsChoice = "go180";
 
@@ -857,13 +859,16 @@ When you open the smartphone, you see that you have received a text message with
     function step7TireAlert(){
       transitionTo(`
         <h2>Step 7 – Tire pressure alert</h2>
-        <p>Only <b>280 km</b> left to reach the Laboratory.</p>
-        <p>At <b>60 km</b> from the finish line: <b>Tire underinflation alert</b>.</p>
+        <p>There are only 280 km left to reach the laboratory. You are on a beautiful highway, but the weather conditions are poor. It is raining heavily.
+60 km from your destination, you receive a low tire pressure alert.</p>
+<p>Bad luck! You were almost there! You can't acord to make the wrong decision.</p>
+<p>The highway is in a valley, enclosed in the middle of a canyon, and cell phone reception is poor.</p><br></br>
+<p><strong>What do you do?</strong></p>
       `);
 
       setChoices([
-        { label: "Call the CALL CENTER", action: () => stepCallCenterPath() },
-        { label: "Keep driving anyway",  action: () => stepKeepDrivingExplosion() }
+        { label: "You play it safe and immediately contact the call center via your assistant call button to get recommendations.", action: () => stepCallCenterPath() },
+        { label: "60 km, no time to waste. The tires can wait until you arrive. You keep driving.",  action: () => stepKeepDrivingExplosion() }
       ]);
 
       updateStats();
@@ -909,15 +914,19 @@ When you open the smartphone, you see that you have received a text message with
       transitionTo(`
         <h2>Final question</h2>
         <p>
-          You arrive at the laboratory's road barrier, which asks you for a secret code to enter. The code is the answer to the question “Who is the person best known for inventing the light bulb?”
-<br>What do you do to find out the answer?</br>
+          <strong>Phew! The laboratory is in sight and you're still on schedule.</strong>
+          <br>But then you receive a mysterious phone call: you are told that you need to find a code to open the entrance gate to the laboratory.
+The code requested is the name of the physicist best known for inventing the light bulb. You can't acord to make a mistake; you only have one try.
+You're not sure of the answer...and are looking for help.</br>
+          <br><strong>What do you do?</strong></br>
+          
         </p>
       `);
 
       setChoices([
-        { label: "I use my car's voice recognition to use ChatGPT", action: () => applyArrivalDelta(0) },
-        { label: "I ask questions using Amazon Alexa, which is integrated into my car", action: () => applyArrivalDelta(5) },
-        { label: "I call a friend without knowing if they are available", action: () => applyArrivalDelta(15) }
+        { label: "Use voice recognition to consult ChatGPT", action: () => applyArrivalDelta(0) },
+        { label: "Use your “Alexa vehicle to Home” service", action: () => applyArrivalDelta(5) },
+        { label: "Consult your best friend, a high school physics teacher", action: () => applyArrivalDelta(15) }
       ]);
 
       updateStats();
@@ -939,10 +948,11 @@ When you open the smartphone, you see that you have received a text message with
       // ✅ End screen: ONLY the big sentence, very visible
       transitionTo(`
         <h2 style="font-size:30px; color: #ffffff; text-shadow: 0 0 20px rgba(25,223,255,0.25);">
-          Congratulations Hero. You reached the Laboratory.
+          Congratulations, you have overcome most of the obstacles and arrived safely at the Laboratory !.
         </h2>
         <p style="font-size:16px; color: rgba(212,231,255,0.92); margin-top:6px;">
-          Your run is complete. You can now submit your code.
+          Take a few hours to rest. You are now expected in the “Asteroid” room to continue your mission.
+          <br><strong>Don't forget to enter your digital code to confirm your arrival.</strong></br>
         </p>
       `);
 
