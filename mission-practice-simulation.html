@@ -719,59 +719,7 @@ When you open the smartphone, you see that you have received a text message with
 
     function step4Stations(){
       transitionTo(`
-        <h2>Step 4 – Countryside road & charging stations</h2>
-        <p>Two charging stations are available: one in <b>20 km</b>, another in <b>180 km</b>. What do you do?</p>
-      `);
-
-      setChoices([
-        { label: "Stop at the next station (20 km)", action: () => {
-            kmDone = 320;
-            battery = 80;
-
-            if (driving === "Balanced") timeMin = Math.max(timeMin, 210); // 03:30
-            if (driving === "Sport")    timeMin = Math.max(timeMin, 210); // 03:30
-            if (driving === "Eco")      timeMin = Math.max(timeMin, 230); // 03:50
-
-            step5Segment400();
-          }
-        },
-        { label: "Keep going (aim for the station at 180 km)", action: () => {
-            if (driving === "Sport") { stepBreakdown(); return; }
-
-            kmDone = 480;
-            battery = 80;
-
-            if (driving === "Balanced") timeMin = Math.max(timeMin, 330); // 05:30
-            if (driving === "Eco")      timeMin = Math.max(timeMin, 350); // 05:50
-
-            step5Segment400();
-          }
-        }
-      ]);
-
-      updateStats();
-    }
-
-    function stepBreakdown(){
-      transitionTo(`
-        <h2>Incident</h2>
-        <p>Your vehicle breaks down before you reach the charging station.</p>
-      `);
-
-      setChoices([
-        { label: "Call Roadside Assistance", action: () => {
-            // back on track but forces SPORT branch later
-            step5Segment400(true);
-          }
-        }
-      ]);
-
-      updateStats();
-    }
-
-    function step5Segment400(fromBreakdown=false){
-      transitionTo(`
-        <h2>Step 5 – 400 km segment</h2>
+        <h2>Step 4 – 400 km segment</h2>
         <p>You enter a new <b>400 km</b> segment.</p>
       `);
 
@@ -797,6 +745,58 @@ When you open the smartphone, you see that you have received a text message with
             battery = endBattery;
 
             step6LongBreakCharge();
+          }
+        }
+      ]);
+
+      updateStats();
+    };
+
+    function stepBreakdown(){
+      transitionTo(`
+        <h2>Incident</h2>
+        <p>Your vehicle breaks down before you reach the charging station.</p>
+      `);
+
+      setChoices([
+        { label: "Call Roadside Assistance", action: () => {
+            // back on track but forces SPORT branch later
+            step5Segment400(true);
+          }
+        }
+      ]);
+
+      updateStats();
+    }
+
+    function step5Segment400(fromBreakdown=false){
+      transitionTo(`
+        <h2>Step 5 – Countryside road & charging stations</h2>
+        <p>Two charging stations are available: one in <b>20 km</b>, another in <b>180 km</b>. What do you do?</p>
+      `);
+
+      setChoices([
+        { label: "Stop at the next station (20 km)", action: () => {
+            kmDone = 320;
+            battery = 80;
+
+            if (driving === "Balanced") timeMin = Math.max(timeMin, 210); // 03:30
+            if (driving === "Sport")    timeMin = Math.max(timeMin, 210); // 03:30
+            if (driving === "Eco")      timeMin = Math.max(timeMin, 230); // 03:50
+
+            step5Segment400();
+          }
+        },
+        { label: "Keep going (aim for the station at 180 km)", action: () => {
+            if (driving === "Sport") { stepBreakdown(); return; }
+
+            kmDone = 480;
+            battery = 80;
+
+            if (driving === "Balanced") timeMin = Math.max(timeMin, 330); // 05:30
+            if (driving === "Eco")      timeMin = Math.max(timeMin, 350); // 05:50
+
+            step5Segment400();
           }
         }
       ]);
