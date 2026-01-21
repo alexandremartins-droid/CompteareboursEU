@@ -654,9 +654,9 @@ The goal is to reach the superhero laboratory that will take you to Mission #3, 
 
       // ✅ full variants (50 / 80 / 100) incl. preheat variants
       setChoices([
+        { label: "Do nothing, you won't waste any time and you can leave immediately",                action: () => { prep="50"; battery=50; kmDone=0; step2Copilot(); } },
         { label: "Charge up to 80% + preheat your cabin", action: () => { prep="80"; timeMin += 45; battery=80; kmDone=0; step2Copilot(); } },
         { label: "Charge up to 80% + no preheat your cabin",             action: () => { prep="80"; timeMin += 45; battery=80; kmDone=0; step2Copilot(); } },
-        { label: "Do nothing, you won't waste any time and you can leave immediately",                action: () => { prep="50"; battery=50; kmDone=0; step2Copilot(); } },
         { label: "Charge to 100% + preheat your cabin",action: () => { prep="100"; timeMin += 135; battery=100; kmDone=0; step2Copilot(); } },
         { label: "Charge to 100% + no preheat your cabin",            action: () => { prep="100"; timeMin += 135; battery=100; kmDone=0; step2Copilot(); } }
       ]);
