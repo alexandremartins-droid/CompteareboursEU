@@ -718,91 +718,113 @@ When you open the smartphone, you see that you have received a text message with
     }
 
     function step4Stations(){
-      transitionTo(`
-        <h2>Step 4 – 400 km segment</h2>
-        <p>You enter a new <b>400 km</b> segment.</p>
-      `);
+  transitionTo(`
+    <h2>Step 4 – Countryside road & charging stations</h2>
+    <p>Two charging stations are available: one in <b>20 km</b>, another in <b>180 km</b>. What do you do?</p>
+  `);
 
-      setChoices([
-        { label: "Continue", action: () => {
-            kmDone = 720;
+  setChoices([
+    {
+      label: "Stop at the next station (20 km)",
+      action: () => {
+        stationsChoice = "stop20";
 
-            // End states at 720km depending driving (reference values)
-            let endTimeWithPenalty, endBattery;
+        kmDone = 320;
+        battery = 80;
 
-            if (driving === "Balanced"){ endTimeWithPenalty = 415; endBattery = 30; } // 06:55
-            if (driving === "Sport"){    endTimeWithPenalty = 345; endBattery = 10; } // 05:45
-            if (driving === "Eco"){      endTimeWithPenalty = 510; endBattery = 55; } // 08:30
+        if (driving === "Balanced") timeMin = Math.max(timeMin, 210); // 03:30
+        if (driving === "Sport")    timeMin = Math.max(timeMin, 210); // 03:30
+        if (driving === "Eco")      timeMin = Math.max(timeMin, 230); // 03:50
 
-            if (fromBreakdown){
-              driving = "Sport";
-              endTimeWithPenalty = 345;
-              endBattery = 10;
-            }
+        step5Segment400(false);
+      }
+    },
+    {
+      label: "Keep going (aim for the station at 180 km)",
+      action: () => {
+        stationsChoice = "go180";
 
-            // Here: penalty is already applied later; we keep raw time for now
-            timeMin = Math.max(timeMin, endTimeWithPenalty);
-            battery = endBattery;
+        // On ne déclenche plus l'incident ici.
+        // On passe à l'étape 5, qui gérera éventuellement l'incident au "Continue".
 
-            step6LongBreakCharge();
-          }
+        // Pour Eco / Balanced on applique l'état "480 km + 80%" comme avant
+        // Pour Sport, on garde l'état de l'étape précédente (300 km / 20%) et Step 5 déclenchera l'incident.
+        if (driving !== "Sport") {
+          kmDone = 480;
+          battery = 80;
+
+          if (driving === "Balanced") timeMin = Math.max(timeMin, 330); // 05:30
+          if (driving === "Eco")      timeMin = Math.max(timeMin, 350); // 05:50
         }
-      ]);
 
-      updateStats();
-    };
+        step5Segment400(false);
+      }
+    }
+  ]);
+
+  updateStats();
+}
 
     function stepBreakdown(){
-      transitionTo(`
-        <h2>Incident</h2>
-        <p>Your vehicle breaks down before you reach the charging station.</p>
-      `);
+  transitionTo(`
+    <h2>Incident</h2>
+    <p>Your vehicle breaks down before you reach the charging station.</p>
+  `);
 
-      setChoices([
-        { label: "Call Roadside Assistance", action: () => {
-            // back on track but forces SPORT branch later
-            step5Segment400(true);
-          }
-        }
-      ]);
-
-      updateStats();
+  setChoices([
+    {
+      label: "Call Roadside Assistance",
+      action: () => {
+        // back on track but forces SPORT branch later
+        step5Segment400(true);
+      }
     }
+  ]);
+
+  updateStats();
+}
 
     function step5Segment400(fromBreakdown=false){
-      transitionTo(`
-        <h2>Step 5 – Countryside road & charging stations</h2>
-        <p>Two charging stations are available: one in <b>20 km</b>, another in <b>180 km</b>. What do you do?</p>
-      `);
 
-      setChoices([
-        { label: "Stop at the next station (20 km)", action: () => {
-            kmDone = 320;
-            battery = 80;
+  // ✅ NOUVELLE LOGIQUE : si Sport + "Keep going" et pas déjà en assistance, on déclenche l'incident AVANT Step 5
+  if (!fromBreakdown && driving === "Sport" && stationsChoice === "go180") {
+    stepBreakdown();
+    return;
+  }
 
-            if (driving === "Balanced") timeMin = Math.max(timeMin, 210); // 03:30
-            if (driving === "Sport")    timeMin = Math.max(timeMin, 210); // 03:30
-            if (driving === "Eco")      timeMin = Math.max(timeMin, 230); // 03:50
+  transitionTo(`
+    <h2>Step 5 – 400 km segment</h2>
+    <p>You enter a new <b>400 km</b> segment.</p>
+  `);
 
-            step5Segment400();
-          }
-        },
-        { label: "Keep going (aim for the station at 180 km)", action: () => {
-            if (driving === "Sport") { stepBreakdown(); return; }
+  setChoices([
+    {
+      label: "Continue",
+      action: () => {
+        kmDone = 720;
 
-            kmDone = 480;
-            battery = 80;
+        let endTimeWithPenalty, endBattery;
 
-            if (driving === "Balanced") timeMin = Math.max(timeMin, 330); // 05:30
-            if (driving === "Eco")      timeMin = Math.max(timeMin, 350); // 05:50
+        if (driving === "Balanced"){ endTimeWithPenalty = 415; endBattery = 30; } // 06:55
+        if (driving === "Sport"){    endTimeWithPenalty = 345; endBattery = 10; } // 05:45
+        if (driving === "Eco"){      endTimeWithPenalty = 510; endBattery = 55; } // 08:30
 
-            step5Segment400();
-          }
+        if (fromBreakdown){
+          driving = "Sport";
+          endTimeWithPenalty = 345;
+          endBattery = 10;
         }
-      ]);
 
-      updateStats();
+        timeMin = Math.max(timeMin, endTimeWithPenalty);
+        battery = endBattery;
+
+        step6LongBreakCharge();
+      }
     }
+  ]);
+
+  updateStats();
+}
 
     function step6LongBreakCharge(){
       transitionTo(`
