@@ -625,10 +625,11 @@ manufacturer worldwide).</p>
       <p>⚡ Service stations are not always very close to each other.</p>
       <p>🛜 Your vehicle is already connected.</p>
       <p>📱 You have a latest-generation smartphone with access to your vehicle's brand app.</p>
-      <p><br><strong>PLEASE NOTE:</strong> This mission is a simulated journey. Under no circumstances do the calculated data provide results that correspond to reality on the ground. This is a game in which the data are consistent with each other but do not represent reality.</br></p>
+      <p><br><strong>PLEASE NOTE:</strong> This mission is a simulated journey. Under no circumstances do the calculated data provide results that correspond to reality on the ground. This is a game in which the data are consistent with each other but do not represent reality.</br>
+      Sometimes, being a hero is all about playing it safe. </p>
     `);
 
-    setChoices([{ label: "Sometimes, being a hero is all about playing it safe. Let's go! 🚀", action: () => step1VehiclePrep() }]);
+    setChoices([{ label: "Let's go! 🚀", action: () => step1VehiclePrep() }]);
     updateStats();
   }
 
@@ -637,7 +638,8 @@ manufacturer worldwide).</p>
       <h2>Step 1 – Vehicle preparation</h2>
       <p>The mission begins... your commander hands you an envelope containing the key to your electric vehicle, a smartphone, and the phone number.
 When you open the smartphone, you see that you have received a text message with your username and password for your Brand app.</br></p>
-      <p><br>The car is connected and ready to go, and the battery is 50% charged. The only slight problem is that the mission countdown has started...</br></p>
+      <p><br>The car is connected and ready to go, and the battery is 50% charged.</p>
+      <p><br>The only slight problem is that the mission countdown has started...</p>
       <p><strong>What do you do?</strong></p>
     `);
 
@@ -719,7 +721,7 @@ available charging stations.</p>
 
     setChoices([
       {
-        label: "I will stop at the first charging station 20 km away, even if I must wait.",
+        label: "I will stop at the first service station 20 km away, even if I must wait.",
         action: () => {
           stationsChoice = "stop20";
 
@@ -867,7 +869,7 @@ available charging stations.</p>
       <h2>Step 7 – Tire pressure alert</h2>
       <p>There are only 280 km left to reach the laboratory. You are on a beautiful highway, but the weather conditions are poor. It is raining heavily.
 60 km from your destination, you receive a low tire pressure alert.</p><br>
-      <p>Bad luck! You were almost there! You can't acord to make the wrong decision.</p>
+      <p>Bad luck! You were almost there! You can't afford to make the wrong decision</p>
       <p>The highway is in a valley, enclosed in the middle of a canyon, and cell phone reception is poor.</p><br></br>
       <p><strong>What do you do?</strong></p>
     `);
