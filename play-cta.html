@@ -2,191 +2,91 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1.0" />
-<title>Play Scroll CTA</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+<title>Play Anchor Button</title>
 
 <style>
-  :root{
-    --cyan:#0edfe3;
-  }
+html, body {
+    margin: 0;
+    padding: 60px 0; /* marge pour éviter que le halo soit coupé */
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-  html, body{
-    margin:0;
-    padding:0;
-    background:transparent !important;
-    font-family:'Inter', sans-serif;
-  }
+/* BUTTON */
+.play-btn {
+    position: relative;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
 
-  /* Give space so halo never gets clipped in iframe */
-  .cta-wrap{
-    width:100%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:34px 0; /* top/bottom margin for halo */
-    background:transparent;
-    overflow:visible;
-  }
+    color: #0edfe3;
+    text-decoration: none;
 
-  /* Button */
-  .play-btn{
-    position:relative;
-    isolation:isolate;
+    padding: 18px 42px;
+    border-radius: 999px;
+    border: 2px solid rgba(14, 223, 227, 0.85);
 
-    background: rgba(14,223,227,0.06); /* subtle fill for readability on busy bg */
-    border:none;
-    cursor:pointer;
+    background: transparent;
+    cursor: pointer;
 
-    font-family:'Orbitron', sans-serif;
-    font-size:18px;
-    font-weight:900;
-    letter-spacing:4px;
-    text-transform:uppercase;
+    transition: 
+        background 0.35s ease,
+        color 0.35s ease,
+        box-shadow 0.35s ease,
+        transform 0.25s ease;
+}
 
-    color:var(--cyan);
-    padding:16px 42px;
-    border-radius:999px;
-
-    /* Stronger idle visibility (double contour + subtle glow) */
-    box-shadow:
-      0 0 0 1px rgba(14,223,227,0.70) inset,
-      0 0 0 1px rgba(14,223,227,0.40),
-      0 0 18px rgba(14,223,227,0.18);
-
-    backdrop-filter: blur(2px);
-
-    transition:
-      background-color .22s ease,
-      color .22s ease,
-      transform .22s ease,
-      box-shadow .22s ease,
-      filter .22s ease;
-  }
-
-  .play-btn span{
-    position:relative;
-    z-index:1;
-    text-shadow:
-      0 0 6px rgba(14,223,227,0.35),
-      0 1px 0 rgba(0,0,0,0.35); /* improves contrast on image backgrounds */
-  }
-
-  /* Halo (more subtle than before, but still visible) */
-  .play-btn::before{
-    content:"";
-    position:absolute;
-    inset:-18px;
-    border-radius:999px;
-
-    background:
-      radial-gradient(circle at 50% 50%,
-        rgba(14,223,227,0.22),
-        rgba(14,223,227,0.10) 45%,
-        transparent 72%
-      );
-
-    filter: blur(16px);
-    opacity:.7;
-    z-index:-1;
-
-    animation: haloPulse 3.2s ease-in-out infinite;
-    pointer-events:none;
-  }
-
-  /* Micro shine ring */
-  .play-btn::after{
-    content:"";
-    position:absolute;
-    inset:-1px;
-    border-radius:999px;
-    background: linear-gradient(135deg,
-      rgba(255,255,255,0.10),
-      rgba(14,223,227,0.25),
-      rgba(0,0,0,0)
+/* Subtle halo */
+.play-btn::before {
+    content: "";
+    position: absolute;
+    inset: -16px;
+    border-radius: inherit;
+    background: radial-gradient(
+        circle,
+        rgba(14,223,227,0.18),
+        transparent 70%
     );
-    opacity:.22;
-    z-index:0;
-    pointer-events:none;
-    mask: radial-gradient(circle, transparent 56%, #000 57%);
-  }
+    opacity: 0.7;
+    filter: blur(10px);
+    z-index: -1;
+    transition: opacity 0.35s ease;
+}
 
-  @keyframes haloPulse{
-    0%   { transform: scale(0.98); opacity: .55; }
-    45%  { transform: scale(1.03); opacity: .78; }
-    100% { transform: scale(0.98); opacity: .55; }
-  }
-
-  /* Hover state: full cyan + white text */
-  .play-btn:hover{
-    background:var(--cyan);
-    color:#ffffff;
-    transform: translateY(-2px) scale(1.03);
+/* HOVER */
+.play-btn:hover {
+    background: #0edfe3;
+    color: #ffffff;
     box-shadow:
-      0 0 0 1px rgba(255,255,255,0.22) inset,
-      0 0 0 1px rgba(14,223,227,0.55),
-      0 0 26px rgba(14,223,227,0.28);
-    filter:saturate(1.05);
-  }
+        0 0 20px rgba(14,223,227,0.45),
+        0 0 40px rgba(14,223,227,0.25);
+    transform: translateY(-2px);
+}
 
-  .play-btn:hover span{
-    text-shadow:none;
-  }
+.play-btn:hover::before {
+    opacity: 1;
+}
 
-  /* No "active click" shrink; keep same visual on click */
-  .play-btn:active{
-    transform: translateY(-2px) scale(1.03);
-  }
+/* ACTIVE (clic = même état visuel) */
+.play-btn:active {
+    transform: translateY(0);
+}
 </style>
 </head>
 
 <body>
 
-  <div class="cta-wrap">
-    <button class="play-btn" id="playBtn" type="button" aria-label="Play">
-      <span>PLAY</span>
-    </button>
-  </div>
-
-<script>
-/* =========================================================
-   OUT-OF-IFRAME SCROLL (SharePoint)
-   - Scrolls the parent page (outside iframe) by 2000px
-   - Keeps existing SharePoint auto-resize logic
-========================================================= */
-
-(function(){
-  const SCROLL_DELTA = 2000;
-
-  // On click, request parent window to scroll
-  document.getElementById("playBtn").addEventListener("click", () => {
-    try{
-      // Ask parent to scroll (SharePoint page)
-      parent.postMessage({ type: "scrollBy", delta: SCROLL_DELTA }, "*");
-    }catch(e){
-      // Fallback: scroll inside iframe if cross-origin blocks parent access
-      window.scrollBy({ top: SCROLL_DELTA, left: 0, behavior: "smooth" });
-    }
-  });
-
-  // Auto-resize for SharePoint iframe (kept)
-  function sendHeight(){
-    const height = document.documentElement.scrollHeight;
-    parent.postMessage({ type: "resizePlayCTA", height }, "*");
-  }
-  window.addEventListener("load", () => { sendHeight(); setInterval(sendHeight, 900); });
-  window.addEventListener("resize", sendHeight);
-})();
-
-/* =========================================================
-   IMPORTANT (parent-side listener)
-   You must add this listener ON THE SHAREPOINT PAGE (outside iframe):
-   window.addEventListener("message", (e) => {
-     if (e.data?.type === "scrollBy") window.scrollBy({ top: e.data.delta, behavior: "smooth" });
-   });
-========================================================= */
-</script>
+<a
+  class="play-btn"
+  href="/sites/MissionConnectedHeroes_EU/SitePages/Home.aspx#tes"
+  target="_top"
+>
+  PLAY
+</a>
 
 </body>
 </html>
