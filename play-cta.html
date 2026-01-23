@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Play – Scroll CTA</title>
+
+  <!-- Orbitron + Inter (DA globale) -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    html, body{
+      margin:0;
+      padding:0; /* ✅ pas de marges gauche/droite */
+      background: transparent !important;
+      font-family:'Inter', sans-serif;
+      color:#d4e7ff;
+      overflow-x:hidden;
+    }
+
+    /* ===== Demo layout (tu peux garder ou remplacer) ===== */
+    .page{
+      padding: 34px 0 60px; /* padding vertical only */
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:18px;
+    }
+    .wrap{
+      width:min(1100px, 92vw);
+    }
+
+    .header-badge{
+      display:inline-block;
+      padding:6px 14px;
+      font-size:12px;
+      border-radius:20px;
+      border:1px solid #2aa8ff;
+      color:#2aa8ff;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      background: rgba(0,0,0,0.20);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.04);
+      margin-bottom:10px;
+    }
+
+    h1{
+      font-family:'Orbitron', sans-serif;
+      font-size:34px;
+      font-weight:900;
+      letter-spacing:3px;
+      margin:0 0 8px 0;
+      color:#ffffff;
+    }
+
+    .subtitle{
+      margin:0 0 10px 0;
+      color:#b8dfff;
+      line-height:1.7;
+      font-size:15px;
+      max-width: 900px;
+    }
+
+    .card{
+      margin-top: 18px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 22px 24px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.35);
+    }
+
+    /* ===== PLAY BUTTON (immersive) ===== */
+    .play-cta{
+      margin-top: 18px;
+      width:100%;
+      display:flex;
+      justify-content:center;
+    }
+
+    .play-btn{
+      position:relative;
+      isolation:isolate;
+      border:0;
+      cursor:pointer;
+
+      font-family:'Orbitron', sans-serif;
+      font-size:18px;
+      font-weight:900;
+      letter-spacing:3px;
+      text-transform:uppercase;
+
+      padding: 18px 44px;
+      border-radius: 22px;
+      color:#ffffff;
+
+      background: linear-gradient(135deg, rgba(25,223,255,0.95), rgba(42,168,255,0.95));
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.22) inset,
+        0 0 22px rgba(25,223,255,0.35),
+        0 0 42px rgba(42,168,255,0.18);
+      transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+      outline:none;
+    }
+
+    /* halo blur around */
+    .play-btn::before{
+      content:"";
+      position:absolute;
+      inset:-18px;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(25,223,255,0.55), rgba(25,223,255,0.0) 60%),
+        radial-gradient(circle at 70% 80%, rgba(42,168,255,0.45), rgba(42,168,255,0.0) 65%);
+      filter: blur(16px);
+      opacity: 0.85;
+      z-index:-1;
+      animation: haloPulse 2.6s ease-in-out infinite;
+      transition: opacity .25s ease, filter .25s ease, transform .25s ease;
+    }
+
+    /* shimmer line */
+    .play-btn::after{
+      content:"";
+      position:absolute;
+      top:-2px;
+      bottom:-2px;
+      left:-30%;
+      width:40%;
+      border-radius: 24px;
+      background: linear-gradient(90deg,
+        rgba(255,255,255,0.0),
+        rgba(255,255,255,0.38),
+        rgba(255,255,255,0.0)
+      );
+      transform: skewX(-18deg);
+      opacity: 0.75;
+      z-index: 0;
+      animation: shimmer 2.2s ease-in-out infinite;
+      pointer-events:none;
+    }
+
+    /* text above effects */
+    .play-btn span{
+      position:relative;
+      z-index:2;
+      text-shadow: 0 0 18px rgba(25,223,255,0.25);
+    }
+
+    .play-btn:hover{
+      transform: translateY(-2px) scale(1.02);
+      filter: brightness(1.08);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.28) inset,
+        0 0 30px rgba(25,223,255,0.55),
+        0 0 58px rgba(42,168,255,0.22);
+    }
+    .play-btn:hover::before{
+      opacity: 1;
+      filter: blur(18px);
+      transform: scale(1.03);
+    }
+
+    .play-btn:active{
+      transform: translateY(0px) scale(0.995);
+      filter: brightness(1.02);
+    }
+
+    @keyframes haloPulse{
+      0%   { transform: scale(1);   opacity: 0.75; }
+      45%  { transform: scale(1.03); opacity: 1;   }
+      100% { transform: scale(1);   opacity: 0.78; }
+    }
+
+    @keyframes shimmer{
+      0%   { left:-35%; opacity:0.0; }
+      20%  { opacity:0.75; }
+      55%  { opacity:0.35; }
+      100% { left:110%; opacity:0.0; }
+    }
+
+    /* subtle appear animation */
+    .fade-up{
+      opacity:0;
+      transform: translateY(14px);
+      animation: fadeUp 700ms ease forwards;
+    }
+    @keyframes fadeUp{
+      to { opacity:1; transform: translateY(0); }
+    }
+
+    /* bottom target (virtual anchor) */
+    .bottom-target{
+      margin-top: 48px;
+      padding: 18px 18px;
+      border-radius: 16px;
+      border: 1px dashed rgba(25,223,255,0.28);
+      background: rgba(0,0,0,0.25);
+      color: rgba(212,231,255,0.92);
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <div class="wrap fade-up">
+      <div class="header-badge">Mission: Connected Heroes</div>
+      <h1>Scroll CTA</h1>
+      <p class="subtitle">
+        Click <b>PLAY</b> to smoothly scroll to the bottom of the page (virtual anchor).  
+        Compatible SharePoint iframe (auto-resize kept).
+      </p>
+
+      <div class="card">
+        <div class="play-cta">
+          <button id="playScroll" class="play-btn" type="button" aria-label="Play">
+            <span>PLAY</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- (Optionnel) contenu pour créer de la hauteur -->
+      <div class="card" style="margin-top:16px;">
+        <p style="margin:0; color:#b8dfff; line-height:1.7;">
+          Add your existing page content here. The button will scroll to the bottom target block.
+        </p>
+      </div>
+
+      <div style="height:520px;"></div>
+
+      <!-- Virtual anchor target -->
+      <div id="bottom" class="bottom-target">
+        <b>Bottom reached.</b> This is the “virtual anchor” area.
+      </div>
+    </div>
+  </main>
+
+  <script>
+    /* =========================================
+       PLAY → Smooth scroll to virtual anchor
+    ========================================= */
+    const btn = document.getElementById("playScroll");
+    const target = document.getElementById("bottom");
+
+    btn.addEventListener("click", () => {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      // SharePoint iframe: refresh height after scroll + animations
+      setTimeout(sendHeight, 350);
+      setTimeout(sendHeight, 900);
+    });
+
+    /* =========================================
+       SharePoint iframe auto-resize (standard)
+    ========================================= */
+    function sendHeight() {
+      const height = document.documentElement.scrollHeight;
+      parent.postMessage({ type: "resizePlayCTA", height: height }, "*");
+    }
+
+    window.addEventListener("load", () => {
+      sendHeight();
+      setInterval(sendHeight, 900);
+    });
+    window.addEventListener("resize", sendHeight);
+  </script>
+</body>
+</html>
