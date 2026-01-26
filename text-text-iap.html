@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mission: Connected Heroes – Join the Mission</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --blue:#2aa8ff;
+    --cyan:#0edfe3;
+
+    --text:#d4e7ff;
+    --muted:#b8dfff;
+    --white:#ffffff;
+
+    /* Orange previous vibe */
+    --orange:#f6c35a;
+    --orangeHover:#ffd27a;
+
+    --cardBg: rgba(255,255,255,0.06);
+    --cardBorder: rgba(255,255,255,0.10);
+
+    --shadow: 0 0 20px rgba(0,0,0,0.35);
+  }
+
+  html, body{
+    margin:0;
+    padding:40px 40px 80px;
+    background:transparent !important;
+    font-family:'Inter', sans-serif;
+    color:var(--text);
+    overflow-x:hidden;
+  }
+
+  /* =====================
+     HEADER (same layout as "Challenge Rules")
+  ===================== */
+  .header{
+    max-width:1100px;
+    margin: 0 auto 22px;
+  }
+
+  .header-badge{
+    display:inline-block;
+    padding:8px 18px;
+    font-size:13px;
+    border-radius:999px;
+    border:1px solid var(--blue);
+    color:var(--blue);
+    letter-spacing:1.4px;
+    text-transform:uppercase;
+    background: rgba(0,0,0,0.18);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.04);
+    margin-bottom:18px;
+  }
+
+  .header h1{
+    font-family:'Orbitron', sans-serif;
+    font-size:24px;
+    font-weight:800;
+    letter-spacing:2px;
+    color:var(--white);
+    margin: 0 0 18px 0;
+  }
+
+  .header p{
+    margin:0;
+    max-width: 1050px;
+    font-size:18px;
+    line-height:1.55;
+    color: rgba(212,231,255,0.92);
+  }
+
+  /* =====================
+     CARDS (hover + reveal)
+  ===================== */
+  .card{
+    max-width:1100px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, rgba(15,223,227,0.10), rgba(20,40,90,0.55));
+    border: 1px solid rgba(15,223,227,0.28);
+    border-radius: 24px;
+    padding: 34px 40px;
+    backdrop-filter: blur(12px);
+    box-shadow: var(--shadow);
+
+    /* reveal */
+    opacity:0;
+    transform: translateY(18px);
+    animation: fadeUp 0.75s ease-out forwards;
+    animation-delay: 0.15s;
+
+    /* hover */
+    transition: transform .32s ease, box-shadow .32s ease, border-color .32s ease;
+  }
+
+  .card:hover{
+    transform: translateY(-2px) scale(1.012);
+    border-color: rgba(14,223,227,0.55);
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.08),
+      0 0 34px rgba(14,223,227,0.22);
+  }
+
+  .card p{
+    margin:0;
+    text-align:center;
+    font-size: 16px;
+    line-height:1.65;
+    font-weight:500;
+    color:#c9f8ff;
+    text-shadow: 0 0 12px rgba(15,223,227,0.18);
+  }
+
+  @keyframes fadeUp{
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  /* =====================
+     SCROLL BEACON
+  ===================== */
+  .scroll-beacon{
+    position:relative;
+    margin: 26px auto 34px;
+    width: 40px;
+    height: 86px; /* more space so it never gets cut */
+    display:flex;
+    justify-content:center;
+  }
+
+  .scroll-dot{
+    position:absolute;
+    top: 14px;
+    width:10px;height:10px;
+    background: var(--cyan);
+    border-radius:50%;
+    box-shadow: 0 0 10px rgba(14,223,227,0.55);
+    animation: pulse 1.8s infinite;
+  }
+
+  .scroll-line{
+    position:absolute;
+    top: 18px;
+    width:2px;
+    height: 56px;
+    border-radius: 2px;
+    background: linear-gradient(to bottom, rgba(14,223,227,0), rgba(14,223,227,0.85), rgba(14,223,227,0));
+    animation: flow 1.8s infinite;
+  }
+
+  @keyframes pulse{
+    0% { transform: scale(1); opacity: .35; }
+    40%{ transform: scale(1.35); opacity: 1; }
+    100%{ transform: scale(1); opacity: .35; }
+  }
+  @keyframes flow{
+    0% { transform: translateY(-8px); opacity: 0; }
+    50%{ opacity: 1; }
+    100%{ transform: translateY(14px); opacity: 0; }
+  }
+
+  /* =====================
+     REGISTER CARD (same look as main card + hover)
+  ===================== */
+  .register-card{
+    max-width:1100px;
+    margin: 0 auto;
+    padding: 30px 36px;
+
+    background: linear-gradient(135deg, rgba(15,223,227,0.10), rgba(20,40,90,0.55));
+    border: 1px solid rgba(15,223,227,0.28);
+    border-radius: 24px;
+    backdrop-filter: blur(12px);
+    box-shadow: var(--shadow);
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap: 22px;
+
+    transition: transform .32s ease, box-shadow .32s ease, border-color .32s ease;
+  }
+
+  .register-card:hover{
+    transform: translateY(-2px) scale(1.012);
+    border-color: rgba(14,223,227,0.55);
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.08),
+      0 0 34px rgba(14,223,227,0.22);
+  }
+
+  .register-card .txt{
+    margin:0;
+    font-family:'Inter', sans-serif;
+    font-size:16px; /* ✅ reduced (same scale as main block text) */
+    font-weight:600;
+    color:#c9f8ff;
+    letter-spacing:0.2px;
+  }
+
+  /* REGISTER BUTTON (orange previous + white text) */
+  .register-btn{
+    font-family:'Orbitron', sans-serif;
+    font-size:16px;
+    font-weight:900;
+    letter-spacing:2px;
+    padding: 18px 46px;
+    border-radius: 999px;
+
+    background: #ffb027;
+    color: #ffffff; /* ✅ white */
+    text-decoration:none;
+
+    border: 1px solid rgba(255,255,255,0.18);
+    box-shadow: 0 0 22px rgba(246,195,90,0.45);
+
+    transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+    white-space:nowrap;
+  }
+
+  .register-btn:hover{
+    transform: translateY(-2px);
+    background: #ffb027;
+    box-shadow: 0 0 30px rgba(246,195,90,0.65);
+  }
+</style>
+</head>
+
+<body>
+
+  <!-- HEADER (Challenge Rules style) -->
+  <header class="header">
+    <div class="header-badge">MISSION: CONNECTED HEROES · JOIN THE MISSION</div>
+    <h1>Join the Mission</h1>
+  </header>
+
+  <!-- MAIN TEXT CARD -->
+  <section class="card">
+    <p>
+      Become a Stellantis Connected Services hero by taking on our exceptional challenge:
+      learn, practice, innovate, and create to rise to the top of the elite finalist superheroes who will compete for
+      exclusive motorsport experiences in this unprecedented online adventure!
+    </p>
+  </section>
+
+  <!-- SCROLL BEACON under main text -->
+  <div class="scroll-beacon" aria-hidden="true">
+    <div class="scroll-dot"></div>
+    <div class="scroll-line"></div>
+  </div>
+
+  <!-- REGISTER CARD -->
+  <section class="register-card">
+    <p class="txt">But have you registered first?</p>
+    <a
+      class="register-btn"
+      href="https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_IAP/SitePages/Register.aspx"
+      target="_blank"
+      rel="noopener"
+    >
+      REGISTER
+    </a>
+  </section>
+
+  <script>
+    /* SharePoint iframe auto-resize */
+    function sendHeight() {
+      parent.postMessage(
+        { type: "resizeJoinMission", height: document.documentElement.scrollHeight },
+        "*"
+      );
+    }
+    window.addEventListener("load", () => { sendHeight(); setInterval(sendHeight, 800); });
+    window.addEventListener("resize", sendHeight);
+  </script>
+
+</body>
+</html>
