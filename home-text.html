@@ -1,278 +1,252 @@
-<!-- ✅ Page name: home-text-eu-with-register-cta.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Mission: Connected Heroes – Home Text</title>
+<title>Mission: Connected Heroes – Introduction</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
 html, body {
-  margin: 0;
-  padding: 0 40px 60px;
-  background: transparent !important;
-  font-family: 'Inter', sans-serif;
-  color: #d4e7ff;
+    margin: 0;
+    padding: 40px 40px 70px;
+    background: transparent !important;
+    font-family: 'Inter', sans-serif;
+    color: #d4e7ff;
 }
 
 /* =====================
    TITLE
 ===================== */
-.page-title{
-  max-width:1100px;
-  margin: 34px auto 18px;
-}
-.header-badge{
-  display:inline-block;
-  padding:6px 14px;
-  font-size:12px;
-  border-radius:20px;
-  border:1px solid #2aa8ff;
-  color:#2aa8ff;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  background: rgba(0,0,0,0.20);
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.04);
-  margin-bottom:12px;
-}
-h1{
-  margin:0;
-  font-family:'Orbitron', sans-serif;
-  font-weight:900;
-  letter-spacing:3px;
-  color:#ffffff;
-  font-size:40px;
+.page-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-align: center;
+    margin-bottom: 28px;
+    color: #ffffff;
 }
 
 /* =====================
-   TEXT CARD (ANIMATED)
+   MAIN CONTENT CARD
 ===================== */
 .content-card {
-  margin: 0 auto;
-  max-width: 1100px;
-  padding: 30px 36px;
+    margin: 0 auto;
+    max-width: 1100px;
+    padding: 34px 38px;
+    background: linear-gradient(
+        135deg,
+        rgba(15,223,227,0.14),
+        rgba(20,40,90,0.65)
+    );
+    border-radius: 22px;
+    border: 1px solid rgba(15,223,227,0.35);
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,0.05),
+        0 0 28px rgba(15,223,227,0.18);
 
-  background: linear-gradient(
-    135deg,
-    rgba(15,223,227,0.14),
-    rgba(20,40,90,0.65)
-  );
-  border-radius: 20px;
-  border: 1px solid rgba(15,223,227,0.35);
-  backdrop-filter: blur(12px);
+    opacity: 0;
+    transform: translateY(26px);
+    animation: fadeUp 0.8s ease-out forwards;
+    animation-delay: 0.15s;
 
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.05),
-    0 0 26px rgba(15,223,227,0.18);
-
-  /* Fade-in from bottom */
-  opacity: 0;
-  transform: translateY(24px);
-  animation: fadeUp 0.85s ease-out forwards;
-  animation-delay: 0.15s;
-
-  /* Hover prep */
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
-/* Hover subtle scale */
 .content-card:hover {
-  transform: translateY(-2px) scale(1.015);
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.08),
-    0 0 36px rgba(15,223,227,0.35);
-}
-
-@keyframes fadeUp {
-  to { opacity: 1; transform: translateY(0); }
+    transform: translateY(-2px) scale(1.015);
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,0.08),
+        0 0 38px rgba(15,223,227,0.35);
 }
 
 .content-card p {
-  margin: 0;
-  font-size: 16.5px;
-  line-height: 1.65;
-  font-weight: 500;
-  text-align: center;
-  color: #c9f8ff;
-  text-shadow: 0 0 12px rgba(15,223,227,0.25);
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.7;
+    font-weight: 500;
+    text-align: center;
+    color: #c9f8ff;
+    text-shadow: 0 0 14px rgba(15,223,227,0.25);
 }
 
 /* =====================
-   SCROLL BEACON (NOW BELOW TEXT)
+   SCROLL BEACON
 ===================== */
 .scroll-beacon {
-  position: relative;
-  margin: 18px auto 26px;
-  width: 40px;
-  height: 70px;
-  display: flex;
-  justify-content: center;
+    position: relative;
+    margin: 26px auto 42px;
+    width: 42px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
 }
 
 .scroll-dot {
-  position: absolute;
-  top: 10px;
-  width: 10px;
-  height: 10px;
-  background: #0FDFE3;
-  border-radius: 50%;
-  box-shadow: 0 0 14px rgba(15,223,227,0.75);
-  animation: pulse 1.8s infinite;
+    position: absolute;
+    top: 10px;
+    width: 11px;
+    height: 11px;
+    background: #0FDFE3;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(15,223,227,0.55);
+    animation: pulse 1.8s infinite;
 }
 
 .scroll-line {
-  position: absolute;
-  top: 14px;
-  width: 2px;
-  height: 46px;
-  background: linear-gradient(
-    to bottom,
-    rgba(15,223,227,0.0),
-    rgba(15,223,227,0.9),
-    rgba(15,223,227,0.0)
-  );
-  animation: flow 1.8s infinite;
-  border-radius: 2px;
+    position: absolute;
+    top: 16px;
+    width: 2px;
+    height: 50px;
+    background: linear-gradient(
+        to bottom,
+        rgba(15,223,227,0.0),
+        rgba(15,223,227,0.75),
+        rgba(15,223,227,0.0)
+    );
+    animation: flow 1.8s infinite;
+    border-radius: 2px;
 }
 
 @keyframes pulse {
-  0%   { transform: scale(1); opacity: 0.35; }
-  40%  { transform: scale(1.35); opacity: 0.95; }
-  80%  { transform: scale(1); opacity: 0.55; }
-  100% { opacity: 0.35; }
+    0%   { transform: scale(1); opacity: 0.35; }
+    40%  { transform: scale(1.35); opacity: 1; }
+    80%  { transform: scale(1); opacity: 0.6; }
+    100% { opacity: 0.35; }
 }
 
 @keyframes flow {
-  0%   { transform: translateY(-8px); opacity: 0; }
-  30%  { opacity: 1; }
-  70%  { opacity: 1; }
-  100% { transform: translateY(12px); opacity: 0; }
+    0%   { transform: translateY(-8px); opacity: 0; }
+    30%  { opacity: 1; }
+    70%  { opacity: 1; }
+    100% { transform: translateY(14px); opacity: 0; }
 }
 
 /* =====================
-   REGISTER CTA (LIKE YOUR SCREENSHOT)
+   REGISTER SECTION (SAME DESIGN)
 ===================== */
-.register-cta{
-  max-width:1100px;
-  margin: 0 auto;
-  padding: 20px 22px;
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(0,0,0,0.25);
-  backdrop-filter: blur(10px);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:16px;
+.register-card {
+    margin: 0 auto;
+    max-width: 1100px;
+    padding: 30px 34px;
+    background: linear-gradient(
+        135deg,
+        rgba(15,223,227,0.14),
+        rgba(20,40,90,0.65)
+    );
+    border-radius: 22px;
+    border: 1px solid rgba(15,223,227,0.35);
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,0.05),
+        0 0 28px rgba(15,223,227,0.18);
 
-  opacity:0;
-  transform: translateY(18px);
-  animation: fadeUp 0.85s ease-out forwards;
-  animation-delay: 0.25s;
-
-  transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
-}
-.register-cta:hover{
-  transform: translateY(-2px);
-  border-color: rgba(15,223,227,0.25);
-  box-shadow: 0 0 26px rgba(15,223,227,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
 }
 
-.register-cta .cta-text{
-  font-size: 22px;
-  font-weight: 500;
-  color:#ffffff;
-  letter-spacing:0.2px;
+.register-card h2 {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 26px;
+    letter-spacing: 2px;
+    color: #ffffff;
 }
 
-/* Button style (Register page vibe) */
-.btn-register{
-  display:inline-block;
-  text-decoration:none;
-  font-family:'Orbitron', sans-serif;
-  font-size:14px;
-  font-weight:900;
-  letter-spacing:1.6px;
-  text-transform:uppercase;
-  padding: 14px 22px;
-  border-radius: 14px;
-  background: #f5b33b;
-  color:#1b1204;
-  border: 1px solid rgba(245,179,59,0.65);
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 0 18px rgba(245,179,59,0.20);
-  transition: transform .22s ease, box-shadow .22s ease, filter .22s ease;
-  white-space:nowrap;
+/* =====================
+   REGISTER BUTTON (FROM registration-required.html)
+===================== */
+.btn-register {
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    padding: 16px 36px;
+    border-radius: 22px;
+    background: #FFB93A;
+    color: #1b1400;
+
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,0.15),
+        0 0 22px rgba(255,185,58,0.45);
+
+    transition: all 0.25s ease;
 }
-.btn-register:hover{
-  transform: translateY(-2px);
-  filter: brightness(1.06);
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 0 24px rgba(245,179,59,0.32);
+
+.btn-register:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,0.25),
+        0 0 32px rgba(255,185,58,0.75);
 }
-.btn-register:active{
-  transform: translateY(0);
+
+/* =====================
+   ANIMATIONS
+===================== */
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- TITLE -->
-<div class="page-title">
-  <div class="header-badge">Mission: Connected Heroes</div>
-  <h1>Start Here</h1>
-</div>
+<h1 class="page-title">Join the Mission</h1>
 
-<!-- TEXT -->
+<!-- MAIN TEXT -->
 <div class="content-card">
-  <p>
-    Become a Stellantis Connected Services hero by taking on our exceptional challenge:
-    learn, practice, innovate, and create to rise to the top of the elite finalist superheroes
-    who will compete for exclusive motorsport experiences in this unprecedented online adventure!
-  </p>
+    <p>
+        Become a Stellantis Connected Services hero by taking on our exceptional challenge:
+        learn, practice, innovate, and create to rise to the top of the elite finalist superheroes
+        who will compete for exclusive motorsport experiences in this unprecedented online adventure!
+    </p>
 </div>
 
-<!-- SCROLL BEACON (moved under main text) -->
+<!-- SCROLL INDICATOR -->
 <div class="scroll-beacon" aria-hidden="true">
-  <div class="scroll-dot"></div>
-  <div class="scroll-line"></div>
+    <div class="scroll-dot"></div>
+    <div class="scroll-line"></div>
 </div>
 
-<!-- REGISTER CTA -->
-<div class="register-cta">
-  <div class="cta-text">But have you register first?</div>
-  <a class="btn-register"
-     href="https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_EU/SitePages/Register.aspx"
-     target="_blank"
-     rel="noopener">
-     REGISTER
-  </a>
+<!-- REGISTER SECTION -->
+<div class="register-card">
+    <h2>But have you registered first?</h2>
+
+    <a
+        class="btn-register"
+        href="https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_EU/SitePages/Register.aspx"
+        target="_blank"
+        rel="noopener"
+    >
+        Register
+    </a>
 </div>
 
 <script>
-/* SharePoint iframe auto-resize */
+/* =========================================
+   SHAREPOINT IFRAME AUTO-RESIZE
+========================================= */
 function sendHeight() {
-  parent.postMessage(
-    { type: "resizeHomeText", height: document.documentElement.scrollHeight },
-    "*"
-  );
+    parent.postMessage(
+        { type: "resizeHomeIntro", height: document.documentElement.scrollHeight },
+        "*"
+    );
 }
-window.onload = sendHeight;
-window.onresize = sendHeight;
-setInterval(sendHeight, 800);
 
-/* Optional: hide scroll beacon after first scroll */
-let beaconHidden = false;
-window.addEventListener("scroll", () => {
-  if (!beaconHidden && window.scrollY > 40) {
-    const beacon = document.querySelector(".scroll-beacon");
-    if (beacon) {
-      beacon.style.opacity = "0";
-      beacon.style.transition = "opacity 0.4s ease";
-      beaconHidden = true;
-    }
-  }
+window.addEventListener("load", () => {
+    sendHeight();
+    setInterval(sendHeight, 800);
 });
+window.addEventListener("resize", sendHeight);
 </script>
 
 </body>
