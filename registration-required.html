@@ -2,251 +2,151 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Mission: Connected Heroes – Introduction</title>
+<title>Registration Required – South America</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 <style>
 html, body {
     margin: 0;
-    padding: 40px 40px 70px;
+    padding: 40px;
     background: transparent !important;
     font-family: 'Inter', sans-serif;
     color: #d4e7ff;
+    line-height: 1.65;
 }
 
-/* =====================
-   TITLE
-===================== */
-.page-title {
+/* Header */
+.header-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    font-size: 12px;
+    border-radius: 20px;
+    border: 1px solid #2aa8ff;
+    color: #2aa8ff;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+h1 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 38px;
+    font-size: 40px;
     font-weight: 800;
     letter-spacing: 3px;
-    text-align: center;
-    margin-bottom: 28px;
     color: #ffffff;
+    margin: 0 0 24px 0;
 }
 
-/* =====================
-   MAIN CONTENT CARD
-===================== */
+/* Card */
 .content-card {
-    margin: 0 auto;
+    margin-top: 24px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 32px 36px;
+    backdrop-filter: blur(10px);
     max-width: 1100px;
-    padding: 34px 38px;
-    background: linear-gradient(
-        135deg,
-        rgba(15,223,227,0.14),
-        rgba(20,40,90,0.65)
-    );
-    border-radius: 22px;
-    border: 1px solid rgba(15,223,227,0.35);
-    box-shadow:
-        0 0 0 1px rgba(255,255,255,0.05),
-        0 0 28px rgba(15,223,227,0.18);
-
-    opacity: 0;
-    transform: translateY(26px);
-    animation: fadeUp 0.8s ease-out forwards;
-    animation-delay: 0.15s;
-
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
-}
-
-.content-card:hover {
-    transform: translateY(-2px) scale(1.015);
-    box-shadow:
-        0 0 0 1px rgba(255,255,255,0.08),
-        0 0 38px rgba(15,223,227,0.35);
 }
 
 .content-card p {
     margin: 0;
     font-size: 17px;
-    line-height: 1.7;
-    font-weight: 500;
-    text-align: center;
-    color: #c9f8ff;
-    text-shadow: 0 0 14px rgba(15,223,227,0.25);
 }
 
-/* =====================
-   SCROLL BEACON
-===================== */
-.scroll-beacon {
-    position: relative;
-    margin: 26px auto 42px;
-    width: 42px;
-    height: 80px;
+/* Highlight mandatory text */
+.highlight {
+    color: #2cc8ff;
+    font-weight: 700;
+}
+
+/* Buttons container */
+.btn-wrapper {
+    margin-top: 40px;
     display: flex;
     justify-content: center;
+    gap: 28px;
 }
 
-.scroll-dot {
-    position: absolute;
-    top: 10px;
-    width: 11px;
-    height: 11px;
-    background: #0FDFE3;
-    border-radius: 50%;
-    box-shadow: 0 0 10px rgba(15,223,227,0.55);
-    animation: pulse 1.8s infinite;
-}
-
-.scroll-line {
-    position: absolute;
-    top: 16px;
-    width: 2px;
-    height: 50px;
-    background: linear-gradient(
-        to bottom,
-        rgba(15,223,227,0.0),
-        rgba(15,223,227,0.75),
-        rgba(15,223,227,0.0)
-    );
-    animation: flow 1.8s infinite;
-    border-radius: 2px;
-}
-
-@keyframes pulse {
-    0%   { transform: scale(1); opacity: 0.35; }
-    40%  { transform: scale(1.35); opacity: 1; }
-    80%  { transform: scale(1); opacity: 0.6; }
-    100% { opacity: 0.35; }
-}
-
-@keyframes flow {
-    0%   { transform: translateY(-8px); opacity: 0; }
-    30%  { opacity: 1; }
-    70%  { opacity: 1; }
-    100% { transform: translateY(14px); opacity: 0; }
-}
-
-/* =====================
-   REGISTER SECTION (SAME DESIGN)
-===================== */
-.register-card {
-    margin: 0 auto;
-    max-width: 1100px;
-    padding: 30px 34px;
-    background: linear-gradient(
-        135deg,
-        rgba(15,223,227,0.14),
-        rgba(20,40,90,0.65)
-    );
-    border-radius: 22px;
-    border: 1px solid rgba(15,223,227,0.35);
-    box-shadow:
-        0 0 0 1px rgba(255,255,255,0.05),
-        0 0 28px rgba(15,223,227,0.18);
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    flex-wrap: wrap;
-}
-
-.register-card h2 {
-    margin: 0;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 26px;
-    letter-spacing: 2px;
-    color: #ffffff;
-}
-
-/* =====================
-   REGISTER BUTTON (FROM registration-required.html)
-===================== */
-.btn-register {
+/* Buttons */
+.btn {
+    display: inline-block;
     text-decoration: none;
     font-family: 'Orbitron', sans-serif;
-    font-size: 18px;
-    font-weight: 900;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-
-    padding: 16px 36px;
-    border-radius: 22px;
-    background: #FFB93A;
-    color: #1b1400;
-
-    box-shadow:
-        0 0 0 1px rgba(255,255,255,0.15),
-        0 0 22px rgba(255,185,58,0.45);
-
-    transition: all 0.25s ease;
+    font-size: 20px;
+    font-weight: 700;
+    padding: 18px 42px;
+    border-radius: 20px;
+    color: #fff;
+    transition: 0.25s ease;
 }
 
+/* Orange button */
+.btn-register {
+    background: #ffb027;
+}
 .btn-register:hover {
+    background: #ffc75a;
     transform: translateY(-2px);
-    box-shadow:
-        0 0 0 1px rgba(255,255,255,0.25),
-        0 0 32px rgba(255,185,58,0.75);
 }
 
-/* =====================
-   ANIMATIONS
-===================== */
-@keyframes fadeUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Blue button */
+.btn-continue {
+    background: #19dfff;
 }
+.btn-continue:hover {
+    background: #4be9ff;
+    transform: translateY(-2px);
+}
+
 </style>
 </head>
 
 <body>
+<a id="top"></a>
 
-<h1 class="page-title">Join the Mission</h1>
+<div class="header-badge">Mission: Connected Heroes</div>
+<h1>Registration Required</h1>
 
-<!-- MAIN TEXT -->
 <div class="content-card">
     <p>
-        Become a Stellantis Connected Services hero by taking on our exceptional challenge:
-        learn, practice, innovate, and create to rise to the top of the elite finalist superheroes
-        who will compete for exclusive motorsport experiences in this unprecedented online adventure!
+        To join the Mission: Connected Heroes challenge,  
+        <span class="highlight">registration is mandatory.</span>  
+        Without it, you will not be able to access the missions, earn points, or qualify for the exclusive international rewards.
+        <br><br>
+        Take a moment to register now — or continue if you are already part of the league.  
+        Your heroic journey starts here!
     </p>
-</div>
 
-<!-- SCROLL INDICATOR -->
-<div class="scroll-beacon" aria-hidden="true">
-    <div class="scroll-dot"></div>
-    <div class="scroll-line"></div>
-</div>
+    <div class="btn-wrapper">
 
-<!-- REGISTER SECTION -->
-<div class="register-card">
-    <h2>But have you registered first?</h2>
+        <!-- REGISTER (opens new tab) -->
+        <a href="https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_EU/SitePages/Register.aspx"
+           class="btn btn-register"
+           target="_blank"
+           rel="noopener noreferrer">
+           REGISTER
+        </a>
 
-    <a
-        class="btn-register"
-        href="https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_EU/SitePages/Register.aspx"
-        target="_blank"
-        rel="noopener"
-    >
-        Register
-    </a>
+        <!-- CONTINUE (opens new tab) -->
+        <a href="https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_EU/SitePages/Missions.aspx"
+           class="btn btn-continue"
+           target="_blank"
+           rel="noopener noreferrer">
+           CONTINUE IF REGISTERED
+        </a>
+
+    </div>
 </div>
 
 <script>
-/* =========================================
-   SHAREPOINT IFRAME AUTO-RESIZE
-========================================= */
 function sendHeight() {
-    parent.postMessage(
-        { type: "resizeHomeIntro", height: document.documentElement.scrollHeight },
-        "*"
-    );
+    const height = document.documentElement.scrollHeight;
+    parent.postMessage({ type: "resizeRegister", height: height }, "*");
 }
-
-window.addEventListener("load", () => {
-    sendHeight();
-    setInterval(sendHeight, 800);
-});
-window.addEventListener("resize", sendHeight);
+window.onload = sendHeight;
+window.onresize = sendHeight;
+setInterval(sendHeight, 800);
 </script>
 
 </body>
