@@ -106,44 +106,67 @@
 
     /* CTA buttons row */
     .cta-wrap{
-      margin-top: 16px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-    @media (min-width: 860px){
-      .cta-wrap{ grid-template-columns: 1fr 1fr 1fr; }
-    }
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  align-items: stretch;
+}
 
-    .cta-btn{
-      width:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
+@media (min-width: 860px){
+  .cta-wrap{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+}
 
-      text-decoration:none;
-      font-family:'Orbitron', sans-serif;
-      font-weight:900;
-      letter-spacing:2px;
-      text-transform:uppercase;
+/* IMPORTANT: keep buttons inside the card */
+.message-card{
+  overflow: hidden; /* prevent visual overflow */
+}
 
-      padding:14px 14px;
-      border-radius:16px;
+/* Buttons */
+.cta-btn{
+  width: 100%;
+  min-width: 0;               /* ✅ prevents grid overflow */
+  box-sizing: border-box;     /* ✅ keep borders inside width */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 
-      background: rgba(0,0,0,0.30);
-      border: 1px solid rgba(255,255,255,0.10);
-      color:#ffffff;
+  text-decoration: none;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.04);
+  padding: 14px 14px;
+  border-radius: 16px;
 
-      transform: translateY(0);
-      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease;
-      position:relative;
-      overflow:hidden;
-    }
+  background: rgba(0,0,0,0.30);
+  border: 1px solid rgba(255,255,255,0.10);
+  color: #ffffff;
 
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.04);
+
+  transform: translateY(0);
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease;
+  position: relative;
+  overflow: hidden;           /* ✅ keeps sheen inside */
+}
+
+/* Ensure label never forces overflow */
+.cta-label{
+  font-size: 14px;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
     /* subtle animated sheen */
     .cta-btn::after{
       content:"";
