@@ -3,42 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>Mission 3 – Challenge 1</title>
+  <title>The Laboratory · Challenge #1</title>
 
-  <!-- Orbitron + Inter (DA globale) -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --blue:#2aa8ff;
-      --cyan:#19dfff;
-      --text:#d4e7ff;
-      --muted:#b8dfff;
-      --title:#ffffff;
+      --bg: #071a3a;
+      --text: #d4e7ff;
+      --muted: rgba(212,231,255,0.78);
+      --muted2: rgba(212,231,255,0.64);
+      --title: #ffffff;
+
+      --cyan: #19dfff;
+      --blue: #2aa8ff;
+
       --card: rgba(255,255,255,0.06);
-      --cardBorder: rgba(255,255,255,0.08);
+      --cardBorder: rgba(255,255,255,0.10);
+
       --shadow: 0 0 20px rgba(0,0,0,0.35);
     }
 
     html, body{
       margin:0;
       padding:40px;
-      background:transparent !important;
-      font-family:'Inter', sans-serif;
-      color:var(--text);
-      line-height:1.65;
+      background: transparent !important;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
       overflow-x:hidden;
     }
 
-    /* Header badge */
     .header-badge{
       display:inline-block;
       padding:6px 14px;
       font-size:12px;
-      border-radius:999px;
+      border-radius:20px;
       border:1px solid var(--blue);
       color:var(--blue);
-      margin-bottom:14px;
+      margin-bottom:16px;
       letter-spacing:1px;
       text-transform:uppercase;
       background: rgba(0,0,0,0.20);
@@ -47,59 +49,84 @@
 
     h1{
       font-family:'Orbitron', sans-serif;
-      font-size:54px;
+      font-size:52px;
       font-weight:900;
       letter-spacing:2px;
       color:var(--title);
-      margin:0 0 10px 0;
+      margin:0 0 12px 0;
     }
 
+    /* Improved subtitle (mission-like) */
     .subtitle{
       max-width:1100px;
-      color:var(--muted);
-      margin:0 0 26px 0;
-      font-size:22px;
-      font-weight:500;
+      margin:0 0 28px 0;
+      color: var(--muted);
+      font-size:20px;
+      line-height:1.55;
+      position:relative;
+      padding-left:14px;
+    }
+    .subtitle::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:6px;
+      bottom:6px;
+      width:3px;
+      border-radius:999px;
+      background: linear-gradient(to bottom, rgba(25,223,255,0.0), rgba(25,223,255,0.95), rgba(25,223,255,0.0));
+      box-shadow: 0 0 18px rgba(25,223,255,0.25);
     }
 
-    /* Main layout */
     .wrap{
-      max-width: 1200px;
+      max-width:1200px;
     }
 
+    /* Grid */
     .grid{
+      margin-top:18px;
       display:grid;
       grid-template-columns: 1fr;
       gap:26px;
-      margin-top:18px;
-      align-items:start;
     }
-    @media (min-width: 760px){
-      .grid{ grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (min-width: 1160px){
+    @media (min-width: 900px){
       .grid{ grid-template-columns: repeat(4, 1fr); }
     }
 
-    /* Card */
+    /* Each item holds card + its text to align perfectly */
+    .league-item{
+      display:flex;
+      flex-direction:column;
+      align-items:stretch;
+      gap:12px;
+    }
+
     .league-card{
-      cursor:pointer;
-      user-select:none;
-      transform: translateY(0);
-      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease, filter .22s ease;
-      border-radius:32px;
-      padding:0;
+      background: rgba(0,0,0,0.20);
+      border:1px solid var(--cardBorder);
+      border-radius:28px;
+      padding:14px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.03);
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+      cursor: default; /* no click */
+    }
+
+    /* Hover stays */
+    .league-card:hover{
+      transform: translateY(-6px) scale(1.02);
+      border-color: rgba(25,223,255,0.35);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.05),
+        0 0 26px rgba(25,223,255,0.12);
     }
 
     .thumb{
-      width:100%;
-      aspect-ratio: 1 / 1;
-      border-radius:32px;
-      overflow:hidden;
       position:relative;
-      background: rgba(0,0,0,0.30);
-      border:1px solid rgba(255,255,255,0.10);
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 0 26px rgba(0,0,0,0.35);
+      border-radius:22px;
+      overflow:hidden;
+      aspect-ratio: 1 / 1;
+      border:1px solid rgba(255,255,255,0.08);
+      background: rgba(0,0,0,0.25);
     }
 
     .thumb img{
@@ -107,223 +134,131 @@
       height:100%;
       object-fit:cover;
       display:block;
-      transform: scale(1.02);
+      transform: scale(1);
       transition: transform .35s ease, filter .35s ease;
-      filter: saturate(1.05);
     }
 
-.league-card{
-  cursor:pointer;
-  user-select:none;
-  transform: translateY(0);
-  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease, filter .22s ease;
-  border-radius:32px;
-  padding:0;
-}
-
-/* Hover */
-.league-card:hover{
-  transform: translateY(-6px) scale(1.02);
-}
-
-/* Hover image */
-.league-card:hover .thumb img{
-  transform: scale(1.08);
-  filter: saturate(1.2) contrast(1.05);
-}
-
-/* Selected = Hover permanent + glow */
-.league-card.is-selected{
-  transform: translateY(-6px) scale(1.02);
-}
-
-.league-card.is-selected .thumb{
-  border-color: rgba(25,223,255,0.75);
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.05),
-    0 0 30px rgba(25,223,255,0.35);
-}
-
-.league-card.is-selected .thumb img{
-  transform: scale(1.08);
-  filter: saturate(1.2) contrast(1.05);
-}
-
-/* Halo */
-.league-card.is-selected .thumb::after{
-  content:"";
-  position:absolute;
-  inset:-22px;
-  border-radius:999px;
-  background: radial-gradient(circle, rgba(25,223,255,0.25), rgba(25,223,255,0.0) 65%);
-  filter: blur(10px);
-  pointer-events:none;
-  animation: halo 1.8s ease-in-out infinite;
-}
-    @keyframes halo{
-      0%{ opacity: .35; transform: scale(0.98); }
-      50%{ opacity: .70; transform: scale(1.02); }
-      100%{ opacity: .35; transform: scale(0.98); }
+    .league-card:hover .thumb img{
+      transform: scale(1.08);
+      filter: saturate(1.15) contrast(1.05);
     }
 
-    /* CTA */
-    .cta-row{
+    /* Text under card - aligned with card width */
+    .league-desc{
+      color: rgba(212,231,255,0.85);
+      font-size:16px;
+      line-height:1.45;
+      padding: 0 6px; /* keeps same visual style but aligned */
+    }
+
+    /* CTA button always active */
+    .cta{
       display:flex;
       justify-content:center;
-      margin-top:34px;
-      padding-top:8px;
+      margin-top:28px;
     }
 
-.btn-go{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  padding:16px 34px;
-  border-radius:999px;
-  border:1px solid rgba(25,223,255,0.55);
-  background: var(--cyan);
-  color:#ffffff; /* 🔥 texte blanc */
-  font-family:'Orbitron', sans-serif;
-  font-size:22px;
-  font-weight:900;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  cursor:pointer;
-  transition: transform .22s ease, box-shadow .22s ease, filter .22s ease, opacity .22s ease;
-  box-shadow: 0 0 22px rgba(25,223,255,0.18);
-}
+    .btn-go{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:16px 40px;
+      border-radius:999px;
+      border:1px solid rgba(25,223,255,0.55);
+      background: var(--cyan);
+      color:#ffffff; /* white text */
+      font-family:'Orbitron', sans-serif;
+      font-size:22px;
+      font-weight:900;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      cursor:pointer;
+      transition: transform .22s ease, box-shadow .22s ease, filter .22s ease;
+      box-shadow: 0 0 22px rgba(25,223,255,0.18);
+    }
 
     .btn-go:hover{
       transform: translateY(-2px);
-      filter: brightness(1.06);
-      box-shadow: 0 0 28px rgba(25,223,255,0.24);
+      box-shadow: 0 0 28px rgba(25,223,255,0.28);
+      filter: brightness(1.05);
     }
 
+    /* Remove any click visual state */
     .btn-go:active{
-      transform: translateY(0);
-    }
-
-    .btn-go[disabled]{
-      opacity: .35;
-      cursor:not-allowed;
-      filter:none;
-      box-shadow:none;
-      transform:none;
-    }
-
-    /* Subtle appear animation */
-    .fade-up{
-      opacity:0;
-      transform: translateY(14px);
-      animation: fadeUp .8s ease forwards;
-    }
-    .d1{ animation-delay:.05s; }
-    .d2{ animation-delay:.12s; }
-    .d3{ animation-delay:.19s; }
-    .d4{ animation-delay:.26s; }
-    .d5{ animation-delay:.33s; }
-
-    @keyframes fadeUp{
-      to{ opacity:1; transform: translateY(0); }
+      transform: translateY(-2px); /* stays same as hover */
+      box-shadow: 0 0 28px rgba(25,223,255,0.28);
     }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <div class="header-badge fade-up d1">Mission Connected Heroes · The Laboratory</div>
-    <h1 class="fade-up d2">The Laboratory · Challenge #1</h1>
-    <p class="subtitle fade-up d3">
-      Help us define the <b>commercial packages</b> of tomorrow by associating <b>each service</b> with a <b>league</b>.
+    <div class="header-badge">Mission Connected Heroes · The Laboratory</div>
+
+    <h1>The Laboratory · Challenge #1</h1>
+    <p class="subtitle">
+      Help us define the <b>commercial packages</b> of tomorrow by associating each service with a <b>league</b>.
     </p>
 
-    <div class="grid fade-up d4" id="leagueGrid">
-      <!-- Essentials -->
-      <div class="league-card" data-league="ESSENTIALS">
-        <div class="thumb">
-          <img src="1.png" alt="League Essentials">
+    <section class="grid" aria-label="Leagues">
+      <div class="league-item">
+        <div class="league-card">
+          <div class="thumb">
+            <img src="1.png" alt="League Essentials">
+          </div>
         </div>
-        <div class="caption">The key basics required<br>in your car</div>
+        <div class="league-desc">The key basics required<br>in your car</div>
       </div>
 
-      <!-- Entertainment -->
-      <div class="league-card" data-league="ENTERTAINMENT">
-        <div class="thumb">
-          <img src="2.png" alt="League Entertainment">
+      <div class="league-item">
+        <div class="league-card">
+          <div class="thumb">
+            <img src="2.png" alt="League Entertainment">
+          </div>
         </div>
-        <div class="caption">Fun entertainment<br>services on board</div>
+        <div class="league-desc">Fun entertainment<br>services on board</div>
       </div>
 
-      <!-- Signature -->
-      <div class="league-card" data-league="SIGNATURE">
-        <div class="thumb">
-          <img src="3.png" alt="League Signature">
+      <div class="league-item">
+        <div class="league-card">
+          <div class="thumb">
+            <img src="3.png" alt="League Signature">
+          </div>
         </div>
-        <div class="caption">The services that make<br>my customers feel unique</div>
+        <div class="league-desc">The services that make<br>my customers feel unique</div>
       </div>
 
-      <!-- Vortex -->
-      <div class="league-card" data-league="VORTEX">
-        <div class="thumb">
-          <img src="4.png" alt="League Vortex">
+      <div class="league-item">
+        <div class="league-card">
+          <div class="thumb">
+            <img src="4.png" alt="League Vortex">
+          </div>
         </div>
-        <div class="caption">Services I don’t see the need for, useless in my eyes</div>
+        <div class="league-desc">Services I don't see the need<br>for, useless in my eyes</div>
       </div>
-    </div>
+    </section>
 
-    <div class="cta-row fade-up d5">
-      <button class="btn-go" id="btnGo" type="button" disabled>LET’S GO!</button>
+    <div class="cta">
+      <button class="btn-go" type="button" id="goBtn">LET'S GO!</button>
     </div>
   </div>
 
   <script>
-    /* =========================================================
-       Selection logic (keeps design, prevents overlap issues)
-    ========================================================= */
-    const cards = Array.from(document.querySelectorAll(".league-card"));
-    const btnGo = document.getElementById("btnGo");
-    let selectedLeague = null;
-
-    function setSelected(card){
-      cards.forEach(c => c.classList.remove("is-selected"));
-      card.classList.add("is-selected");
-      selectedLeague = card.getAttribute("data-league");
-      btnGo.disabled = false;
-      sendHeightDelayed();
-    }
-
-    cards.forEach(card => {
-      card.addEventListener("click", () => setSelected(card));
-      card.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setSelected(card); }
-      });
-      card.setAttribute("tabindex", "0");
-      card.setAttribute("role", "button");
-      card.setAttribute("aria-label", "Select league " + card.getAttribute("data-league"));
+    // ✅ Always active: no dependency on card clicks
+    document.getElementById("goBtn").addEventListener("click", () => {
+      // TODO: replace with your target URL / next step
+      // window.location.href = "YOUR_NEXT_PAGE_URL";
+      console.log("LET'S GO clicked (always active).");
     });
 
-    btnGo.addEventListener("click", () => {
-      // Placeholder behavior: you can replace with navigation to Challenge gameplay page
-      // Example: window.location.href = "./mission3-challenge1-game.html?league=" + encodeURIComponent(selectedLeague);
-
-      // For now: small visual feedback + keep selection
-      btnGo.style.filter = "brightness(1.08)";
-      setTimeout(() => btnGo.style.filter = "", 180);
-
-      // Optional: send selected league to parent (SharePoint) if you need it later
-      parent.postMessage({ type: "m3c1_league_selected", league: selectedLeague }, "*");
-    });
-
-    /* =========================================================
-       SHAREPOINT IFRAME AUTO-RESIZE
-    ========================================================= */
-    function sendHeight(){
-      const height = document.documentElement.scrollHeight;
-      parent.postMessage({ type: "resizeM3Challenge1", height }, "*");
+    // SharePoint iframe auto-resize (kept)
+    function sendHeight() {
+      parent.postMessage(
+        { type: "resizeLabChallenge1", height: document.documentElement.scrollHeight },
+        "*"
+      );
     }
-    function sendHeightDelayed(){ setTimeout(sendHeight, 250); }
-
     window.addEventListener("load", () => { sendHeight(); setInterval(sendHeight, 900); });
     window.addEventListener("resize", sendHeight);
   </script>
