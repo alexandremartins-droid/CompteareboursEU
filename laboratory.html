@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Mission: Connected Heroes – The Laboratory</title>
+
+  <!-- Orbitron + Inter (DA globale) -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --blue:#2aa8ff;
+      --cyan:#19dfff;
+      --text:#d4e7ff;
+      --muted:#b8dfff;
+      --title:#ffffff;
+      --card:rgba(255,255,255,0.06);
+      --cardBorder:rgba(255,255,255,0.08);
+      --shadow:0 0 20px rgba(0,0,0,0.35);
+    }
+
+    html, body{
+      margin:0;
+      padding:40px;
+      background:transparent !important;
+      font-family:'Inter', sans-serif;
+      color:var(--text);
+      line-height:1.65;
+    }
+
+    /* Header badge */
+    .header-badge{
+      display:inline-block;
+      padding:6px 14px;
+      font-size:12px;
+      border-radius:20px;
+      border:1px solid var(--blue);
+      color:var(--blue);
+      margin-bottom:14px;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      background: rgba(0,0,0,0.20);
+      backdrop-filter: blur(10px);
+    }
+
+    h1{
+      font-family:'Orbitron', sans-serif;
+      font-size:42px;
+      font-weight:800;
+      letter-spacing:2px;
+      color:var(--title);
+      margin:0 0 18px 0;
+    }
+
+    /* Center area */
+    .stage{
+      max-width: 1200px;
+      margin-top: 8px;
+    }
+
+    .visual-wrap{
+      margin: 22px auto 0;
+      max-width: 780px;
+      background: var(--card);
+      border: 1px solid var(--cardBorder);
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+
+      /* subtle appear */
+      opacity: 0;
+      transform: translateY(14px);
+      animation: fadeUp 650ms ease-out forwards;
+      animation-delay: 140ms;
+    }
+
+    @keyframes fadeUp{
+      to { opacity:1; transform: translateY(0); }
+    }
+
+    .visual-frame{
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.25);
+    }
+
+    .visual-frame img{
+      display:block;
+      width:100%;
+      height:auto;
+    }
+
+    /* Optional: subtle hover (kept very light) */
+    .visual-wrap:hover{
+      border-color: rgba(59,196,255,0.35);
+      box-shadow: 0 0 26px rgba(59,196,255,0.10);
+      transition: 220ms ease;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="stage">
+    <div class="header-badge">Mission Connected Heroes · The Laboratory</div>
+    <h1>The Laboratory</h1>
+  </div>
+
+  <script>
+    /* SharePoint iframe auto-resize */
+    function sendHeight(){
+      const height = document.documentElement.scrollHeight;
+      parent.postMessage({ type: "resizeLaboratory", height }, "*");
+    }
+    function sendHeightDelayed(){ setTimeout(sendHeight, 220); }
+
+    window.addEventListener("load", () => { sendHeight(); setInterval(sendHeight, 900); });
+    window.addEventListener("resize", sendHeight);
+  </script>
+</body>
+</html>
