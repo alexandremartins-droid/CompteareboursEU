@@ -94,12 +94,13 @@
     }
 
     /* Each item holds card + its text to align perfectly */
-    .league-item{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:12px;
-    }
+.league-item{
+  display:flex;
+  flex-direction:column;
+  align-items:center;   /* centre le bloc entier */
+  gap:14px;
+  text-align:center;    /* centre le texte */
+}
 
     .league-card{
       background: rgba(0,0,0,0.20);
@@ -145,11 +146,12 @@
 
     /* Text under card - aligned with card width */
     .league-desc{
-      color: rgba(212,231,255,0.85);
-      font-size:16px;
-      line-height:1.45;
-      padding: 0 6px; /* keeps same visual style but aligned */
-    }
+  color: rgba(212,231,255,0.85);
+  font-size:16px;
+  line-height:1.45;
+  max-width: 90%;       /* évite que ça s'étale trop */
+  margin: 0 auto;       /* centre parfaitement */
+}
 
     /* CTA button always active */
     .cta{
@@ -208,7 +210,7 @@
             <img src="1.png" alt="League Essentials">
           </div>
         </div>
-        <div class="league-desc">The key basics required in your car</div>
+        <div class="league-desc">The key basics<br>required in your car</div>
       </div>
 
       <div class="league-item">
@@ -235,7 +237,7 @@
             <img src="4.png" alt="League Vortex">
           </div>
         </div>
-        <div class="league-desc">Services I don't see the need for, useless in my eyes</div>
+        <div class="league-desc">Services I don't see the <br>need for, useless in my eyes</div>
       </div>
     </section>
 
