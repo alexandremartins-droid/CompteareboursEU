@@ -154,42 +154,40 @@
 }
 
     /* CTA button always active */
-    .cta{
+/* CTA */
+    .cta-wrap{
+      max-width:1300px;
       display:flex;
       justify-content:center;
-      margin-top:28px;
+      margin-top: 30px;
     }
-
-    .btn-go{
+    .cta{
       display:inline-flex;
       align-items:center;
       justify-content:center;
       gap:10px;
-      padding:16px 40px;
-      border-radius:999px;
-      border:1px solid rgba(25,223,255,0.55);
-      background: var(--cyan);
-      color:#ffffff; /* white text */
+      padding: 18px 34px;
+      border-radius: 999px;
       font-family:'Orbitron', sans-serif;
-      font-size:22px;
+      font-size:20px;
       font-weight:900;
       letter-spacing:2px;
       text-transform:uppercase;
-      cursor:pointer;
-      transition: transform .22s ease, box-shadow .22s ease, filter .22s ease;
-      box-shadow: 0 0 22px rgba(25,223,255,0.18);
+      color:#ffffff; /* requested */
+      background: #19dfff;
+      border: 1px solid rgba(25,223,255,0.65);
+      box-shadow: 0 0 26px rgba(25,223,255,0.18);
+      text-decoration:none;
+      transition: transform .22s ease, box-shadow .22s ease, background .22s ease, filter .22s ease;
     }
-
-    .btn-go:hover{
+    .cta:hover{
       transform: translateY(-2px);
-      box-shadow: 0 0 28px rgba(25,223,255,0.28);
-      filter: brightness(1.05);
+      background:#4be9ff;
+      box-shadow: 0 0 34px rgba(25,223,255,0.26);
+      filter: saturate(1.05);
     }
-
-    /* Remove any click visual state */
-    .btn-go:active{
-      transform: translateY(-2px); /* stays same as hover */
-      box-shadow: 0 0 28px rgba(25,223,255,0.28);
+    .cta:active{
+      transform: translateY(-1px);
     }
   </style>
 </head>
