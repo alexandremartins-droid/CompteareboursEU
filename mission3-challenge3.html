@@ -1,334 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Laboratory · Challenge #3</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Laboratory · Challenge #3</title>
 
-  <!-- Fonts (same as other missions) -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    :root{
-      --bg: #061a3a;
-      --panel: rgba(255,255,255,0.06);
-      --panelBorder: rgba(255,255,255,0.10);
-      --text: #d4e7ff;
-      --muted: rgba(212,231,255,0.82);
-      --title: #ffffff;
-      --cyan: #0edfe3;
-      --cyan2:#19dfff;
-      --shadow: 0 18px 60px rgba(0,0,0,0.35);
-    }
+<style>
+:root{
+  --bg:#061a3a;
+  --text:#d4e7ff;
+  --muted:rgba(212,231,255,0.82);
+  --title:#ffffff;
+  --cyan:#0edfe3;
+}
 
-    html, body{
-      margin:0;
-      padding:0;
-      background: transparent !important;
-      color: var(--text);
-      font-family: "Inter", sans-serif;
-      overflow-x:hidden;
-    }
+html,body{
+  margin:0;
+  padding:0;
+  background:transparent!important;
+  color:var(--text);
+  font-family:"Inter",sans-serif;
+  overflow-x:hidden;
+}
 
-    /* page padding like other missions */
-    .page{
-      padding: 44px 44px 70px;
-      max-width: 1280px;
-    }
+.page{
+  padding:44px 44px 70px;
+  max-width:1280px;
+}
 
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding: 9px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(46,150,255,0.55);
-      color: rgba(46,150,255,0.95);
-      background: rgba(0,0,0,0.18);
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.04);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-size: 12px;
-      margin-bottom: 16px;
-      width: fit-content;
-    }
+.badge{
+  display:inline-flex;
+  padding:9px 16px;
+  border-radius:999px;
+  border:1px solid rgba(46,150,255,0.55);
+  color:rgba(46,150,255,0.95);
+  background:rgba(0,0,0,0.18);
+  font-size:12px;
+  margin-bottom:16px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
 
-    h1{
-      font-family: "Orbitron", sans-serif;
-      color: var(--title);
-      letter-spacing: 1.5px;
-      font-weight: 900;
-      font-size: 54px;
-      margin: 0 0 12px;
-      line-height: 1.05;
-    }
+h1{
+  font-family:"Orbitron",sans-serif;
+  font-weight:900;
+  font-size:54px;
+  margin:0 0 12px;
+  line-height:1.05;
+}
 
-    .subtitle{
-      max-width: 1060px;
-      color: var(--muted);
-      font-size: 20px;
-      line-height: 1.55;
-      margin: 0 0 26px;
-    }
+.subtitle{
+  max-width:1060px;
+  color:var(--muted);
+  font-size:20px;
+  line-height:1.55;
+  margin-bottom:26px;
+}
 
-    /* subtle divider glow (like other pages) */
-    .divider{
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(14,223,227,0.45), transparent);
-      margin: 22px 0 28px;
-      border-radius: 2px;
-      opacity: 0.9;
-    }
+.divider{
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(14,223,227,0.45),transparent);
+  margin:22px 0 28px;
+}
 
-    /* Cards grid */
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 26px;
-      align-items: start;
-      margin-top: 10px;
-    }
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:26px;
+}
 
-    @media (max-width: 1020px){
-      .page{ padding: 34px 28px 60px; }
-      h1{ font-size: 44px; }
-      .subtitle{ font-size: 18px; }
-      .grid{ grid-template-columns: 1fr; gap: 18px; }
-    }
+@media(max-width:1020px){
+  .grid{grid-template-columns:1fr;}
+  h1{font-size:44px;}
+  .subtitle{font-size:18px;}
+}
 
-    /* Clickable card as link */
-    .cardLink{
-      display:block;
-      text-decoration:none;
-      outline:none;
-      border-radius: 22px;
-      position: relative;
-      transform: translateY(0);
-      transition: transform .22s ease, filter .22s ease;
-      will-change: transform;
-    }
+.cardLink{
+  display:block;
+  text-decoration:none;
+  border-radius:22px;
+  transition:transform .25s ease;
+}
 
-    /* Outer glow/halo */
-    .cardLink::before{
-      content:"";
-      position:absolute;
-      inset: -2px;
-      border-radius: 24px;
-      background: radial-gradient(1200px 500px at 50% 120%, rgba(14,223,227,0.22), transparent 55%);
-      opacity: 0.55;
-      filter: blur(10px);
-      transition: opacity .22s ease, filter .22s ease;
-      pointer-events:none;
-    }
+.cardLink:hover{
+  transform:translateY(-4px);
+}
 
-    .card{
-      position: relative;
-      overflow:hidden;
-      border-radius: 22px;
-      background: rgba(0,0,0,0.20);
-      border: 1px solid rgba(255,255,255,0.10);
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,0.04),
-        0 20px 70px rgba(0,0,0,0.35);
-    }
+.card{
+  position:relative;
+  overflow:hidden;
+  border-radius:22px;
+  background:rgba(0,0,0,0.25);
+  border:1px solid rgba(255,255,255,0.12);
+  box-shadow:0 20px 60px rgba(0,0,0,0.35);
+}
 
-    /* image */
-    .card img{
-      display:block;
-      width:100%;
-      aspect-ratio: 4 / 3;
-      object-fit: cover;
-      transform: scale(1.01);
-      transition: transform .35s ease, filter .35s ease;
-      filter: saturate(1.05) contrast(1.02);
-    }
+.card img{
+  width:100%;
+  aspect-ratio:4/3;
+  object-fit:cover;
+  display:block;
+  transition:transform .35s ease;
+}
 
-    /* subtle cinematic overlay */
-    .card::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        radial-gradient(1000px 420px at 50% 100%, rgba(14,223,227,0.18), transparent 55%),
-        linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.35));
-      opacity: 0.75;
-      pointer-events:none;
-      transition: opacity .30s ease;
-    }
+.cardLink:hover img{
+  transform:scale(1.05);
+}
 
-    /* scan line / sheen */
-    .sheen{
-      position:absolute;
-      inset:-40% -60%;
-      background: linear-gradient(120deg, transparent 40%, rgba(14,223,227,0.18), transparent 60%);
-      transform: translateX(-40%) translateY(20%) rotate(8deg);
-      opacity: 0;
-      pointer-events:none;
-      transition: opacity .22s ease;
-    }
-
-    /* Hover */
-    .cardLink:hover{
-      transform: translateY(-4px);
-      filter: brightness(1.02);
-    }
-    .cardLink:hover::before{
-      opacity: 0.8;
-      filter: blur(12px);
-    }
-    .cardLink:hover .card img{
-      transform: scale(1.05);
-      filter: saturate(1.12) contrast(1.05);
-    }
-    .cardLink:hover .card::after{
-      opacity: 0.90;
-    }
-    .cardLink:hover .sheen{
-      opacity: 1;
-      animation: sweep 1.15s ease-out forwards;
-    }
-
-    /* Pressed (click feedback) */
-    .cardLink:active{
-      transform: translateY(-1px) scale(0.992);
-    }
-
-    /* Focus (keyboard) */
-    .cardLink:focus-visible::before{
-      opacity: 0.95;
-      filter: blur(13px);
-    }
-    .cardLink:focus-visible .card{
-      border-color: rgba(14,223,227,0.55);
-      box-shadow:
-        0 0 0 1px rgba(14,223,227,0.22),
-        0 22px 80px rgba(14,223,227,0.10),
-        0 20px 70px rgba(0,0,0,0.35);
-    }
-
-    @keyframes sweep{
-      0%   { transform: translateX(-50%) translateY(30%) rotate(8deg); }
-      100% { transform: translateX(55%) translateY(-10%) rotate(8deg); }
-    }
-
-    /* small helper caption under the grid (optional) */
-    .hint{
-      margin-top: 20px;
-      color: rgba(212,231,255,0.72);
-      font-size: 14px;
-    }
-
-    /* reveal animation */
-    .reveal{
-      opacity: 0;
-      transform: translateY(14px);
-      transition: opacity 520ms ease, transform 520ms ease;
-    }
-    .reveal.is-visible{
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
+.hint{
+  margin-top:20px;
+  color:rgba(212,231,255,0.72);
+  font-size:14px;
+}
+</style>
 </head>
 
 <body>
-  <div class="page">
-    <div class="badge">MISSION CONNECTED HEROES · THE LABORATORY</div>
+<div class="page">
 
-    <h1>The Laboratory · Challenge #3</h1>
+<div class="badge">MISSION CONNECTED HEROES · THE LABORATORY</div>
 
-    <p class="subtitle">
-      Welcome to the Innovation Chamber, where heroes become creators!<br>
-      Your mission: Help us imagine the amazing Connected Services of tomorrow. Be limitless!
-      Let your imagination run wild! This is your moment to think beyond boundaries, beyond the possible.
-      <br><br>
-      First, <u><b>choose</b></u> from these three research topics that will unlock your creative superpowers:
-    </p>
+<h1>The Laboratory · Challenge #3</h1>
 
-    <div class="divider"></div>
+<p class="subtitle">
+Welcome to the Innovation Chamber, where heroes become creators!<br>
+Your mission: Help us imagine the amazing Connected Services of tomorrow. Be limitless!
+Let your imagination run wild! This is your moment to think beyond boundaries, beyond what is possible.
+<br><br>
+First, <b><u>choose</u></b> one of the three research topics below to unlock your creative superpowers.
+</p>
 
-    <div class="grid reveal" id="cardsGrid">
-      <!-- Card 1 -->
-      <a class="cardLink" id="cardEveryday" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=zdVS2ExyKEGIEv-l2z-FB8YRPq0jgXFPvVifqxfn6KJUN1BVRFQ2UUFCRzRNTlQ4MVRQNTE0T0tTRS4u" target="_blank" rel="noopener noreferrer" aria-label="Open Everyday Coach topic">
-        <div class="card">
-          <div class="sheen" aria-hidden="true"></div>
-          <img src="téléchargement.png" alt="EVERYDAY COACH">
-        </div>
-      </a>
+<div class="divider"></div>
 
-      <!-- Card 2 -->
-      <a class="cardLink" id="cardCharging" href="https://forms.cloud.microsoft/e/YHV18PgWma" aria-label="Open Charging Premium Experience topic">
-        <div class="card">
-          <div class="sheen" aria-hidden="true"></div>
-          <img src="téléchargement (1).png" alt="CHARGING PREMIUM EXPERIENCE">
-        </div>
-      </a>
+<div class="grid">
 
-      <!-- Card 3 -->
+<!-- CARD 1 -->
 <a class="cardLink"
-   id="cardDriving"
-   href="https://forms.cloud.microsoft/e/UFNZGUqJNG"
+   href="https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_EU/SitePages/EverydayCoach.aspx"
+   target="_blank"
+   rel="noopener noreferrer"
+   aria-label="Open Everyday Coach topic">
+  <div class="card">
+    <img src="telechargement.png" alt="EVERYDAY COACH">
+  </div>
+</a>
+
+<!-- CARD 2 -->
+<a class="cardLink"
+   href="https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_EU/SitePages/ChargingPremiumExperience.aspx"
+   target="_blank"
+   rel="noopener noreferrer"
+   aria-label="Open Charging Premium Experience topic">
+  <div class="card">
+    <img src="telechargement-1.png" alt="CHARGING PREMIUM EXPERIENCE">
+  </div>
+</a>
+
+<!-- CARD 3 -->
+<a class="cardLink"
+   href="https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_EU/SitePages/DrivingPleasure.aspx"
    target="_blank"
    rel="noopener noreferrer"
    aria-label="Open Driving Pleasure topic">
   <div class="card">
-    <div class="sheen" aria-hidden="true"></div>
-    <img src="téléchargement (2).png" alt="DRIVING PLEASURE">
+    <img src="telechargement-2.png" alt="DRIVING PLEASURE">
   </div>
 </a>
 
-    <div class="hint reveal">
-      Tip: Each card opens a dedicated page. Choose the topic you want to explore first.
-    </div>
-  </div>
+</div>
 
-  <script>
-    /* =========================================================
-       LINKS (replace with your real SharePoint pages)
-    ========================================================= */
-    const LINKS = {
-      everyday: "https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_EU/SitePages/EverydayCoach.aspx",
-      charging: "https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_EU/SitePages/ChargingPremiumExperience.aspx",
-      driving:  "https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_EU/SitePages/DrivingPleasure.aspx"
-    };
+<div class="hint">
+Tip: Each card opens a dedicated page. Choose the topic you want to explore first.
+</div>
 
-    // Wire the links
-    const aEveryday = document.getElementById("cardEveryday");
-    const aCharging = document.getElementById("cardCharging");
-    const aDriving  = document.getElementById("cardDriving");
+</div>
 
-    aEveryday.href = LINKS.everyday;
-    aCharging.href = LINKS.charging;
-    aDriving.href  = LINKS.driving;
+<script>
+function sendHeight(){
+  const height=document.documentElement.scrollHeight;
+  parent.postMessage({type:"resizeM3Challenge3",height},"*");
+}
+window.addEventListener("load",()=>{sendHeight();setInterval(sendHeight,900);});
+window.addEventListener("resize",sendHeight);
+</script>
 
-    // Best practice in SharePoint iframe: open in same tab or new tab?
-    // If you want new tab, uncomment:
-    // [aEveryday, aCharging, aDriving].forEach(a => { a.target="_blank"; a.rel="noopener"; });
-
-    /* =========================================================
-       REVEAL
-    ========================================================= */
-    const revealEls = Array.from(document.querySelectorAll(".reveal"));
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add("is-visible");
-      });
-      sendHeightDelayed();
-    }, { threshold: 0.12 });
-
-    revealEls.forEach(el => io.observe(el));
-
-    /* =========================================================
-       SHAREPOINT IFRAME AUTO-RESIZE
-    ========================================================= */
-    function sendHeight(){
-      const height = document.documentElement.scrollHeight;
-      parent.postMessage({ type: "resizeM3Challenge3", height }, "*");
-    }
-    function sendHeightDelayed(){ setTimeout(sendHeight, 220); }
-
-    window.addEventListener("load", () => { sendHeight(); setInterval(sendHeight, 900); });
-    window.addEventListener("resize", sendHeight);
-  </script>
 </body>
 </html>
