@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>The Laboratory · Challenge #2</title>
+
+  <!-- Same DA fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --blue:#2aa8ff;
+      --cyan:#19dfff;
+      --text:#d4e7ff;
+      --muted:#b8dfff;
+      --title:#ffffff;
+      --shadow: 0 0 22px rgba(0,0,0,0.35);
+      --cardBg: rgba(0,0,0,0.28);
+      --cardBorder: rgba(255,255,255,0.10);
+    }
+
+    html, body{
+      margin:0;
+      padding:40px 40px 60px;
+      background:transparent !important;
+      font-family:'Inter', sans-serif;
+      color:var(--text);
+      overflow-x:hidden;
+    }
+
+    /* Header badge */
+    .header-badge{
+      display:inline-block;
+      padding:6px 14px;
+      font-size:12px;
+      border-radius:20px;
+      border:1px solid rgba(42,168,255,0.85);
+      color:rgba(42,168,255,0.95);
+      margin-bottom:14px;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      background: rgba(0,0,0,0.20);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.04);
+    }
+
+    h1{
+      margin:0 0 12px 0;
+      font-family:'Orbitron', sans-serif;
+      font-size:52px;
+      font-weight:900;
+      letter-spacing:2px;
+      color:var(--title);
+      line-height:1.05;
+    }
+
+    /* Subtitle: improved visually (like other missions) */
+    .subtitle-wrap{
+      max-width: 1200px;
+      margin: 0 0 28px 0;
+    }
+    .subtitle{
+      margin:0;
+      font-size:20px;
+      line-height:1.55;
+      color:rgba(212,231,255,0.92);
+      text-shadow: 0 0 14px rgba(25,223,255,0.10);
+    }
+    .subtitle-card{
+      margin-top:14px;
+      max-width: 1200px;
+      background: linear-gradient(135deg, rgba(25,223,255,0.10), rgba(20,40,90,0.58));
+      border: 1px solid rgba(25,223,255,0.22);
+      border-radius: 18px;
+      padding: 16px 18px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 0 26px rgba(25,223,255,0.10);
+    }
+    .subtitle-card b{ color:#ffffff; }
+
+    /* Grid */
+    .grid{
+      max-width: 1300px;
+      margin-top: 26px;
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px 34px;
+      align-items:start;
+    }
+    @media (max-width: 1100px){
+      h1{ font-size:44px; }
+      .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 720px){
+      html, body{ padding:28px 18px 50px; }
+      h1{ font-size:38px; }
+      .subtitle{ font-size:18px; }
+      .grid{ grid-template-columns: 1fr; gap: 18px; }
+    }
+
+    .tile{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap: 14px;
+      user-select:none;
+    }
+
+    /* Image card */
+    .img-card{
+      width:100%;
+      aspect-ratio: 16/9;
+      border-radius: 22px;
+      overflow:hidden;
+      position:relative;
+      background: var(--cardBg);
+      border: 1px solid var(--cardBorder);
+      box-shadow: var(--shadow);
+      transform: translateY(0) scale(1);
+      transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease, filter .22s ease;
+      cursor: default;
+    }
+    .img-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: radial-gradient(600px 200px at 50% 110%, rgba(25,223,255,0.16), rgba(0,0,0,0));
+      opacity:0.9;
+      pointer-events:none;
+    }
+    .img-card img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      filter: saturate(1.05) contrast(1.05);
+      transform: scale(1.02);
+      transition: transform .35s ease, filter .35s ease;
+    }
+
+    /* Hover */
+    .img-card:hover{
+      transform: translateY(-3px) scale(1.01);
+      border-color: rgba(25,223,255,0.35);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.05), 0 0 34px rgba(25,223,255,0.18);
+    }
+    .img-card:hover img{
+      transform: scale(1.06);
+      filter: saturate(1.10) contrast(1.08);
+    }
+
+    /* Click (adds to hover; no selection / no logic) */
+    .img-card:active{
+      transform: translateY(-1px) scale(0.995);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.05), 0 0 24px rgba(25,223,255,0.16);
+    }
+
+    /* Caption aligned with card */
+    .caption{
+      width:100%;
+      text-align:left;
+      font-size:18px;
+      line-height:1.35;
+      color: rgba(212,231,255,0.92);
+      padding-left: 4px; /* keeps a clean “aligned with card” look */
+    }
+
+    /* CTA */
+    .cta-wrap{
+      max-width:1300px;
+      display:flex;
+      justify-content:center;
+      margin-top: 30px;
+    }
+    .cta{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 18px 34px;
+      border-radius: 999px;
+      font-family:'Orbitron', sans-serif;
+      font-size:20px;
+      font-weight:900;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      color:#ffffff; /* requested */
+      background: #19dfff;
+      border: 1px solid rgba(25,223,255,0.65);
+      box-shadow: 0 0 26px rgba(25,223,255,0.18);
+      text-decoration:none;
+      transition: transform .22s ease, box-shadow .22s ease, background .22s ease, filter .22s ease;
+    }
+    .cta:hover{
+      transform: translateY(-2px);
+      background:#4be9ff;
+      box-shadow: 0 0 34px rgba(25,223,255,0.26);
+      filter: saturate(1.05);
+    }
+    .cta:active{
+      transform: translateY(-1px);
+    }
+
+    /* Reveal */
+    .reveal{
+      opacity:0;
+      transform: translateY(18px);
+      transition: opacity 600ms ease, transform 600ms ease;
+      will-change: opacity, transform;
+    }
+    .reveal.is-visible{
+      opacity:1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header-badge">Mission Connected Heroes · The Laboratory</div>
+
+  <h1>The Laboratory · Challenge #2</h1>
+
+  <div class="subtitle-wrap">
+    <p class="subtitle">
+      Welcome to the Perception Lab, Hero! For each word, let the three adjectives that come to mind flow freely...
+      This isn't a test of knowledge — it's a deep dive into your instincts. The lab is not asking you what you think.
+      It is trying to understand how you feel. Your emotions are the key to unlocking tomorrow's innovations.
+    </p>
+
+    <div class="subtitle-card">
+      <span><b>Objective:</b> pick the theme you want to explore, then continue to the challenge.</span>
+    </div>
+  </div>
+
+  <main class="grid">
+    <!-- Images are at the root of your GitHub:
+         Use URL-encoded filenames for spaces. -->
+
+    <div class="tile reveal">
+      <div class="img-card" role="img" aria-label="Connected Services">
+        <img src="Unknown.jpeg" alt="CONNECTED SERVICES">
+      </div>
+      <div class="caption">CONNECTED SERVICES</div>
+    </div>
+
+    <div class="tile reveal">
+      <div class="img-card" role="img" aria-label="Infotainment">
+        <img src="Mission%206.jpeg" alt="INFOTAINMENT">
+      </div>
+      <div class="caption">INFOTAINMENT</div>
+    </div>
+
+    <div class="tile reveal">
+      <div class="img-card" role="img" aria-label="Cockpit">
+        <img src="Mission%207.jpeg" alt="COCKPIT">
+      </div>
+      <div class="caption">COCKPIT</div>
+    </div>
+
+    <div class="tile reveal">
+      <div class="img-card" role="img" aria-label="Software">
+        <img src="Mission%208.jpeg" alt="SOFTWARE">
+      </div>
+      <div class="caption">SOFTWARE</div>
+    </div>
+
+    <div class="tile reveal">
+      <div class="img-card" role="img" aria-label="Innovation">
+        <img src="Mission%209.jpeg" alt="INNOVATION">
+      </div>
+      <div class="caption">INNOVATION</div>
+    </div>
+
+    <div class="tile reveal">
+      <div class="img-card" role="img" aria-label="Technology">
+        <img src="Unknown-1.jpeg" alt="TECHNOLOGY">
+      </div>
+      <div class="caption">TECHNOLOGY</div>
+    </div>
+  </main>
+
+  <div class="cta-wrap">
+    <!-- Replace href with your Challenge #2 destination (Form / page) -->
+    <a class="cta" href="#" target="_blank" rel="noopener">LET’S GO!</a>
+  </div>
+
+  <script>
+    /* =========================================================
+       REVEAL (same immersive feel)
+    ========================================================= */
+    const els = Array.from(document.querySelectorAll(".reveal"));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e, idx) => {
+        if (!e.isIntersecting) return;
+        // small stagger without relying on inline styles
+        e.target.style.transitionDelay = (idx * 70) + "ms";
+        e.target.classList.add("is-visible");
+      });
+      sendHeightDelayed();
+    }, { threshold: 0.14 });
+
+    els.forEach(el => io.observe(el));
+
+    /* =========================================================
+       SHAREPOINT IFRAME AUTO-RESIZE
+    ========================================================= */
+    function sendHeight(){
+      const height = document.documentElement.scrollHeight;
+      parent.postMessage({ type: "resizeM3Challenge2", height }, "*");
+    }
+    function sendHeightDelayed(){ setTimeout(sendHeight, 250); }
+
+    window.addEventListener("load", () => { sendHeight(); setInterval(sendHeight, 900); });
+    window.addEventListener("resize", sendHeight);
+  </script>
+</body>
+</html>
