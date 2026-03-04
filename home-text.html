@@ -209,8 +209,12 @@
     letter-spacing:2px;
     padding: 18px 46px;
     border-radius: 999px;
-    justify-content:center;
 
+    /* ✅ CHANGED: ensure centering inside the main .card */
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    margin: 18px auto 0; /* ✅ centers the button horizontally */
 
     background: #ffb027;
     color: #ffffff; /* ✅ white */
@@ -248,19 +252,14 @@
     </p>
     <br>
     <p class="txt">But have you registered first?</p>
-<a
-    class="register-btn"
-    href="https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_EU/SitePages/Register.aspx"
-    target="_blank"
-    rel="noopener"
-    style="
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-    "
-  >
-    REGISTER
-  </a>
+    <a
+      class="register-btn"
+      href="https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_EU/SitePages/Register.aspx"
+      target="_blank"
+      rel="noopener"
+    >
+      REGISTER
+    </a>
   </section>
 
   <!-- SCROLL BEACON under main text -->
