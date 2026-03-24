@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Connected Heroes Studio - Upload</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#061a3a;
+      --text:#d4e7ff;
+      --muted:rgba(212,231,255,0.82);
+      --title:#ffffff;
+      --cyan:#19dfff;
+      --blue:#2aa8ff;
+      --shadow:0 18px 60px rgba(0,0,0,0.35);
+    }
+
+    html,body{
+      margin:0;
+      padding:0;
+      background:transparent!important;
+      font-family:'Inter',sans-serif;
+      color:var(--text);
+      overflow-x:hidden;
+    }
+
+    .page{
+      position:relative;
+      padding:58px 58px 80px;
+      max-width:1420px;
+    }
+
+    .badge{
+      display:inline-block;
+      padding:9px 18px;
+      border-radius:999px;
+      border:1px solid rgba(42,168,255,0.65);
+      color:var(--blue);
+      background:rgba(0,0,0,0.18);
+      box-shadow:0 0 0 1px rgba(255,255,255,0.04);
+      text-transform:uppercase;
+      letter-spacing:1px;
+      font-size:12px;
+      margin-bottom:24px;
+      backdrop-filter:blur(10px);
+    }
+
+    h1{
+      margin:0 0 18px 0;
+      font-family:'Orbitron',sans-serif;
+      font-size:58px;
+      font-weight:900;
+      line-height:1.02;
+      color:var(--title);
+      letter-spacing:1px;
+      text-shadow:0 0 22px rgba(25,223,255,0.06);
+    }
+
+    .layout{
+      display:grid;
+      grid-template-columns: minmax(0, 1fr) 290px;
+      gap:36px;
+      align-items:end;
+    }
+
+    .content{
+      max-width:1040px;
+      position:relative;
+      z-index:2;
+    }
+
+    .intro{
+      margin:0 0 24px 0;
+      color:#ffffff;
+      font-size:20px;
+      line-height:1.45;
+      font-weight:500;
+    }
+
+    .intro p{
+      margin:0 0 22px 0;
+    }
+
+    .section{
+      margin-top:26px;
+    }
+
+    .section-title{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin:0 0 16px 0;
+      font-size:17px;
+      line-height:1.2;
+      font-weight:800;
+      text-transform:uppercase;
+      color:#ffffff;
+      letter-spacing:0.2px;
+    }
+
+    .section-title .icon{
+      color:var(--cyan);
+      text-shadow:0 0 14px rgba(25,223,255,0.24);
+      flex:0 0 auto;
+    }
+
+    .body-copy{
+      font-size:18px;
+      line-height:1.52;
+      color:var(--muted);
+    }
+
+    .body-copy p{
+      margin:0 0 22px 0;
+    }
+
+    .body-copy strong{
+      color:#ffffff;
+      font-weight:800;
+    }
+
+    .guidelines{
+      display:grid;
+      gap:22px;
+      margin-top:4px;
+    }
+
+    .guideline{
+      padding-left:0;
+    }
+
+    .guideline-title{
+      color:#ffffff;
+      font-weight:800;
+    }
+
+    .final-line{
+      margin-top:10px;
+      font-size:20px;
+      font-weight:800;
+      color:#ffffff;
+    }
+
+    .signoff{
+      font-size:18px;
+      color:#ffffff;
+      margin-top:8px;
+    }
+
+    .signoff .accent{
+      color:#ffd54a;
+      text-shadow:0 0 10px rgba(255,213,74,0.18);
+    }
+
+    .cta{
+      margin-top:34px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:18px 44px;
+      border-radius:999px;
+      background:var(--cyan);
+      color:#032238;
+      font-family:'Orbitron',sans-serif;
+      font-size:20px;
+      font-weight:900;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      text-decoration:none;
+      border:1px solid rgba(25,223,255,0.62);
+      box-shadow:0 0 26px rgba(25,223,255,0.26);
+      transition:transform .25s ease, box-shadow .25s ease, filter .25s ease;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .btn::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.20), transparent 70%);
+      transform:translateX(-120%);
+      transition:transform .55s ease;
+      pointer-events:none;
+    }
+
+    .btn:hover{
+      transform:translateY(-3px);
+      box-shadow:0 0 40px rgba(25,223,255,0.42);
+      filter:brightness(1.04);
+    }
+
+    .btn:hover::after{
+      transform:translateX(120%);
+    }
+
+    .character-wrap{
+      position:relative;
+      min-height:620px;
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+      z-index:1;
+    }
+
+    .character-wrap::before{
+      content:"";
+      position:absolute;
+      bottom:16px;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(25,223,255,0.18), rgba(25,223,255,0.0) 72%);
+      filter:blur(12px);
+      pointer-events:none;
+    }
+
+    .character{
+      max-height:560px;
+      width:auto;
+      position:relative;
+      z-index:2;
+      animation:floaty 4s ease-in-out infinite;
+      filter:drop-shadow(0 18px 42px rgba(0,0,0,0.35));
+      pointer-events:none;
+      user-select:none;
+    }
+
+    .divider{
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(25,223,255,0.45), transparent);
+      margin:24px 0 10px;
+      border-radius:2px;
+      opacity:.9;
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .6s ease, transform .6s ease;
+    }
+
+    .reveal.show{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @keyframes floaty{
+      0%{ transform:translateY(0); }
+      50%{ transform:translateY(-10px); }
+      100%{ transform:translateY(0); }
+    }
+
+    @media (max-width: 1180px){
+      .layout{
+        grid-template-columns: 1fr 240px;
+        gap:28px;
+      }
+      h1{ font-size:50px; }
+      .character{ max-height:500px; }
+    }
+
+    @media (max-width: 980px){
+      .page{
+        padding:38px 24px 58px;
+      }
+
+      .layout{
+        grid-template-columns: 1fr;
+      }
+
+      .character-wrap{
+        display:none;
+      }
+
+      h1{
+        font-size:42px;
+      }
+
+      .intro{
+        font-size:18px;
+      }
+
+      .body-copy{
+        font-size:17px;
+      }
+
+      .final-line{
+        font-size:18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <div class="badge reveal">MISSION CONNECTED HEROES · THE BIG FINAL</div>
+
+    <div class="layout">
+      <div class="content">
+
+        <h1 class="reveal">Connected Heroes Studio</h1>
+
+        <div class="intro reveal">
+          <p>You conquered the Academy. Navigated the Practice. Imagined the Laboratory.</p>
+          <p><strong>Today, it's your moment.</strong></p>
+          <p>
+            You're among the top scorers of this Mission — and with it, exclusive access to a unique creation tool and a shot at the ultimate journey. The Grand Finale is your stage.
+          </p>
+        </div>
+
+        <div class="divider reveal"></div>
+
+        <div class="section reveal">
+          <div class="section-title">
+            <span class="icon">🎯</span>
+            <span>Your mission</span>
+          </div>
+
+          <div class="body-copy">
+            <p>
+              Create an original piece of content — <strong>30 seconds to 1 minute</strong> — showcasing the connected service closest to your heart.
+              <strong>Video, audio, scenario, visual... your call.</strong>
+              Convince, inspire, entertain. Make your colleagues stop scrolling and think:
+              <strong>“I need to try this.”</strong>
+            </p>
+          </div>
+        </div>
+
+        <div class="section reveal">
+          <div class="section-title">
+            <span class="icon">💡</span>
+            <span>Where to start?</span>
+          </div>
+
+          <div class="body-copy guidelines">
+            <div class="guideline">
+              <span class="guideline-title">Pick your service — </span>
+              Which one surprised you? Changed your daily life? That you'd recommend without hesitation?
+            </div>
+
+            <div class="guideline">
+              <span class="guideline-title">Find your angle — </span>
+              A real problem solved. A before/after. A story that made you smile.
+            </div>
+
+            <div class="guideline">
+              <span class="guideline-title">Be yourself — </span>
+              The best entries won't be the most polished. They'll be the most authentic.
+            </div>
+          </div>
+        </div>
+
+        <div class="section reveal">
+          <div class="final-line">Your voice. Your story. Your moment.</div>
+          <div class="signoff">Create. Submit. Inspire. <span class="accent">⚡</span></div>
+        </div>
+
+        <div class="cta reveal">
+          <a href="#" id="uploadLink" class="btn">Upload your video</a>
+        </div>
+      </div>
+
+      <div class="character-wrap reveal">
+        <img src="u28.png" alt="" class="character" />
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* LINK */
+    document.getElementById("uploadLink").href = "https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_EU/SitePages/UploadYourVideo.aspx";
+
+    /* REVEAL */
+    const els = document.querySelectorAll(".reveal");
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach((e, idx)=>{
+        if(e.isIntersecting){
+          e.target.style.transitionDelay = (idx * 70) + "ms";
+          e.target.classList.add("show");
+        }
+      });
+      sendHeightDelayed();
+    }, { threshold: 0.12 });
+
+    els.forEach(el => obs.observe(el));
+
+    /* SHAREPOINT RESIZE */
+    function sendHeight(){
+      parent.postMessage({
+        type:"resizeBigFinalUpload",
+        height:document.documentElement.scrollHeight
+      },"*");
+    }
+
+    function sendHeightDelayed(){
+      setTimeout(sendHeight, 220);
+    }
+
+    window.addEventListener("load",()=>{
+      sendHeight();
+      setInterval(sendHeight,900);
+    });
+
+    window.addEventListener("resize",sendHeight);
+  </script>
+
+</body>
+</html>
