@@ -1,6 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+<title>Connected Heroes Studio - AI</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#061a3a;
+  --text:#d4e7ff;
+  --muted:rgba(212,231,255,0.8);
+  --title:#ffffff;
+  --cyan:#19dfff;
+}
+
+/* BASE */
+html,body{
+  margin:0;
+  padding:0;
+  background:transparent!important;
+  font-family:'Inter',sans-serif;
+  color:var(--text);
+}
+
+/* PAGE */
+.page{
+  position:relative;
+  padding:60px 60px 80px;
+  max-width:1400px;
+}
+
+/* BADGE */
+.badge{
+  display:inline-block;
+  padding:8px 18px;
+  border-radius:999px;
+  border:1px solid rgba(42,168,255,0.6);
+  color:#2aa8ff;
+  font-size:12px;
+  letter-spacing:1px;
+  margin-bottom:20px;
+}
+
+/* TITLE */
+h1{
+  font-family:'Orbitron';
+  font-size:36px;
+  font-weight:900;
+  color:#fff;
+  margin-bottom:18px;
+}
+
+/* TEXT */
+.content{
+  max-width:800px;
+  font-size:18px;
+  line-height:1.6;
+}
+
+.content p{
+  margin-bottom:22px;
+}
+
+.highlight{
+  color:#fff;
+  font-weight:600;
+}
+
+/* MISSION BLOCK */
+.mission{
+  margin-top:30px;
+  padding-left:10px;
+  border-left:3px solid var(--cyan);
+}
+
+.mission-title{
+  font-weight:700;
+  color:#fff;
+  margin-bottom:10px;
+}
+
+/* CTA */
+.cta{
+  margin-top:40px;
+}
+
+.btn{
+  display:inline-block;
+  padding:18px 42px;
+  border-radius:999px;
+  background:var(--cyan);
+  color:#001a2a;
+  font-family:'Orbitron';
+  font-weight:900;
+  letter-spacing:1px;
+  text-decoration:none;
+  transition:all .25s ease;
+  box-shadow:0 0 25px rgba(25,223,255,0.3);
+}
+
+.btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 0 40px rgba(25,223,255,0.6);
+}
+
+/* FLOATING CHARACTERS */
+
+/* FLOAT ANIMATION */
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+  100%{transform:translateY(0)}
+}
+
+/* TEXT ABOVE CHARACTERS */
+.inner{
+  position:relative;
+  z-index:2;
+}
+
+/* REVEAL */
+.reveal{
+  opacity:0;
+  transform:translateY(20px);
+  transition:all .6s ease;
+}
+
+.reveal.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* MOBILE */
+@media(max-width:900px){
+  .char-left,.char-right{display:none;}
+  h1{font-size:40px;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+  <!-- CHARACTERS -->
+  <div class="inner">
+
+    <div class="badge reveal">MISSION CONNECTED HEROES · THE BIG FINAL</div>
+
+    <h1 class="reveal">Connected Heroes Studio</h1>
+
+    <div class="content reveal">
+
+      <p>
+        You conquered the challenges of the Academy.  
+        You navigated through the trials of the Practice.  
+        Or imagined the innovations of the Laboratory.
+      </p>
+
+      <p class="highlight">Today, it's your moment.</p>
+
+      <p>
+        You are among the top scorers of this Mission.  
+        You have earned your place here — and with it, exclusive access to a unique creation tool that will set you apart.
+      </p>
+
+      <p>
+        This is not just another challenge. <span class="highlight">This is your stage.</span>
+      </p>
+
+      <div class="mission">
+        <div class="mission-title">🎯 YOUR MISSION</div>
+        <p>
+          Using our AI video agent, create an original piece of content that showcases the connected service closest to your heart.
+        </p>
+        <p>No need to be a director. No need to be an expert.</p>
+        <p><span class="highlight">All you need is your authenticity.</span></p>
+      </div>
+
+      <p>
+        Our AI agent takes care of the rest.  
+        You guide. You choose. You create.
+      </p>
+
+    </div>
+
+    <div class="cta reveal">
+      <a href="#" id="ctaLink" class="btn">GENERATE YOUR VIDEO</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* LINK */
+document.getElementById("ctaLink").href = "TON LIEN IA";
+
+/* REVEAL */
+const els = document.querySelectorAll(".reveal");
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add("show");
+    }
+  });
+});
+els.forEach(el=>obs.observe(el));
+
+/* SHAREPOINT RESIZE */
+function sendHeight(){
+  parent.postMessage({
+    type:"resizeBigFinalAI",
+    height:document.documentElement.scrollHeight
+  },"*");
+}
+window.addEventListener("load",()=>{
+  sendHeight();
+  setInterval(sendHeight,900);
+});
+window.addEventListener("resize",sendHeight);
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>Connected Heroes Studio</title>
@@ -337,7 +564,7 @@
           <span class="spark s3"></span>
           <span class="spark s4"></span>
           <div class="action-icon">🎬</div>
-          <p class="action-title">Create your own video from scratch</p>
+          <p class="action-title">Create your own creaiton from scratch</p>
           <p class="action-sub">Take full control and bring your own idea to life with your personal creative style.</p>
         </div>
       </a>
