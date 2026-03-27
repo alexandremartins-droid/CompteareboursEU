@@ -1,366 +1,323 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>Connected Heroes Studio - Upload</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>Connected Heroes Studio - Upload</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <style>
-    :root{
-      --bg:#061a3a;
-      --text:#d4e7ff;
-      --muted:rgba(212,231,255,0.82);
-      --title:#ffffff;
-      --cyan:#19dfff;
-      --blue:#2aa8ff;
-      --shadow:0 18px 60px rgba(0,0,0,0.35);
-    }
+<style>
+:root{
+  --text:#d4e7ff;
+  --muted:rgba(212,231,255,0.82);
+  --title:#ffffff;
+  --cyan:#19dfff;
+  --blue:#2aa8ff;
+}
 
-    html,body{
-      margin:0;
-      padding:0;
-      background:transparent!important;
-      font-family:'Inter',sans-serif;
-      color:var(--text);
-      overflow-x:hidden;
-    }
+html,body{
+  margin:0;
+  padding:0;
+  background:transparent!important;
+  font-family:'Inter',sans-serif;
+  color:var(--text);
+  overflow-x:hidden;
+}
 
-    .page{
-      position:relative;
-      padding:58px 58px 80px;
-      max-width:1420px;
-    }
+/* PAGE */
+.page{
+  padding:58px 58px 80px;
+  max-width:1420px;
+}
 
-    .badge{
-      display:inline-block;
-      padding:9px 18px;
-      border-radius:999px;
-      border:1px solid rgba(42,168,255,0.65);
-      color:var(--blue);
-      background:rgba(0,0,0,0.18);
-      box-shadow:0 0 0 1px rgba(255,255,255,0.04);
-      text-transform:uppercase;
-      letter-spacing:1px;
-      font-size:12px;
-      margin-bottom:24px;
-      backdrop-filter:blur(10px);
-    }
+/* BADGE */
+.badge{
+  display:inline-block;
+  padding:9px 18px;
+  border-radius:999px;
+  border:1px solid rgba(42,168,255,0.65);
+  color:var(--blue);
+  background:rgba(0,0,0,0.18);
+  font-size:12px;
+  margin-bottom:24px;
+}
 
-    h1{
-      margin:0 0 18px 0;
-      font-family:'Orbitron',sans-serif;
-      font-size:36px;
-      font-weight:900;
-      line-height:1.02;
-      color:var(--title);
-      letter-spacing:1px;
-      text-shadow:0 0 22px rgba(25,223,255,0.06);
-    }
+/* TITLE */
+h1{
+  font-family:'Orbitron',sans-serif;
+  font-size:36px;
+  font-weight:900;
+  color:var(--title);
+  margin-bottom:18px;
+}
 
-    /* ✅ FULL WIDTH CONTENT */
-    .content{
-      width:100%;
-      max-width:none;
-      position:relative;
-      z-index:2;
-    }
+/* CONTENT */
+.content{
+  width:100%;
+}
 
-    .intro{
-      margin:0 0 24px 0;
-      color:#ffffff;
-      font-size:20px;
-      line-height:1.45;
-      font-weight:500;
-    }
+.intro{
+  color:#fff;
+  font-size:20px;
+  line-height:1.45;
+}
 
-    .intro p{
-      margin:0 0 22px 0;
-    }
+.section{
+  margin-top:30px;
+}
 
-    .section{
-      margin-top:26px;
-    }
+.section-title{
+  display:flex;
+  gap:10px;
+  font-weight:800;
+  color:#fff;
+  margin-bottom:14px;
+}
 
-    .section-title{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin:0 0 16px 0;
-      font-size:17px;
-      line-height:1.2;
-      font-weight:800;
-      text-transform:uppercase;
-      color:#ffffff;
-      letter-spacing:0.2px;
-    }
+.body-copy{
+  font-size:18px;
+  line-height:1.6;
+  color:var(--muted);
+}
 
-    .section-title .icon{
-      color:var(--cyan);
-      text-shadow:0 0 14px rgba(25,223,255,0.24);
-      flex:0 0 auto;
-    }
+.body-copy strong{
+  color:#fff;
+}
 
-    .body-copy{
-      width:100%;
-      max-width:none;
-      font-size:18px;
-      line-height:1.52;
-      color:var(--muted);
-    }
+.guidelines{
+  display:grid;
+  gap:20px;
+}
 
-    .body-copy p{
-      margin:0 0 22px 0;
-    }
+.final-line{
+  margin-top:10px;
+  font-size:20px;
+  font-weight:800;
+  color:#fff;
+}
 
-    .body-copy strong{
-      color:#ffffff;
-      font-weight:800;
-    }
+.signoff{
+  margin-top:8px;
+  color:#fff;
+}
 
-    .guidelines{
-      display:grid;
-      gap:22px;
-      margin-top:4px;
-    }
+/* CTA */
+.btn{
+  display:inline-block;
+  margin-top:30px;
+  padding:18px 44px;
+  border-radius:999px;
+  background:var(--cyan);
+  color:#032238;
+  font-family:'Orbitron';
+  font-weight:900;
+  text-decoration:none;
+  box-shadow:0 0 25px rgba(25,223,255,0.3);
+  transition:all .3s ease;
+}
 
-    .guideline{
-      padding-left:0;
-    }
+.btn:hover{
+  transform:translateY(-4px);
+  box-shadow:0 0 45px rgba(25,223,255,0.5);
+}
 
-    .guideline-title{
-      color:#ffffff;
-      font-weight:800;
-    }
+/* DIVIDER */
+.divider{
+  height:1px;
+  background:linear-gradient(90deg, transparent, rgba(25,223,255,0.4), transparent);
+  margin:30px 0;
+}
 
-    .final-line{
-      margin-top:10px;
-      font-size:20px;
-      font-weight:800;
-      color:#ffffff;
-    }
+/* ========================= */
+/* EXAMPLES */
+/* ========================= */
 
-    .signoff{
-      font-size:18px;
-      color:#ffffff;
-      margin-top:8px;
-    }
+.example-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+  margin-top:20px;
+}
 
-    .signoff .accent{
-      color:#ffd54a;
-      text-shadow:0 0 10px rgba(255,213,74,0.18);
-    }
+.example-card{
+  position:relative;
+  border-radius:20px;
+  overflow:hidden;
+  border:1px solid rgba(25,223,255,0.2);
+  box-shadow:
+    0 0 25px rgba(25,223,255,0.15),
+    0 20px 60px rgba(0,0,0,0.35);
+  transition:all .3s ease;
+}
 
-    .cta{
-      margin-top:34px;
-    }
+.example-card:hover{
+  transform:translateY(-6px) scale(1.02);
+  box-shadow:
+    0 0 45px rgba(25,223,255,0.3),
+    0 30px 80px rgba(0,0,0,0.5);
+}
 
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:18px 44px;
-      border-radius:999px;
-      background:var(--cyan);
-      color:#032238;
-      font-family:'Orbitron',sans-serif;
-      font-size:20px;
-      font-weight:900;
-      letter-spacing:1px;
-      text-transform:uppercase;
-      text-decoration:none;
-      border:1px solid rgba(25,223,255,0.62);
-      box-shadow:0 0 26px rgba(25,223,255,0.26);
-      transition:transform .25s ease, box-shadow .25s ease, filter .25s ease;
-      position:relative;
-      overflow:hidden;
-    }
+/* IMAGE */
+.example-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
 
-    .btn::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.20), transparent 70%);
-      transform:translateX(-120%);
-      transition:transform .55s ease;
-      pointer-events:none;
-    }
+/* VIDEO */
+.example-card video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
 
-    .btn:hover{
-      transform:translateY(-3px);
-      box-shadow:0 0 40px rgba(25,223,255,0.42);
-      filter:brightness(1.04);
-    }
+/* OVERLAY */
+.example-overlay{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  padding:20px;
+  background:linear-gradient(to top, rgba(6,26,58,0.9), transparent);
+  color:#fff;
+  font-weight:600;
+}
 
-    .btn:hover::after{
-      transform:translateX(120%);
-    }
+/* REVEAL */
+.reveal{
+  opacity:0;
+  transform:translateY(20px);
+  transition:all .6s ease;
+}
 
-    .divider{
-      height:1px;
-      background:linear-gradient(90deg, transparent, rgba(25,223,255,0.45), transparent);
-      margin:24px 0 10px;
-      border-radius:2px;
-      opacity:.9;
-    }
+.reveal.show{
+  opacity:1;
+  transform:translateY(0);
+}
 
-    .reveal{
-      opacity:0;
-      transform:translateY(18px);
-      transition:opacity .6s ease, transform .6s ease;
-    }
+/* MOBILE */
+@media(max-width:900px){
+  .page{
+    padding:30px 20px;
+  }
 
-    .reveal.show{
-      opacity:1;
-      transform:translateY(0);
-    }
+  .example-grid{
+    grid-template-columns:1fr;
+  }
 
-    @media (max-width: 980px){
-      .page{
-        padding:38px 24px 58px;
-      }
-
-      h1{
-        font-size:36px;
-      }
-
-      .intro{
-        font-size:18px;
-      }
-
-      .body-copy{
-        font-size:17px;
-      }
-
-      .final-line{
-        font-size:18px;
-      }
-
-      .btn{
-        width:100%;
-        box-sizing:border-box;
-        text-align:center;
-      }
-    }
-  </style>
+  .btn{
+    width:100%;
+    text-align:center;
+  }
+}
+</style>
 </head>
 
 <body>
-  <div class="page">
 
-    <div class="badge reveal">MISSION CONNECTED HEROES · THE BIG FINAL</div>
+<div class="page">
 
-    <div class="content">
+  <div class="badge reveal">MISSION CONNECTED HEROES · THE BIG FINAL</div>
 
-      <h1 class="reveal">Connected Heroes Studio</h1>
+  <div class="content">
 
-      <div class="intro reveal">
-        <p>You conquered the Academy. Navigated the Practice. Imagined the Laboratory.</p>
-        <p><strong>Today, it's your moment.</strong></p>
+    <h1 class="reveal">Connected Heroes Studio</h1>
+
+    <div class="intro reveal">
+      <p>You conquered the Academy. Navigated the Practice. Imagined the Laboratory.</p>
+      <p><strong>Today, it's your moment.</strong></p>
+      <p>You're among the top scorers of this Mission — and with it, exclusive access to a unique creation tool and a shot at the ultimate journey.</p>
+    </div>
+
+    <div class="divider reveal"></div>
+
+    <div class="section reveal">
+      <div class="section-title">🎯 Your mission</div>
+      <div class="body-copy">
         <p>
-          You're among the top scorers of this Mission — and with it, exclusive access to a unique creation tool and a shot at the ultimate journey. The Grand Finale is your stage.
+          Create an original piece of content — <strong>30 seconds to 1 minute</strong> — showcasing the connected service closest to your heart.
+          <strong>Video, audio, scenario, visual... your call.</strong>
         </p>
       </div>
-
-      <div class="divider reveal"></div>
-
-      <div class="section reveal">
-        <div class="section-title">
-          <span class="icon">🎯</span>
-          <span>Your mission</span>
-        </div>
-
-        <div class="body-copy">
-          <p>
-            Create an original piece of content — <strong>30 seconds to 1 minute</strong> — showcasing the connected service closest to your heart.
-            <strong>Video, audio, scenario, visual... your call.</strong>
-            Convince, inspire, entertain. Make your colleagues stop scrolling and think:
-            <strong>“I need to try this.”</strong>
-          </p>
-        </div>
-      </div>
-
-      <div class="section reveal">
-        <div class="section-title">
-          <span class="icon">💡</span>
-          <span>Where to start?</span>
-        </div>
-
-        <div class="body-copy guidelines">
-          <div class="guideline">
-            <span class="guideline-title">Pick your service — </span>
-            Which one surprised you? Changed your daily life? That you'd recommend without hesitation?
-          </div>
-
-          <div class="guideline">
-            <span class="guideline-title">Find your angle — </span>
-            A real problem solved. A before/after. A story that made you smile.
-          </div>
-
-          <div class="guideline">
-            <span class="guideline-title">Be yourself — </span>
-            The best entries won't be the most polished. They'll be the most authentic.
-          </div>
-        </div>
-      </div>
-
-      <div class="section reveal">
-        <div class="final-line">Your voice. Your story. Your moment.</div>
-        <div class="signoff">Create. Submit. Inspire. <span class="accent">⚡</span></div>
-      </div>
-
-      <div class="cta reveal">
-        <a href="https://forms.office.com/Pages/DesignPageV2.aspx?origin=NeoPortalPage&subpage=design&groupid=cdc97ec5-1507-4de0-b06b-63a04a3f169d&id=zdVS2ExyKEGIEv-l2z-FB8V-yc0HFeBNsGtjoEo_Fp1UMUdNQjVROTA3VjNNSlNXTllXNlNYVE43WSQlQCN0PWcu"
-           id="uploadLink"
-           class="btn"
-           target="_blank"
-           rel="noopener noreferrer">
-          Upload your video
-        </a>
-      </div>
-
     </div>
+
+    <div class="section reveal">
+      <div class="section-title">💡 Where to start?</div>
+      <div class="body-copy guidelines">
+        <div><strong>Pick your service —</strong> one that changed your daily life.</div>
+        <div><strong>Find your angle —</strong> a story, a before/after.</div>
+        <div><strong>Be yourself —</strong> authenticity wins.</div>
+      </div>
+    </div>
+
+    <div class="section reveal">
+      <div class="final-line">Your voice. Your story. Your moment.</div>
+      <div class="signoff">Create. Submit. Inspire. ⚡</div>
+    </div>
+
+    <a href="https://forms.office.com/Pages/DesignPageV2.aspx?origin=NeoPortalPage&subpage=design&groupid=cdc97ec5-1507-4de0-b06b-63a04a3f169d&id=zdVS2ExyKEGIEv-l2z-FB8V-yc0HFeBNsGtjoEo_Fp1UMUdNQjVROTA3VjNNSlNXTllXNlNYVE43WSQlQCN0PWcu"
+       target="_blank"
+       class="btn reveal">
+       Upload your video
+    </a>
+
+    <!-- ================= EXAMPLES ================= -->
+
+    <div class="section reveal">
+      <div class="section-title">🚗 Example of connected experience</div>
+
+      <div class="example-grid">
+
+        <!-- IMAGE -->
+        <div class="example-card">
+          <img src="unnamed (2).png" alt="Connected example">
+          <div class="example-overlay">
+            Your car. Your network. Everywhere.
+          </div>
+        </div>
+
+        <!-- VIDEO -->
+        <div class="example-card">
+          <video autoplay muted loop playsinline>
+            <source src="demarrez-votre-jeep-avec-un-smartphone.mp4" type="video/mp4">
+          </video>
+          <div class="example-overlay">
+            See it in action
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
+</div>
 
-  <script>
-    /* LINK */
-    document.getElementById("uploadLink").href =
-      "https://forms.office.com/Pages/DesignPageV2.aspx?origin=NeoPortalPage&subpage=design&groupid=cdc97ec5-1507-4de0-b06b-63a04a3f169d&id=zdVS2ExyKEGIEv-l2z-FB8V-yc0HFeBNsGtjoEo_Fp1UMUdNQjVROTA3VjNNSlNXTllXNlNYVE43WSQlQCN0PWcu";
-
-    /* REVEAL */
-    const els = document.querySelectorAll(".reveal");
-    const obs = new IntersectionObserver((entries)=>{
-      entries.forEach((e, idx)=>{
-        if(e.isIntersecting){
-          e.target.style.transitionDelay = (idx * 70) + "ms";
-          e.target.classList.add("show");
-        }
-      });
-      sendHeightDelayed();
-    }, { threshold: 0.12 });
-
-    els.forEach(el => obs.observe(el));
-
-    /* SHAREPOINT RESIZE */
-    function sendHeight(){
-      parent.postMessage({
-        type:"resizeBigFinalUpload",
-        height:document.documentElement.scrollHeight
-      },"*");
+<script>
+/* REVEAL */
+const els = document.querySelectorAll(".reveal");
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add("show");
     }
+  });
+});
+els.forEach(el=>obs.observe(el));
 
-    function sendHeightDelayed(){
-      setTimeout(sendHeight, 220);
-    }
-
-    window.addEventListener("load",()=>{
-      sendHeight();
-      setInterval(sendHeight,900);
-    });
-
-    window.addEventListener("resize",sendHeight);
-  </script>
+/* SHAREPOINT RESIZE */
+function sendHeight(){
+  parent.postMessage({
+    type:"resizeBigFinalUpload",
+    height:document.documentElement.scrollHeight
+  },"*");
+}
+window.addEventListener("load",()=>{
+  sendHeight();
+  setInterval(sendHeight,900);
+});
+window.addEventListener("resize",sendHeight);
+</script>
 
 </body>
 </html>
