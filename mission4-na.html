@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Connected Heroes Studio</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #061a3a;
+      --panel: rgba(255,255,255,0.06);
+      --panelBorder: rgba(255,255,255,0.10);
+      --text: #d4e7ff;
+      --muted: rgba(212,231,255,0.82);
+      --title: #ffffff;
+      --cyan: #0edfe3;
+      --cyan2: #19dfff;
+      --blue: #2aa8ff;
+      --shadow: 0 18px 60px rgba(0,0,0,0.35);
+    }
+
+    html, body{
+      margin:0;
+      padding:0;
+      background: transparent !important;
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+      overflow-x:hidden;
+    }
+
+    .page{
+      padding: 48px 48px 70px;
+      max-width: 1380px;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(42,168,255,0.70);
+      color: rgba(42,168,255,0.98);
+      background: rgba(0,0,0,0.18);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.04);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 12px;
+      margin-bottom: 22px;
+      width: fit-content;
+      backdrop-filter: blur(10px);
+    }
+
+    h1{
+      font-family: "Orbitron", sans-serif;
+      color: var(--title);
+      letter-spacing: 1px;
+      font-weight: 900;
+      font-size: 36px;
+      margin: 0 0 12px;
+      line-height: 1.02;
+      text-shadow: 0 0 24px rgba(25,223,255,0.08);
+    }
+
+    .lead{
+      color: #ffffff;
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 1.3;
+      margin: 0 0 26px;
+    }
+
+    .copy{
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    .copy p{
+      margin: 0 0 24px;
+    }
+
+    .copy strong{
+      color:#ffffff;
+      font-weight:600;
+    }
+
+    .copy .final-line{
+      font-size: 21px;
+      color:#ffffff;
+      margin-top: 8px;
+    }
+
+    .copy .accent{
+      color: var(--cyan);
+      text-shadow: 0 0 16px rgba(14,223,227,0.20);
+    }
+
+    .divider{
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(14,223,227,0.45), transparent);
+      margin: 30px 0 34px;
+      border-radius: 2px;
+      opacity: 0.9;
+    }
+
+    .actions{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 34px;
+      max-width: 1340px;
+      margin-top: 8px;
+    }
+
+    .action-link{
+      text-decoration:none;
+      color: inherit;
+      display:block;
+      border-radius: 34px;
+      transform: translateY(0);
+      transition: transform .22s ease, filter .22s ease;
+      position: relative;
+      outline: none;
+    }
+
+    .action-link::before{
+      content:"";
+      position:absolute;
+      inset:-8px;
+      border-radius: 40px;
+      background: radial-gradient(circle at 50% 100%, rgba(14,223,227,0.22), rgba(14,223,227,0.0) 62%);
+      filter: blur(12px);
+      opacity: .9;
+      transition: opacity .22s ease, filter .22s ease;
+      pointer-events:none;
+    }
+
+    .action-link:hover{
+      transform: translateY(-4px);
+      filter: brightness(1.02);
+    }
+
+    .action-link:hover::before{
+      opacity: 1;
+      filter: blur(16px);
+    }
+
+    .action-link:focus-visible::before{
+      opacity: 1;
+      filter: blur(16px);
+    }
+
+    .action-card{
+      min-height: 210px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 34px;
+      background:
+        linear-gradient(180deg, rgba(9,28,68,0.92), rgba(4,17,47,0.96));
+      border: 1px solid rgba(42,168,255,0.58);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.03),
+        0 0 34px rgba(14,223,227,0.18),
+        0 22px 60px rgba(0,0,0,0.34);
+      padding: 28px 28px 24px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      backdrop-filter: blur(10px);
+      transition: border-color .22s ease, box-shadow .22s ease, transform .22s ease;
+    }
+
+    .action-card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(700px 240px at 50% 100%, rgba(14,223,227,0.10), transparent 55%),
+        linear-gradient(135deg, rgba(25,223,255,0.06), rgba(25,223,255,0.00) 45%);
+      pointer-events:none;
+    }
+
+    .action-link:hover .action-card{
+      border-color: rgba(14,223,227,0.78);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.05),
+        0 0 42px rgba(14,223,227,0.26),
+        0 24px 64px rgba(0,0,0,0.36);
+    }
+
+    .action-icon{
+      font-size: 52px;
+      line-height: 1;
+      margin-bottom: 16px;
+      filter: drop-shadow(0 0 14px rgba(14,223,227,0.12));
+    }
+
+    .action-title{
+      font-family: "Orbitron", sans-serif;
+      font-size: 22px;
+      line-height: 1.28;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin: 0;
+      max-width: 92%;
+    }
+
+    .action-sub{
+      margin-top: 12px;
+      font-size: 14px;
+      color: rgba(212,231,255,0.70);
+      line-height: 1.45;
+      max-width: 86%;
+    }
+
+    .spark{
+      position:absolute;
+      width: 8px;
+      height: 8px;
+      border-radius:50%;
+      background: var(--cyan);
+      box-shadow: 0 0 18px rgba(14,223,227,0.45);
+      opacity:.55;
+      animation: floatSpark 3.4s ease-in-out infinite;
+      pointer-events:none;
+    }
+
+    .spark.s1{ top: 22px; left: 24px; animation-delay: 0s; }
+    .spark.s2{ top: 34px; right: 34px; animation-delay: .8s; }
+    .spark.s3{ bottom: 28px; left: 48px; animation-delay: 1.5s; }
+    .spark.s4{ bottom: 30px; right: 42px; animation-delay: .4s; }
+
+    @keyframes floatSpark{
+      0%   { transform: translateY(0) scale(1); opacity:.35; }
+      50%  { transform: translateY(-8px) scale(1.12); opacity:.8; }
+      100% { transform: translateY(0) scale(1); opacity:.35; }
+    }
+
+    .reveal{
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 600ms ease, transform 600ms ease;
+    }
+
+    .reveal.is-visible{
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1180px){
+      h1{ font-size: 52px; }
+      .lead{ font-size: 24px; }
+    }
+
+    @media (max-width: 960px){
+      .page{
+        padding: 34px 24px 54px;
+      }
+
+      h1{
+        font-size: 36px;
+      }
+
+      .lead{
+        font-size: 21px;
+      }
+
+      .copy{
+        font-size: 17px;
+      }
+
+      .actions{
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      .action-card{
+        min-height: 188px;
+      }
+
+      .action-title{
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="badge reveal">MISSION CONNECTED HEROES · THE BIG FINAL</div>
+
+    <h1 class="reveal">Connected Heroes Studio</h1>
+
+    <div class="copy reveal">
+      <p>
+        <strong>Two paths. One last mission on Connected Services. Endless creativity.</strong>
+      </p>
+      
+      <p>
+        Let our AI spark your idea — or grab your phone, trust your instincts and create something entirely your own. The only rule? Make it unforgettable.
+      </p>
+
+      <p>
+        If you share your own creation, you have until <strong>April 17th</strong> to upload your video — if you choose our AI Agent, it will take care of everything!
+      </p>
+
+      <p class="final-line">
+        Your story. Your voice. Your moment. Make it count. <span class="accent">⚡</span>
+      </p>
+    </div>
+
+    <div class="divider reveal"></div>
+
+    <div class="actions reveal">
+      <a class="action-link"
+         href="https://shiftup.sharepoint.com/sites/MissionConnectedHeroes_EU/SitePages/Mission-4-Generate.aspx"
+         id="aiToolLink"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="Generate your video with our exclusive AI tool">
+        <div class="action-card">
+          <span class="spark s1"></span>
+          <span class="spark s2"></span>
+          <div class="action-icon">🤖</div>
+          <p class="action-title">Generate your video with our exclusive AI tool</p>
+          <p class="action-sub">Let our AI agent ignite and build a powerful and creative video.</p>
+        </div>
+      </a>
+
+      <a class="action-link"
+         href="https://aice.am/4Gs4E8"
+         id="scratchLink"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="Create your own creation from scratch">      
+        <div class="action-card">
+          <span class="spark s3"></span>
+          <span class="spark s4"></span>
+          <div class="action-icon">🎬</div>
+          <p class="action-title">Share your own creation</p>
+          <p class="action-sub">Take full control and bring your own idea to life with your personal creative style.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    /* =========================================================
+       REVEAL
+    ========================================================= */
+    const revealEls = Array.from(document.querySelectorAll(".reveal"));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e, idx) => {
+        if (!e.isIntersecting) return;
+        e.target.style.transitionDelay = (idx * 70) + "ms";
+        e.target.classList.add("is-visible");
+      });
+      sendHeightDelayed();
+    }, { threshold: 0.12 });
+
+    revealEls.forEach(el => io.observe(el));
+
+    /* =========================================================
+       SHAREPOINT IFRAME AUTO-RESIZE
+    ========================================================= */
+    function sendHeight(){
+      const height = document.documentElement.scrollHeight;
+      parent.postMessage({ type: "resizeBigFinalStudio", height }, "*");
+    }
+    function sendHeightDelayed(){ setTimeout(sendHeight, 220); }
+
+    window.addEventListener("load", () => { sendHeight(); setInterval(sendHeight, 900); });
+    window.addEventListener("resize", sendHeight);
+  </script>
+</body>
+</html>
