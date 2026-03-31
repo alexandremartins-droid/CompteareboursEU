@@ -3,122 +3,185 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>Connected Heroes Studio - Upload</title>
 
-<title>Connected Heroes Studio - AI</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg:#061a3a;
   --text:#d4e7ff;
-  --muted:rgba(212,231,255,0.8);
+  --muted:rgba(212,231,255,0.82);
   --title:#ffffff;
   --cyan:#19dfff;
+  --blue:#2aa8ff;
 }
 
-/* BASE */
 html,body{
   margin:0;
   padding:0;
   background:transparent!important;
   font-family:'Inter',sans-serif;
   color:var(--text);
+  overflow-x:hidden;
 }
 
 /* PAGE */
 .page{
-  position:relative;
-  padding:60px 60px 80px;
-  max-width:1400px;
+  padding:58px 58px 80px;
+  max-width:1420px;
 }
 
 /* BADGE */
 .badge{
   display:inline-block;
-  padding:8px 18px;
+  padding:9px 18px;
   border-radius:999px;
-  border:1px solid rgba(42,168,255,0.6);
-  color:#2aa8ff;
+  border:1px solid rgba(42,168,255,0.65);
+  color:var(--blue);
+  background:rgba(0,0,0,0.18);
   font-size:12px;
-  letter-spacing:1px;
-  margin-bottom:20px;
+  margin-bottom:24px;
 }
 
 /* TITLE */
 h1{
-  font-family:'Orbitron';
+  font-family:'Orbitron',sans-serif;
   font-size:36px;
   font-weight:900;
-  color:#fff;
+  color:var(--title);
   margin-bottom:18px;
 }
 
-/* TEXT */
+/* CONTENT */
 .content{
+  width:100%;
+}
+
+.intro{
+  color:#fff;
+  font-size:20px;
+  line-height:1.45;
+}
+
+.section{
+  margin-top:30px;
+}
+
+.section-title{
+  display:flex;
+  gap:10px;
+  font-weight:800;
+  color:#fff;
+  margin-bottom:14px;
+}
+
+.body-copy{
   font-size:18px;
   line-height:1.6;
+  color:var(--muted);
 }
 
-.content p{
-  margin-bottom:22px;
-}
-
-.highlight{
+.body-copy strong{
   color:#fff;
-  font-weight:600;
 }
 
-/* MISSION BLOCK */
-.mission{
-  margin-top:30px;
-  padding-left:10px;
-  border-left:3px solid var(--cyan);
+.guidelines{
+  display:grid;
+  gap:20px;
 }
 
-.mission-title{
-  font-weight:700;
+.final-line{
+  margin-top:10px;
+  font-size:20px;
+  font-weight:800;
   color:#fff;
-  margin-bottom:10px;
+}
+
+.signoff{
+  margin-top:8px;
+  color:#fff;
 }
 
 /* CTA */
-.cta{
-  margin-top:40px;
-}
-
 .btn{
   display:inline-block;
-  padding:18px 42px;
+  margin-top:30px;
+  padding:18px 44px;
   border-radius:999px;
   background:var(--cyan);
-  color:#001a2a;
+  color:#032238;
   font-family:'Orbitron';
   font-weight:900;
-  letter-spacing:1px;
   text-decoration:none;
-  transition:all .25s ease;
   box-shadow:0 0 25px rgba(25,223,255,0.3);
+  transition:all .3s ease;
 }
 
 .btn:hover{
-  transform:translateY(-3px);
-  box-shadow:0 0 40px rgba(25,223,255,0.6);
+  transform:translateY(-4px);
+  box-shadow:0 0 45px rgba(25,223,255,0.5);
 }
 
-/* FLOATING CHARACTERS */
-
-/* FLOAT ANIMATION */
-@keyframes float{
-  0%{transform:translateY(0)}
-  50%{transform:translateY(-12px)}
-  100%{transform:translateY(0)}
+/* DIVIDER */
+.divider{
+  height:1px;
+  background:linear-gradient(90deg, transparent, rgba(25,223,255,0.4), transparent);
+  margin:30px 0;
 }
 
-/* TEXT ABOVE CHARACTERS */
-.inner{
+/* ========================= */
+/* EXAMPLES */
+/* ========================= */
+
+.example-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+  margin-top:20px;
+}
+
+.example-card{
   position:relative;
-  z-index:2;
+  border-radius:20px;
+  overflow:hidden;
+  border:1px solid rgba(25,223,255,0.2);
+  box-shadow:
+    0 0 25px rgba(25,223,255,0.15),
+    0 20px 60px rgba(0,0,0,0.35);
+  transition:all .3s ease;
+}
+
+.example-card:hover{
+  transform:translateY(-6px) scale(1.02);
+  box-shadow:
+    0 0 45px rgba(25,223,255,0.3),
+    0 30px 80px rgba(0,0,0,0.5);
+}
+
+/* IMAGE */
+.example-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* VIDEO */
+.example-card video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* OVERLAY */
+.example-overlay{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  padding:20px;
+  background:linear-gradient(to top, rgba(6,26,58,0.9), transparent);
+  color:#fff;
+  font-weight:600;
 }
 
 /* REVEAL */
@@ -135,8 +198,18 @@ h1{
 
 /* MOBILE */
 @media(max-width:900px){
-  .char-left,.char-right{display:none;}
-  h1{font-size:40px;}
+  .page{
+    padding:30px 20px;
+  }
+
+  .example-grid{
+    grid-template-columns:1fr;
+  }
+
+  .btn{
+    width:100%;
+    text-align:center;
+  }
 }
 </style>
 </head>
@@ -145,55 +218,102 @@ h1{
 
 <div class="page">
 
-  <!-- CHARACTERS -->
-  <div class="inner">
+  <div class="badge reveal">MISSION CONNECTED HEROES · THE BIG FINAL</div>
 
-    <div class="badge reveal">MISSION CONNECTED HEROES · THE BIG FINAL</div>
+  <div class="content">
 
     <h1 class="reveal">Connected Heroes Studio</h1>
 
-    <div class="content reveal">
-
-      <p>
-        You conquered the challenges of the Academy.  
-        You navigated through the trials of the Practice.  
-        Or imagined the innovations of the Laboratory.
-      </p>
-
-      <p class="highlight">Today, it's your moment.</p>
-
-      <p>
-        You are among the top scorers of this Mission.  
-        You have earned your place here — and with it, exclusive access to a unique creation tool that will set you apart. This is not just another challenge. <span class="highlight">This is your stage.</span>
-      </p>
-
-      <div class="mission">
-        <div class="mission-title">🎯 YOUR MISSION</div>
-        <p>
-          Using our AI video agent, create an original piece of content that showcases the connected service closest to your heart.
-        </p>
-        <p>No need to be a director. No need to be an expert.</p>
-        <p><span class="highlight">All you need is your authenticity.</span></p>
-      </div>
-
-      <p>
-        Our AI agent takes care of the rest.  
-        You guide. You choose. You create.
-      </p>
-
+    <div class="intro reveal">
+      <p>You conquered the Academy. Navigated the Practice. Imagined the Laboratory.</p>
+      <p><strong>Today, it's your moment.</strong></p>
+      <p>You're among the top scorers of this Mission</p>
     </div>
 
-    <div class="cta reveal">
-      <a href="https://stellantis-frontend-1083372194728.europe-west1.run.app/client" id="ctaLink" class="btn">GENERATE YOUR VIDEO</a>
+    <div class="divider reveal"></div>
+
+    <div class="section reveal">
+      <div class="section-title">🎯 Your mission</div>
+      <div class="body-copy">
+        <p>
+          Create an original piece of content — <strong>30 seconds to 1 minute</strong> — showcasing the connected service closest to your heart.
+          <strong>Video, audio, scenario, visual... your call.</strong>Convince, inspire, entertain.
+        </p>
+      </div>
+    </div>
+
+    <div class="section reveal">
+      <div class="section-title">💡 Where to start?</div>
+      <div class="body-copy guidelines">
+        <div><strong>Pick your service —</strong> Which one surprised you? Changed your daily life? That you'd recommend without hesitation?</div>
+        <div><strong>Find your angle —</strong> A real problem solved. A before/after. A story that made you smile.</div>
+        <div><strong>Be yourself —</strong> The best entries won't be the most polished. They'll be the most authentic.</div>
+      </div>
+    </div>
+
+    <div class="section reveal">
+      <div class="final-line">Your voice. Your story. Your moment.</div>
+      <div class="signoff">Create. Submit. Inspire. ⚡</div>
+    </div>
+
+    <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=zdVS2ExyKEGIEv-l2z-FB8V-yc0HFeBNsGtjoEo_Fp1UMUdNQjVROTA3VjNNSlNXTllXNlNYVE43WSQlQCN0PWcu"
+       target="_blank"
+       class="btn reveal">
+       SUBMIT YOUR CREATION
+    </a>
+
+    <!-- ================= EXAMPLES ================= -->
+
+    <div class="section reveal">
+      <div class="section-title">🚗 Examples</div>
+
+      <div class="example-grid">
+
+        <!-- IMAGE -->
+        <div class="example-card">
+          <img src="unnamed (2).png" alt="Connected example">
+          <div class="example-overlay">
+            Your car. Your network. Everywhere.
+          </div>
+        </div>
+
+        <!-- VIDEO -->
+        <div class="example-card">
+          <video autoplay muted loop playsinline>
+            <source src="demarrez-votre-jeep-avec-un-smartphone.mp4" type="video/mp4">
+          </video>
+          <div class="example-overlay">
+            See it in action
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section reveal">
+      <div class="section-title">🎉 WHAT HAPPENS AFTER SUBMISSION?</div>
+      <div class="body-copy" style="color:#fff;">
+        <p>Once submitted, your creation will:</p>
+
+        <p>
+          1. Be reviewed by the organizing team (24-48 hours)<br>
+          2. Go live in the voting gallery on April 17th<br>
+          3. Be voted on by all Mission: Connected Heroes participants<br>
+          4. Win — if it gets the most votes in your region!
+        </p>
+
+        <p>💡 You will receive a confirmation email once your creation is live and ready to receive votes.</p>
+
+        <p>Good luck, Connected Hero.</p>
+
+        <p><strong>May the best creation win. 🏆</strong></p>
+      </div>
     </div>
 
   </div>
 </div>
 
 <script>
-/* LINK */
-document.getElementById("ctaLink").href = "https://stellantis-frontend-1083372194728.europe-west1.run.app/client";
-
 /* REVEAL */
 const els = document.querySelectorAll(".reveal");
 const obs = new IntersectionObserver(entries=>{
@@ -208,7 +328,7 @@ els.forEach(el=>obs.observe(el));
 /* SHAREPOINT RESIZE */
 function sendHeight(){
   parent.postMessage({
-    type:"resizeBigFinalAI",
+    type:"resizeBigFinalUpload",
     height:document.documentElement.scrollHeight
   },"*");
 }
