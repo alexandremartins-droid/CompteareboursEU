@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Home Finalists Banner</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --text:#ffffff;
+      --muted:rgba(255,255,255,0.92);
+      --blue:#2aa8ff;
+      --cyan:#19dfff;
+      --panelBg:rgba(5, 18, 52, 0.58);
+      --panelBorder:rgba(42,168,255,0.24);
+      --shadow:0 16px 40px rgba(0,0,0,0.28);
+    }
+
+    html, body{
+      margin:0;
+      padding:0;
+      background:transparent !important;
+      font-family:'Inter', sans-serif;
+      overflow:hidden;
+    }
+
+    .wrap{
+      width:100%;
+      padding: 14px 22px;
+      box-sizing:border-box;
+    }
+
+    .info-banner{
+      position:relative;
+      width:100%;
+      border-radius:18px;
+      padding:18px 26px;
+      box-sizing:border-box;
+      background: linear-gradient(
+        135deg,
+        rgba(6, 21, 62, 0.72),
+        rgba(7, 27, 74, 0.56)
+      );
+      border:1px solid var(--panelBorder);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.03),
+        0 0 24px rgba(25,223,255,0.10),
+        var(--shadow);
+      overflow:hidden;
+    }
+
+    .info-banner::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 12% 50%, rgba(25,223,255,0.08), transparent 28%),
+        radial-gradient(circle at 88% 50%, rgba(42,168,255,0.08), transparent 28%);
+      pointer-events:none;
+    }
+
+    .info-banner::after{
+      content:"";
+      position:absolute;
+      inset:auto 0 0 0;
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(25,223,255,0.32), transparent);
+      opacity:0.8;
+      pointer-events:none;
+    }
+
+    .text{
+      position:relative;
+      z-index:1;
+      text-align:center;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.55;
+      font-weight:500;
+      text-wrap:balance;
+      text-shadow: 0 0 12px rgba(0,0,0,0.22);
+    }
+
+    .text strong{
+      color:var(--text);
+      font-weight:700;
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(12px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+
+    .reveal.is-visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @media (max-width: 900px){
+      .wrap{
+        padding:10px 14px;
+      }
+
+      .info-banner{
+        padding:16px 18px;
+        border-radius:16px;
+      }
+
+      .text{
+        font-size:14px;
+        line-height:1.5;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="info-banner reveal">
+      <div class="text">
+        <strong>Are you one of the finalists?</strong> An email with all the details for your last mission #4 is already waiting for you in your inbox!<br>
+        <strong>Not a finalist this time?</strong> Don't worry! You can still complete your missions, earn points and try to win some awesome goodies: notebook, tote bag, water bottle… all featuring your favourite heroes.<br>
+        <strong>And from April 20th,</strong> join us to vote and decide which finalists will take home the ultimate prize!
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const banner = document.querySelector(".reveal");
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add("is-visible");
+        }
+      });
+      sendHeightDelayed();
+    }, { threshold: 0.1 });
+
+    io.observe(banner);
+
+    function sendHeight(){
+      parent.postMessage({
+        type: "resizeHomeFinalistsBanner",
+        height: document.documentElement.scrollHeight
+      }, "*");
+    }
+
+    function sendHeightDelayed(){
+      setTimeout(sendHeight, 220);
+    }
+
+    window.addEventListener("load", () => {
+      sendHeight();
+      setInterval(sendHeight, 900);
+    });
+
+    window.addEventListener("resize", sendHeight);
+  </script>
+</body>
+</html>
