@@ -14,7 +14,6 @@
       --muted:rgba(212,231,255,0.82);
       --title:#ffffff;
       --cyan:#19dfff;
-      --cyan-soft:rgba(25,223,255,0.18);
       --blue:#2aa8ff;
       --panel:rgba(255,255,255,0.05);
       --panel-border:rgba(255,255,255,0.10);
@@ -67,7 +66,6 @@
 
     .intro{
       width:100%;
-      max-width:none;
       color:var(--muted);
       font-size:19px;
       line-height:1.6;
@@ -77,60 +75,6 @@
     .intro strong{
       color:#ffffff;
       font-weight:800;
-    }
-
-    .topbar,
-    .bottombar{
-      display:flex;
-      justify-content:center;
-      margin-top:28px;
-      margin-bottom:22px;
-    }
-
-    .bottombar{
-      margin-top:34px;
-      margin-bottom:0;
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:18px 44px;
-      border-radius:999px;
-      background:var(--cyan);
-      color:#032238;
-      font-family:'Orbitron',sans-serif;
-      font-size:20px;
-      font-weight:900;
-      letter-spacing:1px;
-      text-transform:uppercase;
-      text-decoration:none;
-      border:1px solid rgba(25,223,255,0.62);
-      box-shadow:0 0 26px rgba(25,223,255,0.26);
-      transition:transform .25s ease, box-shadow .25s ease, filter .25s ease;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .btn::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.20), transparent 70%);
-      transform:translateX(-120%);
-      transition:transform .55s ease;
-      pointer-events:none;
-    }
-
-    .btn:hover{
-      transform:translateY(-3px);
-      box-shadow:0 0 40px rgba(25,223,255,0.42);
-      filter:brightness(1.04);
-    }
-
-    .btn:hover::after{
-      transform:translateX(120%);
     }
 
     .divider{
@@ -214,42 +158,91 @@
 
     .video-title{
       margin:0;
-      font-family:'Orbitron',sans-serif;
+      font-family:'Inter',sans-serif;
       font-size:18px;
-      letter-spacing:0.6px;
+      font-weight:700;
+      letter-spacing:0;
       color:#ffffff;
-      text-transform:uppercase;
+      text-transform:none;
     }
 
-    .video-tag{
+    .vote-chip{
       flex:0 0 auto;
       display:inline-flex;
       align-items:center;
-      gap:8px;
-      padding:8px 12px;
+      justify-content:center;
+      padding:8px 14px;
       border-radius:999px;
-      background:rgba(25,223,255,0.08);
-      border:1px solid rgba(25,223,255,0.20);
-      color:var(--muted);
+      background:rgba(25,223,255,0.10);
+      border:1px solid rgba(25,223,255,0.22);
+      color:#ffffff;
+      text-decoration:none;
       font-size:12px;
-      font-weight:600;
+      font-weight:700;
       white-space:nowrap;
+      transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease;
+      box-shadow:0 0 14px rgba(25,223,255,0.08);
     }
 
-    .video-tag::before{
-      content:"";
-      width:8px;
-      height:8px;
-      border-radius:50%;
-      background:var(--cyan);
-      box-shadow:0 0 12px rgba(25,223,255,0.35);
+    .vote-chip:hover{
+      transform:translateY(-2px);
+      border-color:rgba(25,223,255,0.38);
+      background:rgba(25,223,255,0.16);
+      box-shadow:0 0 20px rgba(25,223,255,0.16);
     }
 
     .helper{
-      margin-top:8px;
+      margin-top:12px;
       color:rgba(212,231,255,0.70);
       font-size:14px;
       line-height:1.5;
+    }
+
+    .bottombar{
+      display:flex;
+      justify-content:center;
+      margin-top:34px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:18px 44px;
+      border-radius:999px;
+      background:var(--cyan);
+      color:#ffffff;
+      font-family:'Orbitron',sans-serif;
+      font-size:20px;
+      font-weight:900;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      text-decoration:none;
+      border:1px solid rgba(25,223,255,0.62);
+      box-shadow:0 0 26px rgba(25,223,255,0.26);
+      transition:transform .25s ease, box-shadow .25s ease, filter .25s ease;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .btn::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.20), transparent 70%);
+      transform:translateX(-120%);
+      transition:transform .55s ease;
+      pointer-events:none;
+    }
+
+    .btn:hover{
+      transform:translateY(-3px);
+      box-shadow:0 0 40px rgba(25,223,255,0.42);
+      filter:brightness(1.04);
+    }
+
+    .btn:hover::after{
+      transform:translateX(120%);
     }
 
     .reveal{
@@ -307,10 +300,6 @@
       Watch, compare, and support the most creative, inspiring, and memorable contribution.
     </div>
 
-    <div class="topbar reveal">
-      <a href="#" id="voteTopLink" class="btn" target="_blank" rel="noopener noreferrer">Vote now</a>
-    </div>
-
     <div class="divider reveal"></div>
 
     <div class="videos-grid">
@@ -318,13 +307,13 @@
       <article class="video-card reveal">
         <div class="video-shell">
           <div class="video-frame">
-            <video controls preload="metadata" playsinline>
+            <video autoplay muted loop playsinline controls preload="metadata">
               <source src="video.mp4" type="video/mp4">
             </video>
           </div>
           <div class="video-meta">
-            <h2 class="video-title">Participant video 1</h2>
-            <div class="video-tag">Official submission</div>
+            <h2 class="video-title">Participant 1</h2>
+            <a class="vote-chip" href="https://forms.office.com/e/Fjb8cvV0KF">Vote</a>
           </div>
         </div>
       </article>
@@ -332,13 +321,13 @@
       <article class="video-card reveal">
         <div class="video-shell">
           <div class="video-frame">
-            <video controls preload="metadata" playsinline>
+            <video autoplay muted loop playsinline controls preload="metadata">
               <source src="video1.mp4" type="video/mp4">
             </video>
           </div>
           <div class="video-meta">
-            <h2 class="video-title">Participant video 2</h2>
-            <div class="video-tag">Official submission</div>
+            <h2 class="video-title">Participant 2</h2>
+            <a class="vote-chip" href="https://forms.office.com/e/Fjb8cvV0KF">Vote</a>
           </div>
         </div>
       </article>
@@ -346,13 +335,13 @@
       <article class="video-card reveal">
         <div class="video-shell">
           <div class="video-frame">
-            <video controls preload="metadata" playsinline>
+            <video autoplay muted loop playsinline controls preload="metadata">
               <source src="video2.mp4" type="video/mp4">
             </video>
           </div>
           <div class="video-meta">
-            <h2 class="video-title">Participant video 3</h2>
-            <div class="video-tag">Official submission</div>
+            <h2 class="video-title">Participant 3</h2>
+            <a class="vote-chip" href="https://forms.office.com/e/Fjb8cvV0KF">Vote</a>
           </div>
         </div>
       </article>
@@ -360,13 +349,13 @@
       <article class="video-card reveal">
         <div class="video-shell">
           <div class="video-frame">
-            <video controls preload="metadata" playsinline>
+            <video autoplay muted loop playsinline controls preload="metadata">
               <source src="video3.mp4" type="video/mp4">
             </video>
           </div>
           <div class="video-meta">
-            <h2 class="video-title">Participant video 4</h2>
-            <div class="video-tag">Official submission</div>
+            <h2 class="video-title">Participant 4</h2>
+            <a class="vote-chip" href="https://forms.office.com/e/Fjb8cvV0KF">Vote</a>
           </div>
         </div>
       </article>
@@ -378,23 +367,12 @@
     </div>
 
     <div class="bottombar reveal">
-      <a href="#" id="voteBottomLink" class="btn" target="_blank" rel="noopener noreferrer">Vote now</a>
+      <a href="https://forms.office.com/e/Fjb8cvV0KF" id="voteBottomLink" class="btn">Vote now</a>
     </div>
 
   </div>
 
   <script>
-    /* =========================================
-       VOTE LINK
-       Replace with your final voting URL
-    ========================================= */
-    const voteUrl = "https://forms.office.com/";
-    document.getElementById("voteTopLink").href = voteUrl;
-    document.getElementById("voteBottomLink").href = voteUrl;
-
-    /* =========================================
-       REVEAL
-    ========================================= */
     const els = document.querySelectorAll(".reveal");
     const obs = new IntersectionObserver(entries=>{
       entries.forEach((e, idx)=>{
@@ -408,9 +386,6 @@
 
     els.forEach(el=>obs.observe(el));
 
-    /* =========================================
-       SHAREPOINT RESIZE
-    ========================================= */
     function sendHeight(){
       parent.postMessage({
         type:"resizeVoteVideosPage",
