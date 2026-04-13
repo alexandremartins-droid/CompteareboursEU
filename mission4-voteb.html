@@ -1,1 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Connected Heroes · Vote for the Best Video</title>
 
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#061a3a;
+      --text:#d4e7ff;
+      --muted:rgba(212,231,255,0.82);
+      --title:#ffffff;
+      --cyan:#19dfff;
+      --blue:#2aa8ff;
+      --panel:rgba(255,255,255,0.05);
+      --panel-border:rgba(255,255,255,0.10);
+      --shadow:0 18px 60px rgba(0,0,0,0.35);
+    }
+
+    html,body{
+      margin:0;
+      padding:0;
+      background:transparent !important;
+      color:var(--text);
+      font-family:'Inter',sans-serif;
+      overflow-x:hidden;
+    }
+
+    .page{
+      max-width:1600px;
+      padding:52px 48px 72px;
+      margin:0 auto;
+      position:relative;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 18px;
+      border-radius:999px;
+      border:1px solid rgba(42,168,255,0.70);
+      color:rgba(42,168,255,0.98);
+      background:rgba(0,0,0,0.18);
+      box-shadow:0 0 0 1px rgba(255,255,255,0.04);
+      text-transform:uppercase;
+      letter-spacing:1px;
+      font-size:12px;
+      margin-bottom:22px;
+      backdrop-filter:blur(10px);
+    }
+
+    h1{
+      margin:0 0 14px 0;
+      font-family:'Orbitron',sans-serif;
+      font-size:44px;
+      font-weight:900;
+      line-height:1.05;
+      color:var(--title);
+      letter-spacing:1px;
+      text-shadow:0 0 24px rgba(25,223,255,0.08);
+    }
+
+    .intro{
+      width:100%;
+      color:var(--muted);
+      font-size:19px;
+      line-height:1.6;
+      margin:0 0 26px 0;
+    }
+
+    .intro strong{
+      color:#ffffff;
+      font-weight:800;
+    }
+
+    .divider{
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(25,223,255,0.45), transparent);
+      margin:20px 0 28px;
+      border-radius:2px;
+      opacity:.9;
+    }
+
+    .videos-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:28px;
+      margin-top:8px;
+    }
+
+    .video-card{
+      position:relative;
+      border-radius:28px;
+      overflow:hidden;
+      background:linear-gradient(180deg, rgba(9,28,68,0.92), rgba(4,17,47,0.96));
+      border:1px solid rgba(42,168,255,0.42);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.03),
+        0 0 26px rgba(14,223,227,0.10),
+        0 22px 60px rgba(0,0,0,0.34);
+      transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+      backdrop-filter:blur(10px);
+    }
+
+    .video-card::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      background:radial-gradient(circle at 50% 100%, rgba(25,223,255,0.16), transparent 55%);
+      opacity:.65;
+      pointer-events:none;
+      z-index:0;
+    }
+
+    .video-card:hover{
+      transform:translateY(-6px);
+      border-color:rgba(25,223,255,0.46);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.05),
+        0 0 38px rgba(14,223,227,0.18),
+        0 28px 70px rgba(0,0,0,0.40);
+    }
+
+    .video-shell{
+      position:relative;
+      z-index:1;
+      padding:16px;
+    }
+
+    .video-frame{
+      position:relative;
+      border-radius:20px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,0.08);
+      background:#021127;
+      aspect-ratio:16 / 9;
+    }
+
+    video{
+      display:block;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      background:#021127;
+    }
+
+    .video-meta{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding:16px 6px 4px;
+    }
+
+    .video-title{
+      margin:0;
+      font-family:'Inter',sans-serif;
+      font-size:18px;
+      font-weight:700;
+      letter-spacing:0;
+      color:#ffffff;
+      text-transform:none;
+    }
+
+    .vote-chip{
+      flex:0 0 auto;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(25,223,255,0.10);
+      border:1px solid rgba(25,223,255,0.22);
+      color:#ffffff;
+      text-decoration:none;
+      font-size:12px;
+      font-weight:700;
+      white-space:nowrap;
+      transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease;
+      box-shadow:0 0 14px rgba(25,223,255,0.08);
+    }
+
+    .vote-chip:hover{
+      transform:translateY(-2px);
+      border-color:rgba(25,223,255,0.38);
+      background:rgba(25,223,255,0.16);
+      box-shadow:0 0 20px rgba(25,223,255,0.16);
+    }
+
+    .helper{
+      margin-top:12px;
+      color:rgba(212,231,255,0.70);
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .bottombar{
+      display:flex;
+      justify-content:center;
+      margin-top:34px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:18px 44px;
+      border-radius:999px;
+      background:var(--cyan);
+      color:#ffffff;
+      font-family:'Orbitron',sans-serif;
+      font-size:20px;
+      font-weight:900;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      text-decoration:none;
+      border:1px solid rgba(25,223,255,0.62);
+      box-shadow:0 0 26px rgba(25,223,255,0.26);
+      transition:transform .25s ease, box-shadow .25s ease, filter .25s ease;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .btn::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.20), transparent 70%);
+      transform:translateX(-120%);
+      transition:transform .55s ease;
+      pointer-events:none;
+    }
+
+    .btn:hover{
+      transform:translateY(-3px);
+      box-shadow:0 0 40px rgba(25,223,255,0.42);
+      filter:brightness(1.04);
+    }
+
+    .btn:hover::after{
+      transform:translateX(120%);
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .6s ease, transform .6s ease;
+    }
+
+    .reveal.show{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @media (max-width: 1250px){
+      .videos-grid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 980px){
+      .page{
+        padding:36px 22px 58px;
+      }
+
+      h1{
+        font-size:34px;
+      }
+
+      .intro{
+        font-size:17px;
+      }
+
+      .videos-grid{
+        grid-template-columns:1fr;
+        gap:22px;
+      }
+
+      .btn{
+        width:100%;
+        box-sizing:border-box;
+        text-align:center;
+      }
+
+      .video-meta{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <div class="badge reveal">MISSION CONNECTED HEROES · COMMUNITY VOTE</div>
+
+    <h1 class="reveal">One vote for your favorite video</h1>
+
+    <div class="intro reveal">
+      The missions are complete. The videos are in. Now, the most important moment has arrived yours.
+      <br>Discover the creations submitted by your fellow Connected Heroes, watch them, and cast your one vote for the one that moved you the most.<br>
+      Your vote alone will determine who becomes the ultimate Connected Hero champion in your region.<br><br>
+
+      <strong>YOUR VOTE EARNS YOU 20 POINTS!</strong><br><br>
+      Voting adds 20 points to your final score enough to climb the rankings and win the exclusive Mission: Connected Heroes goodies pack: tote bag, connected speaker, water bottle...<br>
+      <strong>Watch. Vote. Win.</strong>
+    </div>
+
+    <div class="divider reveal"></div>
+
+    <div class="videos-grid" id="videosGrid"></div>
+
+    <div class="helper reveal">
+      Watch all videos before casting your vote and choose the one that stands out the most.
+    </div>
+
+    <div class="bottombar reveal">
+      <a href="https://forms.office.com/e/Fjb8cvV0KF"
+         id="voteBottomLink"
+         class="btn"
+         target="_blank"
+         rel="noopener noreferrer">
+        Vote now
+      </a>
+    </div>
+
+  </div>
+
+  <script>
+    const voteUrl = "https://forms.office.com/e/Fjb8cvV0KF";
+
+    const videos = [
+      { title: "Video n°1", file: "video.mp4" },
+      { title: "Video n°2", file: "video1.mp4" },
+      { title: "Video n°3", file: "video2.mp4" },
+      { title: "Video n°4", file: "video3.mp4" },
+      { title: "Video n°5", file: "video4.mp4" },
+      { title: "Video n°6", file: "video5.mp4" }
+    ];
+
+    function shuffleArray(array){
+      const arr = [...array];
+      for(let i = arr.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function renderVideos(){
+      const grid = document.getElementById("videosGrid");
+      const shuffledVideos = shuffleArray(videos);
+
+      grid.innerHTML = shuffledVideos.map((video, index) => `
+        <article class="video-card reveal">
+          <div class="video-shell">
+            <div class="video-frame">
+              <video autoplay muted loop playsinline controls preload="metadata">
+                <source src="${video.file}" type="video/mp4">
+              </video>
+            </div>
+            <div class="video-meta">
+              <h2 class="video-title">${video.title}</h2>
+              <a class="vote-chip"
+                 href="${voteUrl}"
+                 target="_blank"
+                 rel="noopener noreferrer">
+                Vote
+              </a>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    renderVideos();
+
+    const initRevealObserver = () => {
+      const els = document.querySelectorAll(".reveal");
+      const obs = new IntersectionObserver(entries=>{
+        entries.forEach((e, idx)=>{
+          if(e.isIntersecting){
+            e.target.style.transitionDelay = (idx * 70) + "ms";
+            e.target.classList.add("show");
+          }
+        });
+        sendHeightDelayed();
+      }, { threshold: 0.12 });
+
+      els.forEach(el=>obs.observe(el));
+    };
+
+    initRevealObserver();
+
+    function sendHeight(){
+      parent.postMessage({
+        type:"resizeVoteVideosPage",
+        height:document.documentElement.scrollHeight
+      },"*");
+    }
+
+    function sendHeightDelayed(){
+      setTimeout(sendHeight, 220);
+    }
+
+    window.addEventListener("load",()=>{
+      sendHeight();
+      setInterval(sendHeight,900);
+    });
+
+    window.addEventListener("resize",sendHeight);
+  </script>
+</body>
+</html>
