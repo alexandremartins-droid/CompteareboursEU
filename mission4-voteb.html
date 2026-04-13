@@ -302,7 +302,7 @@
     <h1 class="reveal">One vote for your favorite video</h1>
 
     <div class="intro reveal">
-      The missions are complete. The videos are in. Now, the most important moment has arrived yours.
+      The missions are complete. The videos are in. Now, the most important moment has arrived: your vote.
       <br>Discover the creations submitted by your fellow Connected Heroes, watch them, and cast your one vote for the one that moved you the most.<br>
       Your vote alone will determine who becomes the ultimate Connected Hero champion in your region.<br><br>
 
@@ -356,7 +356,7 @@
       const grid = document.getElementById("videosGrid");
       const shuffledVideos = shuffleArray(videos);
 
-      grid.innerHTML = shuffledVideos.map((video, index) => `
+      grid.innerHTML = shuffledVideos.map((video) => `
         <article class="video-card reveal">
           <div class="video-shell">
             <div class="video-frame">
@@ -380,7 +380,7 @@
 
     renderVideos();
 
-    const initRevealObserver = () => {
+    function initRevealObserver(){
       const els = document.querySelectorAll(".reveal");
       const obs = new IntersectionObserver(entries=>{
         entries.forEach((e, idx)=>{
@@ -393,7 +393,7 @@
       }, { threshold: 0.12 });
 
       els.forEach(el=>obs.observe(el));
-    };
+    }
 
     initRevealObserver();
 
