@@ -380,26 +380,6 @@
 
     renderVideos();
 
-    function bindTocLinks(){
-      const tocLinks = document.querySelectorAll(".toc-link");
-
-      tocLinks.forEach(link => {
-        link.addEventListener("click", () => {
-          const targetId = link.getAttribute("data-target");
-          const target = document.getElementById(targetId);
-          if(target){
-            target.scrollIntoView({
-              behavior: "smooth",
-              block: "start"
-            });
-            sendHeightDelayed();
-          }
-        });
-      });
-    }
-
-    bindTocLinks();
-
     function initRevealObserver(){
       const els = document.querySelectorAll(".reveal");
       const obs = new IntersectionObserver(entries=>{
