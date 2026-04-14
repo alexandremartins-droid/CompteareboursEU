@@ -79,41 +79,9 @@
     .divider{
       height:1px;
       background:linear-gradient(90deg, transparent, rgba(25,223,255,0.45), transparent);
-      margin:20px 0 28px;
+      margin:20px 0 20px;
       border-radius:2px;
       opacity:.9;
-    }
-
-    .videos-toc{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      margin:6px 0 26px;
-    }
-
-    .toc-link{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:10px 16px;
-      border-radius:999px;
-      background:rgba(25,223,255,0.08);
-      border:1px solid rgba(25,223,255,0.20);
-      color:#ffffff;
-      text-decoration:none;
-      font-size:13px;
-      font-weight:700;
-      white-space:nowrap;
-      transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease;
-      box-shadow:0 0 14px rgba(25,223,255,0.08);
-      cursor:pointer;
-    }
-
-    .toc-link:hover{
-      transform:translateY(-2px);
-      border-color:rgba(25,223,255,0.38);
-      background:rgba(25,223,255,0.16);
-      box-shadow:0 0 20px rgba(25,223,255,0.16);
     }
 
     .videos-grid{
@@ -339,8 +307,6 @@
 
     <div class="divider reveal"></div>
 
-    <div class="videos-toc reveal" id="videosToc"></div>
-
     <div class="videos-grid" id="videosGrid"></div>
 
     <div class="helper reveal">
@@ -382,7 +348,6 @@
 
     function renderVideos(){
       const grid = document.getElementById("videosGrid");
-      const toc = document.getElementById("videosToc");
       const shuffledVideos = shuffleArray(videos);
 
       toc.innerHTML = shuffledVideos.map((video, index) => `
