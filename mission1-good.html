@@ -1,1 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>Mission 1 · Correct Answers</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --text:#d4e7ff;
+  --muted:rgba(212,231,255,.78);
+  --title:#fff;
+  --cyan:#19dfff;
+  --blue:#2aa8ff;
+  --gold:#ffd85a;
+  --panel1:rgba(9,28,68,.92);
+  --panel2:rgba(4,17,47,.96);
+}
+
+html,body{
+  margin:0;
+  padding:0;
+  background:transparent!important;
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+}
+
+.page{
+  max-width:1600px;
+  margin:0 auto;
+  padding:52px 48px 76px;
+}
+
+.badge{
+  display:inline-flex;
+  padding:10px 18px;
+  border-radius:999px;
+  border:1px solid rgba(42,168,255,.7);
+  color:var(--blue);
+  background:rgba(0,0,0,.18);
+  text-transform:uppercase;
+  letter-spacing:1px;
+  font-size:12px;
+  margin-bottom:22px;
+  backdrop-filter:blur(10px);
+}
+
+h1{
+  margin:0 0 14px;
+  font-family:'Orbitron',sans-serif;
+  font-size:46px;
+  font-weight:900;
+  color:#fff;
+}
+
+.intro{
+  font-size:19px;
+  line-height:1.6;
+  color:var(--muted);
+  margin-bottom:30px;
+}
+
+.intro strong{color:#fff;}
+
+.tabs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  margin:0 0 30px;
+}
+
+.tab{
+  border:1px solid rgba(25,223,255,.25);
+  background:rgba(25,223,255,.08);
+  color:#fff;
+  border-radius:999px;
+  padding:13px 20px;
+  font-weight:800;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.tab:hover,
+.tab.active{
+  background:rgba(25,223,255,.18);
+  border-color:rgba(25,223,255,.55);
+  box-shadow:0 0 26px rgba(25,223,255,.16);
+  transform:translateY(-2px);
+}
+
+.mission{
+  display:none;
+}
+
+.mission.active{
+  display:block;
+}
+
+.mission-header{
+  margin-bottom:24px;
+  padding:24px;
+  border-radius:28px;
+  background:linear-gradient(180deg,var(--panel1),var(--panel2));
+  border:1px solid rgba(42,168,255,.38);
+  box-shadow:0 22px 60px rgba(0,0,0,.28);
+}
+
+.mission-kicker{
+  color:var(--cyan);
+  font-family:'Orbitron',sans-serif;
+  font-size:14px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:8px;
+}
+
+.mission-title{
+  margin:0;
+  color:#fff;
+  font-size:30px;
+  font-weight:900;
+}
+
+.sections{
+  display:grid;
+  gap:22px;
+}
+
+.answer-section{
+  border-radius:28px;
+  background:linear-gradient(180deg,rgba(9,28,68,.88),rgba(4,17,47,.96));
+  border:1px solid rgba(42,168,255,.32);
+  box-shadow:0 18px 48px rgba(0,0,0,.28);
+  overflow:hidden;
+}
+
+.section-title{
+  padding:18px 22px;
+  font-family:'Orbitron',sans-serif;
+  color:#fff;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  border-bottom:1px solid rgba(25,223,255,.18);
+  background:rgba(25,223,255,.06);
+}
+
+.answers-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;
+  padding:22px;
+}
+
+.answer-card{
+  position:relative;
+  border-radius:22px;
+  padding:18px;
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.08);
+  transition:.28s;
+}
+
+.answer-card:hover{
+  transform:translateY(-5px);
+  border-color:rgba(25,223,255,.35);
+  box-shadow:0 0 30px rgba(25,223,255,.12);
+}
+
+.q-number{
+  color:var(--cyan);
+  font-weight:900;
+  font-size:13px;
+  margin-bottom:10px;
+}
+
+.answer{
+  color:#fff;
+  font-size:16px;
+  line-height:1.45;
+}
+
+.answer .letter{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:30px;
+  height:30px;
+  margin-right:8px;
+  border-radius:50%;
+  background:rgba(255,216,90,.18);
+  border:1px solid rgba(255,216,90,.48);
+  color:var(--gold);
+  font-weight:900;
+}
+
+.reveal{
+  opacity:0;
+  transform:translateY(18px);
+  transition:.6s ease;
+}
+
+.reveal.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+@media(max-width:1200px){
+  .answers-grid{grid-template-columns:repeat(2,1fr);}
+}
+
+@media(max-width:760px){
+  .page{padding:36px 22px 58px;}
+  h1{font-size:34px;}
+  .intro{font-size:17px;}
+  .answers-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+  <div class="badge reveal">Mission Connected Heroes · Correct Answers</div>
+
+  <h1 class="reveal">Mission 1 · Correct Answers</h1>
+
+  <div class="intro reveal">
+    Discover the expected answers for the three Mission 1 challenges.
+    Each answer below corresponds to the correct choices that were highlighted in the reference documents.
+    <br><strong>Review. Learn. Improve your score.</strong>
+  </div>
+
+  <div class="tabs reveal">
+    <button class="tab active" data-target="drive">Mission 1.1 · Drive Smarter</button>
+    <button class="tab" data-target="life">Mission 1.2 · Life Easier</button>
+    <button class="tab" data-target="trip">Mission 1.3 · Trip Enjoyable</button>
+  </div>
+
+  <section class="mission active" id="drive"></section>
+  <section class="mission" id="life"></section>
+  <section class="mission" id="trip"></section>
+
+</div>
+
+<script>
+const DATA = {
+  drive:{
+    kicker:"Mission 1.1",
+    title:"Drive Smarter",
+    sections:[
+      {title:"Maintenance", answers:[
+        ["Q1","C","Vehicle age and mileage"],
+        ["Q2","C","Monthly"],
+        ["Q3","C","Receive real-time alerts in the vehicle about predictive maintenance and service contracts"]
+      ]},
+      {title:"Safety", answers:[
+        ["Q4","A, B, C, D","Mobile app · Customer web portal · SMS · Email"],
+        ["Q5","A","Press the “Call” button in the mobile app"],
+        ["Q6","B","A police report confirming the theft"],
+        ["Q7","A, B, C, D","Speed alerts · Time alerts · Geographical boundaries · Valet mode"],
+        ["Q8","B","It sends an alert to the customer in case of suspected theft or safety violation"]
+      ]},
+      {title:"Assistance", answers:[
+        ["Q9","B","In case of an impact that triggers an airbag or safety belt"],
+        ["Q10","B, C, D","Vehicle serial number · Mileage · Mechanical alerts"],
+        ["Q11","D","Connect with the call center to receive help in case of a problem"]
+      ]},
+      {title:"Features", answers:[
+        ["Q12","B","Activate the GPS tracking system and perform 24/7 monitoring"],
+        ["Q13","C","Service Scheduling / Online Booking"],
+        ["Q14","D","Entertainment system alerts"],
+        ["Q15","A, B","When the vehicle has been moved · When the vehicle is bumped while parked"]
+      ]}
+    ]
+  },
+
+  life:{
+    kicker:"Mission 1.2",
+    title:"Life Easier",
+    sections:[
+      {title:"Natural Voice Recognition", answers:[
+        ["Q1","A, D","Intuitive and user-friendly experience · Avoid using the screen while driving"],
+        ["Q2","B, C","By pressing a dedicated button in the vehicle · By saying the specific wake word"],
+        ["Q3","A, C, D","“Give me direction for...” · “Play... Radio station” · “Set the temperature to...”"],
+        ["Q4","D","Opening the windows"]
+      ]},
+      {title:"Remote Operations", answers:[
+        ["Q5","A, B, C","Lock/unlock doors · Turn on exterior lights · Activate the horn"],
+        ["Q6","A, C","Pre-heat or pre-cool the cabin · Activate the automatically programmed temperature"]
+      ]},
+      {title:"Navigation & Trip", answers:[
+        ["Q7","B","Send & Go / Send2Nav"],
+        ["Q8","C","Maps Over-The-Air Update"],
+        ["Q9","B","Last Mile Navigation"],
+        ["Q10","A, B, C","Parking locations · Available parking spaces · Parking rates"],
+        ["Q11","D","It offers a statistical solution for finding a parking space"]
+      ]},
+      {title:"Electric Vehicle Features", answers:[
+        ["Q12","A","e-REMOTE control"],
+        ["Q13","D","Guide the driver throughout their journey, including charging stops, with real-time updates"],
+        ["Q14","A, B, C, D","Plan a trip on smartphone · Mirroring mode · Best charging stations · Route recalculation"],
+        ["Q15","D","Eco-driving advice for electric cars"]
+      ]},
+      {title:"Performance", answers:[
+        ["Q16","A, B, C","Acceleration · Braking · Vehicle speed"],
+        ["Q17","A, C","Drivers of a PHEV Hybrid vehicle · Drivers of an electric vehicle"],
+        ["Q18","A, B, C, D","Acceleration/Deceleration · Comfort · Charging · Speed"]
+      ]}
+    ]
+  },
+
+  trip:{
+    kicker:"Mission 1.3",
+    title:"Trip Enjoyable",
+    sections:[
+      {title:"Entertainment · Games", answers:[
+        ["Q1","B","While waiting at a charging station"],
+        ["Q2","C","11"],
+        ["Q3","B","No, they work offline"],
+        ["Q4","B","Tetris"],
+        ["Q5","D","Available on smartphone and Brand application"]
+      ]},
+      {title:"Entertainment · ChatGPT", answers:[
+        ["Q6","B","At least 50"],
+        ["Q7","B","Can you explain why the sky is blue in a way a 6-year-old can understand?"],
+        ["Q8","A, C, D","Data may not be objective · Data may lack accuracy · Quality depends on provided information"],
+        ["Q9","A, C, E","Infotainment system · Connected navigation · Natural voice recognition"],
+        ["Q10","A, B, C","Science/technology/mathematics · Video games/music/cinema · History/geography/visual arts"],
+        ["Q11","A, B, C","Start charging · Check charging status · Schedule charging"],
+        ["Q12","D","Save fuel"],
+        ["Q13","A","Control your smart home without leaving your car"]
+      ]},
+      {title:"Entertainment · Wi-Fi", answers:[
+        ["Q14","C","8"],
+        ["Q15","A","Purchase additional features and services via the vehicle infotainment system"]
+      ]}
+    ]
+  }
+};
+
+function renderMission(id, data){
+  const root = document.getElementById(id);
+  root.innerHTML = `
+    <div class="mission-header reveal">
+      <div class="mission-kicker">${data.kicker}</div>
+      <h2 class="mission-title">${data.title}</h2>
+    </div>
+    <div class="sections">
+      ${data.sections.map(section => `
+        <div class="answer-section reveal">
+          <div class="section-title">${section.title}</div>
+          <div class="answers-grid">
+            ${section.answers.map(a => `
+              <div class="answer-card">
+                <div class="q-number">${a[0]}</div>
+                <div class="answer"><span class="letter">${a[1]}</span>${a[2]}</div>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+renderMission("drive", DATA.drive);
+renderMission("life", DATA.life);
+renderMission("trip", DATA.trip);
+
+document.querySelectorAll(".tab").forEach(tab=>{
+  tab.addEventListener("click",()=>{
+    document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+    document.querySelectorAll(".mission").forEach(m=>m.classList.remove("active"));
+    tab.classList.add("active");
+    document.getElementById(tab.dataset.target).classList.add("active");
+    sendHeightDelayed();
+  });
+});
+
+function reveal(){
+  document.querySelectorAll(".reveal").forEach((el,i)=>{
+    setTimeout(()=>el.classList.add("show"), i*35);
+  });
+}
+reveal();
+
+function sendHeight(){
+  parent.postMessage({
+    type:"resizeMission1Answers",
+    height:document.documentElement.scrollHeight
+  },"*");
+}
+function sendHeightDelayed(){setTimeout(sendHeight,220);}
+
+window.addEventListener("load",()=>{
+  sendHeight();
+  setInterval(sendHeight,900);
+});
+window.addEventListener("resize",sendHeight);
+</script>
+
+</body>
+</html>
