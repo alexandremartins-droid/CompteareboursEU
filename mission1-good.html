@@ -173,27 +173,47 @@ h1{
   color:var(--cyan);
   font-weight:900;
   font-size:13px;
-  margin-bottom:10px;
+  margin-bottom:8px;
 }
 
-.answer{
+.question{
   color:#fff;
-  font-size:16px;
+  font-size:15px;
   line-height:1.45;
+  font-weight:700;
+  margin-bottom:14px;
 }
 
-.answer .letter{
+.answer-row{
+  display:flex;
+  gap:8px;
+  align-items:flex-start;
+}
+
+.letters{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  flex:0 0 auto;
+}
+
+.letter{
   display:inline-flex;
   align-items:center;
   justify-content:center;
   min-width:30px;
   height:30px;
-  margin-right:8px;
   border-radius:50%;
   background:rgba(255,216,90,.18);
   border:1px solid rgba(255,216,90,.48);
   color:var(--gold);
   font-weight:900;
+}
+
+.answer{
+  color:rgba(255,255,255,.92);
+  font-size:15px;
+  line-height:1.45;
 }
 
 .reveal{
@@ -229,7 +249,7 @@ h1{
 
   <div class="intro reveal">
     Discover the expected answers for the three Mission 1 challenges.
-    Each answer below corresponds to the correct choices that were highlighted in the reference documents.
+    Each card includes the original question and the correct answer.
     <br><strong>Review. Learn. Improve your score.</strong>
   </div>
 
@@ -252,27 +272,27 @@ const DATA = {
     title:"Drive Smarter",
     sections:[
       {title:"Maintenance", answers:[
-        ["Q1","C","Vehicle age and mileage"],
-        ["Q2","C","Monthly"],
-        ["Q3","C","Receive real-time alerts in the vehicle about predictive maintenance and service contracts"]
+        ["Q1","Based on which criteria does the vehicle suggest maintenance appointments?","C","Vehicle age and mileage"],
+        ["Q2","How frequently does the customer receive vehicle health reports by email?","C","Monthly"],
+        ["Q3","What is the main benefit of using in-vehicle notifications?","C","Receive real-time alerts in the vehicle about predictive maintenance and service contracts"]
       ]},
       {title:"Safety", answers:[
-        ["Q4","A, B, C, D","Mobile app · Customer web portal · SMS · Email"],
-        ["Q5","A","Press the “Call” button in the mobile app"],
-        ["Q6","B","A police report confirming the theft"],
-        ["Q7","A, B, C, D","Speed alerts · Time alerts · Geographical boundaries · Valet mode"],
-        ["Q8","B","It sends an alert to the customer in case of suspected theft or safety violation"]
+        ["Q4","Which channels are used to send notifications in case of attempted theft?","A, B, C, D","Mobile app · Customer web portal · SMS · Email"],
+        ["Q5","What action must the customer take to request help in case their vehicle is stolen?","A","Press the “Call” button in the mobile app"],
+        ["Q6","What condition must be met for vehicle tracking to be activated in case of theft?","B","A police report confirming the theft"],
+        ["Q7","Which parameters can be customized in driving alerts?","A, B, C, D","Speed alerts · Time alerts · Geographical boundaries · Valet mode"],
+        ["Q8","What is the main benefit of the Theft Alarm Notification feature for the customer?","B","It sends an alert to the customer in case of suspected theft or safety violation"]
       ]},
       {title:"Assistance", answers:[
-        ["Q9","B","In case of an impact that triggers an airbag or safety belt"],
-        ["Q10","B, C, D","Vehicle serial number · Mileage · Mechanical alerts"],
-        ["Q11","D","Connect with the call center to receive help in case of a problem"]
+        ["Q9","In which situation does the automatic SOS system activate?","B","In case of an impact that triggers an airbag or safety belt"],
+        ["Q10","What information is sent to the assistance center during a breakdown call?","B, C, D","Vehicle serial number · Mileage · Mechanical alerts"],
+        ["Q11","What is the main function of the assistance button in the vehicle?","D","Connect with the call center to receive help in case of a problem"]
       ]},
       {title:"Features", answers:[
-        ["Q12","B","Activate the GPS tracking system and perform 24/7 monitoring"],
-        ["Q13","C","Service Scheduling / Online Booking"],
-        ["Q14","D","Entertainment system alerts"],
-        ["Q15","A, B","When the vehicle has been moved · When the vehicle is bumped while parked"]
+        ["Q12","What action can be taken once your vehicle has been confirmed stolen and you file a police report?","B","Activate the GPS tracking system and perform 24/7 monitoring"],
+        ["Q13","Which function allows the customer to book a maintenance service at a dealer workshop?","C","Service Scheduling / Online Booking"],
+        ["Q14","Among these features, which one is NOT included in the Vehicle Health Alert service?","D","Entertainment system alerts"],
+        ["Q15","Among these features, when is the connected alarm triggered?","A, B","When the vehicle has been moved · When the vehicle is bumped while parked"]
       ]}
     ]
   },
@@ -282,32 +302,32 @@ const DATA = {
     title:"Life Easier",
     sections:[
       {title:"Natural Voice Recognition", answers:[
-        ["Q1","A, D","Intuitive and user-friendly experience · Avoid using the screen while driving"],
-        ["Q2","B, C","By pressing a dedicated button in the vehicle · By saying the specific wake word"],
-        ["Q3","A, C, D","“Give me direction for...” · “Play... Radio station” · “Set the temperature to...”"],
-        ["Q4","D","Opening the windows"]
+        ["Q1","What are the main advantages of natural voice recognition?","A, D","Intuitive and user-friendly experience · Avoid using the screen while driving"],
+        ["Q2","How can voice command be activated in a Stellantis vehicle?","B, C","By pressing a dedicated button in the vehicle · By saying the specific wake word"],
+        ["Q3","Which of the following are recognized by natural voice recognition?","A, C, D","“Give me direction for...” · “Play... Radio station” · “Set the temperature to...”"],
+        ["Q4","Which of these functions CANNOT be controlled by natural voice recognition?","D","Opening the windows"]
       ]},
       {title:"Remote Operations", answers:[
-        ["Q5","A, B, C","Lock/unlock doors · Turn on exterior lights · Activate the horn"],
-        ["Q6","A, C","Pre-heat or pre-cool the cabin · Activate the automatically programmed temperature"]
+        ["Q5","Which features are available through the remote-control service?","A, B, C","Lock/unlock doors · Turn on exterior lights · Activate the horn"],
+        ["Q6","Which functions are available regarding cabin temperature via the e-remote commands service?","A, C","Pre-heat or pre-cool the cabin · Activate the automatically programmed temperature"]
       ]},
       {title:"Navigation & Trip", answers:[
-        ["Q7","B","Send & Go / Send2Nav"],
-        ["Q8","C","Maps Over-The-Air Update"],
-        ["Q9","B","Last Mile Navigation"],
-        ["Q10","A, B, C","Parking locations · Available parking spaces · Parking rates"],
-        ["Q11","D","It offers a statistical solution for finding a parking space"]
+        ["Q7","Which function allows you to send your destination from your mobile application to your vehicle's embedded navigation system?","B","Send & Go / Send2Nav"],
+        ["Q8","What does the acronym MOTA update mean in the context of navigation?","C","Maps Over-The-Air Update"],
+        ["Q9","Which function guides the customer to their final destination, even if they can't get there by car?","B","Last Mile Navigation"],
+        ["Q10","What information is available through the Parking Finder service?","A, B, C","Parking locations · Available parking spaces · Parking rates"],
+        ["Q11","What is special about the On-Street Parking service compared to Parking Finder?","D","It offers a statistical solution for finding a parking space"]
       ]},
       {title:"Electric Vehicle Features", answers:[
-        ["Q12","A","e-REMOTE control"],
-        ["Q13","D","Guide the driver throughout their journey, including charging stops, with real-time updates"],
-        ["Q14","A, B, C, D","Plan a trip on smartphone · Mirroring mode · Best charging stations · Route recalculation"],
-        ["Q15","D","Eco-driving advice for electric cars"]
+        ["Q12","Which service allows you to automatically limit the charge to 80% of the battery level?","A","e-REMOTE control"],
+        ["Q13","What is THE main benefit of embedded EV Routing?","D","Guide the driver throughout their journey, including charging stops, with real-time updates"],
+        ["Q14","What does the e-Routes by Free2move Charge application allow?","A, B, C, D","Plan a trip on smartphone · Mirroring mode · Best charging stations · Route recalculation"],
+        ["Q15","Which advantage is NOT mentioned for the Free2move Charge service?","D","Eco-driving advice for electric cars"]
       ]},
       {title:"Performance", answers:[
-        ["Q16","A, B, C","Acceleration · Braking · Vehicle speed"],
-        ["Q17","A, C","Drivers of a PHEV Hybrid vehicle · Drivers of an electric vehicle"],
-        ["Q18","A, B, C, D","Acceleration/Deceleration · Comfort · Charging · Speed"]
+        ["Q16","What data does Eco Score use to improve driving style?","A, B, C","Acceleration · Braking · Vehicle speed"],
+        ["Q17","For which types of customers is the e-coaching service particularly useful?","A, C","Drivers of a PHEV Hybrid vehicle · Drivers of an electric vehicle"],
+        ["Q18","In which areas can advice be provided by the e-Coaching service?","A, B, C, D","Acceleration/Deceleration · Comfort · Charging · Speed"]
       ]}
     ]
   },
@@ -317,29 +337,35 @@ const DATA = {
     title:"Trip Enjoyable",
     sections:[
       {title:"Entertainment · Games", answers:[
-        ["Q1","B","While waiting at a charging station"],
-        ["Q2","C","11"],
-        ["Q3","B","No, they work offline"],
-        ["Q4","B","Tetris"],
-        ["Q5","D","Available on smartphone and Brand application"]
+        ["Q1","When is it most appropriate to use the games built into your vehicle?","B","While waiting at a charging station"],
+        ["Q2","How many games are available via the connected service called Games?","C","11"],
+        ["Q3","Do the onboard games require a permanent internet connection?","B","No, they work offline"],
+        ["Q4","Which of these games are NOT mentioned in the presentation?","B","Tetris"],
+        ["Q5","Which customer benefit is NOT mentioned regarding onboard games?","D","Available on smartphone and Brand application"]
       ]},
       {title:"Entertainment · ChatGPT", answers:[
-        ["Q6","B","At least 50"],
-        ["Q7","B","Can you explain why the sky is blue in a way a 6-year-old can understand?"],
-        ["Q8","A, C, D","Data may not be objective · Data may lack accuracy · Quality depends on provided information"],
-        ["Q9","A, C, E","Infotainment system · Connected navigation · Natural voice recognition"],
-        ["Q10","A, B, C","Science/technology/mathematics · Video games/music/cinema · History/geography/visual arts"],
-        ["Q11","A, B, C","Start charging · Check charging status · Schedule charging"],
-        ["Q12","D","Save fuel"],
-        ["Q13","A","Control your smart home without leaving your car"]
+        ["Q6","How many knowledge domains are covered by ChatGPT according to the presentation?","B","At least 50"],
+        ["Q7","Which of the following questions can ChatGPT answer during a car trip?","B","Can you explain why the sky is blue in a way a 6-year-old can understand?"],
+        ["Q8","What limitation of ChatGPT is mentioned in the warning?","A, C, D","Data may not be objective · Data may lack accuracy · Quality depends on provided information"],
+        ["Q9","Which equipment is mandatory in the car to use ChatGPT?","A, C, E","Infotainment system · Connected navigation · Natural voice recognition"],
+        ["Q10","Which topics are covered by ChatGPT in the vehicle?","A, B, C","Science/technology/mathematics · Video games/music/cinema · History/geography/visual arts"],
+        ["Q11","Which features are available via Brand skill for Alexa for electric vehicles?","A, B, C","Start charging · Check charging status · Schedule charging"],
+        ["Q12","Which customer benefit is NOT available via Brand skill for Alexa?","D","Save fuel"],
+        ["Q13","Thanks to Alexa vehicle-to-home commands, what can you do without leaving your car?","A","Control your smart home"]
       ]},
       {title:"Entertainment · Wi-Fi", answers:[
-        ["Q14","C","8"],
-        ["Q15","A","Purchase additional features and services via the vehicle infotainment system"]
+        ["Q14","How many devices can be connected simultaneously to the vehicle's Wi-Fi?","C","8"],
+        ["Q15","What can you do with the app market?","A","Purchase additional features and services via your vehicle infotainment system"]
       ]}
     ]
   }
 };
+
+function renderLetters(value){
+  return value.split(",").map(letter => `
+    <span class="letter">${letter.trim()}</span>
+  `).join("");
+}
 
 function renderMission(id, data){
   const root = document.getElementById(id);
@@ -356,7 +382,11 @@ function renderMission(id, data){
             ${section.answers.map(a => `
               <div class="answer-card">
                 <div class="q-number">${a[0]}</div>
-                <div class="answer"><span class="letter">${a[1]}</span>${a[2]}</div>
+                <div class="question">${a[1]}</div>
+                <div class="answer-row">
+                  <div class="letters">${renderLetters(a[2])}</div>
+                  <div class="answer">${a[3]}</div>
+                </div>
               </div>
             `).join("")}
           </div>
