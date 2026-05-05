@@ -185,35 +185,61 @@ h1{
 }
 
 .answer-row{
-  display:flex;
-  gap:8px;
-  align-items:flex-start;
+
+  display:block;
+
 }
 
 .letters{
+
   display:flex;
-  gap:6px;
+
+  gap:8px;
+
   flex-wrap:wrap;
-  flex:0 0 auto;
+
+  margin-bottom:12px;
+
 }
 
 .letter{
+
   display:inline-flex;
+
   align-items:center;
+
   justify-content:center;
-  min-width:30px;
-  height:30px;
+
+  width:34px;
+
+  height:34px;
+
   border-radius:50%;
+
   background:rgba(255,216,90,.18);
+
   border:1px solid rgba(255,216,90,.48);
+
   color:var(--gold);
+
   font-weight:900;
+
+  flex:0 0 auto;
+
 }
 
 .answer{
+
   color:rgba(255,255,255,.92);
+
   font-size:15px;
+
   line-height:1.45;
+
+  overflow-wrap:anywhere;
+
+  word-break:normal;
+
 }
 
 .reveal{
