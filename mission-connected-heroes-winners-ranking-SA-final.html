@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>Mission Connected Heroes · SA Winners Ranking</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --text:#d4e7ff;
+  --muted:rgba(212,231,255,.78);
+  --title:#ffffff;
+  --cyan:#19dfff;
+  --blue:#2aa8ff;
+  --gold:#ffd85a;
+  --silver:#cfe6ff;
+  --bronze:#f4b06a;
+  --panel1:rgba(9,28,68,.92);
+  --panel2:rgba(4,17,47,.96);
+}
+
+html,body{
+  margin:0;
+  padding:0;
+  background:transparent!important;
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+}
+
+.page{
+  max-width:1720px;
+  margin:0 auto;
+  padding:52px 48px 76px;
+}
+
+.badge{
+  display:inline-flex;
+  padding:10px 18px;
+  border-radius:999px;
+  border:1px solid rgba(42,168,255,.7);
+  color:var(--blue);
+  background:rgba(0,0,0,.18);
+  text-transform:uppercase;
+  letter-spacing:1px;
+  font-size:12px;
+  margin-bottom:22px;
+  backdrop-filter:blur(10px);
+}
+
+h1{
+  margin:0 0 14px;
+  font-family:'Orbitron',sans-serif;
+  font-size:46px;
+  font-weight:900;
+  color:#fff;
+  line-height:1.05;
+  text-shadow:0 0 24px rgba(25,223,255,.08);
+}
+
+.intro{
+  font-size:19px;
+  line-height:1.6;
+  color:var(--muted);
+  margin-bottom:30px;
+  max-width:1380px;
+}
+
+.intro strong{color:#fff;}
+
+.summary{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:18px;
+  margin:28px 0 34px;
+}
+
+.summary-card{
+  border-radius:26px;
+  padding:22px;
+  background:linear-gradient(180deg,var(--panel1),var(--panel2));
+  border:1px solid rgba(42,168,255,.34);
+  box-shadow:0 20px 54px rgba(0,0,0,.28);
+}
+
+.summary-label{
+  color:var(--muted);
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:.8px;
+  margin-bottom:8px;
+}
+
+.summary-value{
+  color:#fff;
+  font-family:'Orbitron',sans-serif;
+  font-size:30px;
+  font-weight:900;
+}
+
+.toolbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  margin:22px 0 26px;
+}
+
+.search{
+  width:100%;
+  max-width:460px;
+  padding:15px 18px;
+  border-radius:999px;
+  border:1px solid rgba(25,223,255,.28);
+  background:rgba(255,255,255,.055);
+  color:#fff;
+  font-size:15px;
+  outline:none;
+  box-shadow:0 0 18px rgba(25,223,255,.08);
+}
+
+.search::placeholder{color:rgba(212,231,255,.55);}
+
+.counter{
+  color:rgba(212,231,255,.72);
+  font-size:14px;
+}
+
+.prize-section{
+  margin-top:34px;
+}
+
+.section-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:18px;
+  margin-bottom:18px;
+}
+
+.section-title{
+  margin:0;
+  color:#fff;
+  font-family:'Orbitron',sans-serif;
+  font-size:28px;
+  font-weight:900;
+  letter-spacing:.6px;
+}
+
+.section-sub{
+  color:var(--muted);
+  font-size:14px;
+}
+
+.winners-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:18px;
+}
+
+.winner-card{
+  position:relative;
+  border-radius:26px;
+  padding:22px;
+  background:linear-gradient(180deg,rgba(9,28,68,.90),rgba(4,17,47,.98));
+  border:1px solid rgba(42,168,255,.30);
+  box-shadow:0 18px 48px rgba(0,0,0,.28);
+  overflow:hidden;
+  transition:transform .28s ease, border-color .28s ease, box-shadow .28s ease;
+}
+
+.winner-card::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  background:radial-gradient(circle at 50% 100%, rgba(25,223,255,.12), transparent 58%);
+  opacity:.8;
+  pointer-events:none;
+}
+
+.winner-card:hover{
+  transform:translateY(-5px);
+  border-color:rgba(25,223,255,.48);
+  box-shadow:0 0 34px rgba(25,223,255,.14),0 24px 64px rgba(0,0,0,.34);
+}
+
+.rank-pill{
+  position:relative;
+  z-index:1;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:44px;
+  height:34px;
+  padding:0 12px;
+  border-radius:999px;
+  font-weight:900;
+  margin-bottom:16px;
+  color:#061a3a;
+}
+
+.rank-first{background:var(--gold);}
+.rank-second{background:var(--silver);}
+.rank-third{background:var(--bronze);}
+
+.winner-name{
+  position:relative;
+  z-index:1;
+  color:#fff;
+  font-size:19px;
+  font-weight:900;
+  line-height:1.25;
+  margin-bottom:8px;
+}
+
+.table-wrap{
+  margin-top:18px;
+  border-radius:28px;
+  overflow:hidden;
+  border:1px solid rgba(42,168,255,.32);
+  background:linear-gradient(180deg,rgba(9,28,68,.88),rgba(4,17,47,.96));
+  box-shadow:0 18px 48px rgba(0,0,0,.28);
+}
+
+.table-scroll{overflow-x:auto;}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:14px;
+  min-width:980px;
+}
+
+thead{background:rgba(25,223,255,.08);}
+
+th{
+  padding:16px 14px;
+  text-align:left;
+  color:#fff;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+td{
+  padding:15px 14px;
+  border-top:1px solid rgba(255,255,255,.06);
+  color:rgba(255,255,255,.88);
+  white-space:nowrap;
+}
+
+tr:hover td{background:rgba(25,223,255,.055);}
+
+.table-rank{color:var(--bronze);font-weight:900;}
+.table-player{color:#fff;font-weight:900;}
+
+.empty{
+  display:none;
+  padding:28px;
+  color:var(--muted);
+  text-align:center;
+}
+
+.reveal{
+  opacity:0;
+  transform:translateY(18px);
+  transition:.6s ease;
+}
+
+.reveal.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+@media(max-width:1160px){
+  .summary,.winners-grid{grid-template-columns:repeat(2,1fr);}
+}
+
+@media(max-width:760px){
+  .page{padding:36px 22px 58px;}
+  h1{font-size:34px;}
+  .intro{font-size:17px;}
+  .summary,.winners-grid{grid-template-columns:1fr;}
+  .toolbar{flex-direction:column;align-items:flex-start;}
+  .search{max-width:none;box-sizing:border-box;}
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+  <div class="badge reveal">Mission Connected Heroes · SA Winners Ranking</div>
+
+  <h1 class="reveal">SA Winners Ranking</h1>
+
+  <div class="intro reveal">
+    Discover the final prize allocation for Mission Connected Heroes.
+    <br><strong>Congratulations to all connected heroes.</strong>
+  </div>
+
+  <div class="summary reveal">
+    <div class="summary-card">
+      <div class="summary-label">First prize winner</div>
+      <div class="summary-value">1</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">Second prize winners</div>
+      <div class="summary-value">2</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">Third prize winners</div>
+      <div class="summary-value">17</div>
+    </div>
+  </div>
+
+  <div class="toolbar reveal">
+    <input class="search" id="searchInput" placeholder="Search a winner or a player..." />
+    <div class="counter" id="counter"></div>
+  </div>
+
+  <section class="prize-section reveal" data-search-section>
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">First Prize</h2>
+        <div class="section-sub">The SA first prize winner.</div>
+      </div>
+    </div>
+    <div class="winners-grid" id="firstPrize"></div>
+  </section>
+
+  <section class="prize-section reveal" data-search-section>
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">Second Prize</h2>
+        <div class="section-sub">The following 2 winners.</div>
+      </div>
+    </div>
+    <div class="winners-grid" id="secondPrize"></div>
+  </section>
+
+  <section class="prize-section reveal" data-search-section>
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">Third Prize</h2>
+        <div class="section-sub">The next 17 eligible players from the updated general ranking, after excluding first and second prize winners.</div>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Prize rank</th>
+              <th>Player</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="thirdPrize"></tbody>
+        </table>
+      </div>
+      <div class="empty" id="emptyThird">No matching third prize winner.</div>
+    </div>
+  </section>
+
+  <section class="prize-section reveal">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">See the rest of the participant rankings</h2>
+        <div class="section-sub">Complete remaining general ranking after removing the First, Second and Third Prize winners.</div>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Eligible rank</th>
+              <th>Player</th>
+              <th>Total</th>
+              <th>M1.1</th>
+              <th>M1.2</th>
+              <th>M1.3</th>
+              <th>M2</th>
+              <th>M3.1</th>
+              <th>M3.2</th>
+              <th>M3.3</th>
+              <th>M4</th>
+              <th>Bonus</th>
+            </tr>
+          </thead>
+          <tbody id="remainingRanking"></tbody>
+        </table>
+      </div>
+      <div class="empty" id="emptyRemaining">No matching player.</div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+const DATA = {"firstPrize": [{"rank": "1", "display": "FELIPE PESSOAM", "pseudo": "FELIPE PESSOAM", "total": "87"}], "secondPrize": [{"rank": "2", "display": "JOSE ROGERIO CAMPASSIJ", "pseudo": "JOSE ROGERIO CAMPASSIJ", "total": "83"}, {"rank": "3", "display": "MARTINHO CELIO DEA", "pseudo": "MARTINHO CELIO DEA", "total": "65"}], "thirdPrize": [{"rank": 1, "display": "ALYSON APARECIDO ANDRADES", "pseudo": "ALYSON APARECIDO ANDRADES", "total": "81"}, {"rank": 2, "display": "FERNANDA BARBOSA DEO", "pseudo": "FERNANDA BARBOSA DEO", "total": "81"}, {"rank": 3, "display": "JESSICA PLISCKER FELIXM", "pseudo": "JESSICA PLISCKER FELIXM", "total": "80"}, {"rank": 4, "display": "PEDRO RAPHAEL VIANAL", "pseudo": "PEDRO RAPHAEL VIANAL", "total": "78"}, {"rank": 5, "display": "JAIR GERALDOR", "pseudo": "JAIR GERALDOR", "total": "77"}, {"rank": 6, "display": "BRUNO KENJIN", "pseudo": "BRUNO KENJIN", "total": "76"}, {"rank": 7, "display": "IVAN TEIXEIRAV", "pseudo": "IVAN TEIXEIRAV", "total": "74"}, {"rank": 8, "display": "ALICE MACEDOC", "pseudo": "ALICE MACEDOC", "total": "74"}, {"rank": 9, "display": "TADEU VINICIUS DE MELOP", "pseudo": "TADEU VINICIUS DE MELOP", "total": "74"}, {"rank": 10, "display": "PEDRO ABREU CARNEIRO MITRAUDC", "pseudo": "PEDRO ABREU CARNEIRO MITRAUDC", "total": "73"}, {"rank": 11, "display": "FABIO MITSUOH", "pseudo": "FABIO MITSUOH", "total": "69"}, {"rank": 12, "display": "BRENO DURAESR", "pseudo": "BRENO DURAESR", "total": "66"}, {"rank": 13, "display": "LAURA LIMAF", "pseudo": "LAURA LIMAF", "total": "65"}, {"rank": 14, "display": "THIAGO ANDRADE DES", "pseudo": "THIAGO ANDRADE DES", "total": "63"}, {"rank": 15, "display": "ROGERIO ALEXANDRE CASEMIRO DEL", "pseudo": "ROGERIO ALEXANDRE CASEMIRO DEL", "total": "61"}, {"rank": 16, "display": "LUCAS REISA", "pseudo": "LUCAS REISA", "total": "59"}, {"rank": 17, "display": "RODRIGO FRANCISCO DOSS", "pseudo": "RODRIGO FRANCISCO DOSS", "total": "58"}], "remainingRanking": [{"rank": 1, "player": "DANIELA SENE DEM", "total": "57", "m11": "7", "m12": "", "m13": "", "m2": "2", "m31": "4", "m32": "18", "m33": "3", "m4": "20", "bonus": "3"}, {"rank": 2, "player": "WESLLEY CARVALHO BERNARDOR", "total": "57", "m11": "9", "m12": "6", "m13": "11", "m2": "2", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": "4"}, {"rank": 3, "player": "MARLYSON BRUNO PEREIRAF", "total": "57", "m11": "11", "m12": "6", "m13": "11", "m2": "2", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": "2"}, {"rank": 4, "player": "BIANCA HARUMI DINIZK", "total": "55", "m11": "11", "m12": "10", "m13": "3", "m2": "3", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": "3"}, {"rank": 5, "player": "CAIO CESAR MORATOM", "total": "53", "m11": "13", "m12": "2", "m13": "1", "m2": "3", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": "9"}, {"rank": 6, "player": "ANA PAULA WALLERO", "total": "51", "m11": "11", "m12": "6", "m13": "9", "m2": "", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": ""}, {"rank": 7, "player": "CLEYTON ALBUQUERQUE DEA", "total": "51", "m11": "11", "m12": "2", "m13": "11", "m2": "2", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": ""}, {"rank": 8, "player": "MARCELO WILSONP", "total": "50", "m11": "13", "m12": "2", "m13": "11", "m2": "", "m31": "4", "m32": "", "m33": "", "m4": "20", "bonus": ""}, {"rank": 9, "player": "ROBERTA CRISTINA DOS SANTOSF", "total": "49", "m11": "9", "m12": "4", "m13": "9", "m2": "2", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": ""}, {"rank": 10, "player": "VINICIUS FAUSTOC", "total": "49", "m11": "13", "m12": "0", "m13": "9", "m2": "2", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": ""}, {"rank": 11, "player": "RENATA CRISTINAD", "total": "46", "m11": "9", "m12": "0", "m13": "1", "m2": "2", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": "9"}, {"rank": 12, "player": "RENATA ARAUJO DEO", "total": "45", "m11": "13", "m12": "", "m13": "", "m2": "2", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": "5"}, {"rank": 13, "player": "RAFAEL PEREIRAS", "total": "45", "m11": "13", "m12": "0", "m13": "5", "m2": "2", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": "0"}, {"rank": 14, "player": "JEFERSONT", "total": "45", "m11": "11", "m12": "", "m13": "", "m2": "0", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": "9"}, {"rank": 15, "player": "DAVINA FLAVIA GONCALVES DOSA", "total": "45", "m11": "0", "m12": "4", "m13": "9", "m2": "2", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": "5"}, {"rank": 16, "player": "ROSALINDA ROMANOC", "total": "45", "m11": "7", "m12": "2", "m13": "7", "m2": "2", "m31": "4", "m32": "", "m33": "", "m4": "20", "bonus": "3"}, {"rank": 17, "player": "ANA LUIZA DE ALMEIDA PEREIRA ZUQUIM DEO", "total": "44", "m11": "5", "m12": "4", "m13": "11", "m2": "", "m31": "4", "m32": "", "m33": "", "m4": "20", "bonus": ""}, {"rank": 18, "player": "KLAUDIUS HENRIQUE DOS SANTOSS", "total": "44", "m11": "5", "m12": "4", "m13": "11", "m2": "2", "m31": "4", "m32": "18", "m33": "", "m4": "", "bonus": ""}, {"rank": 19, "player": "JULIANO PAULARIE GUIMARAES DEM", "total": "42", "m11": "3", "m12": "6", "m13": "9", "m2": "2", "m31": "4", "m32": "18", "m33": "", "m4": "", "bonus": ""}, {"rank": 20, "player": "RODRIGO MIRANDA DEO", "total": "41", "m11": "7", "m12": "0", "m13": "7", "m2": "3", "m31": "4", "m32": "18", "m33": "", "m4": "", "bonus": "2"}, {"rank": 21, "player": "ISRAEL JUNIO VIEIRA DAS", "total": "40", "m11": "5", "m12": "4", "m13": "1", "m2": "2", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": "3"}, {"rank": 22, "player": "MATHEUS DE OLIVEIRAR", "total": "40", "m11": "3", "m12": "0", "m13": "1", "m2": "2", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": "9"}, {"rank": 23, "player": "FILIPE ALCANTID", "total": "40", "m11": "11", "m12": "10", "m13": "9", "m2": "3", "m31": "4", "m32": "", "m33": "", "m4": "", "bonus": "3"}, {"rank": 24, "player": "LUIZ GUSTAVO DA SILVAR", "total": "39", "m11": "5", "m12": "4", "m13": "0", "m2": "2", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": "3"}, {"rank": 25, "player": "SERGIO ROBERTO CORREIA DON", "total": "39", "m11": "11", "m12": "6", "m13": "9", "m2": "0", "m31": "4", "m32": "", "m33": "", "m4": "", "bonus": "9"}, {"rank": 26, "player": "WANDERSON FELIXF", "total": "39", "m11": "11", "m12": "", "m13": "", "m2": "3", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": ""}, {"rank": 27, "player": "GUILHERME SILVAR", "total": "38", "m11": "11", "m12": "", "m13": "", "m2": "2", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": ""}, {"rank": 28, "player": "GISELET", "total": "38", "m11": "3", "m12": "0", "m13": "0", "m2": "2", "m31": "4", "m32": "", "m33": "", "m4": "20", "bonus": "9"}, {"rank": 29, "player": "EVARISTO RIBEIRON", "total": "37", "m11": "7", "m12": "0", "m13": "1", "m2": "2", "m31": "4", "m32": "18", "m33": "2", "m4": "", "bonus": "3"}, {"rank": 30, "player": "VICTOR PAULOL", "total": "37", "m11": "13", "m12": "6", "m13": "9", "m2": "2", "m31": "4", "m32": "", "m33": "", "m4": "", "bonus": "3"}, {"rank": 31, "player": "ALESSANDRO ANTONIOP", "total": "37", "m11": "0", "m12": "4", "m13": "9", "m2": "", "m31": "4", "m32": "", "m33": "", "m4": "20", "bonus": ""}, {"rank": 32, "player": "DIEGOJ", "total": "36", "m11": "9", "m12": "", "m13": "", "m2": "2", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": ""}, {"rank": 33, "player": "RAFAEL OLIVEIRA DEP", "total": "36", "m11": "9", "m12": "", "m13": "", "m2": "2", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": ""}, {"rank": 34, "player": "CARMEN THAISH", "total": "35", "m11": "7", "m12": "", "m13": "", "m2": "2", "m31": "4", "m32": "16", "m33": "3", "m4": "", "bonus": "3"}, {"rank": 35, "player": "FERNANDO VALERIO IDALGOL", "total": "35", "m11": "11", "m12": "", "m13": "", "m2": "", "m31": "4", "m32": "", "m33": "", "m4": "20", "bonus": ""}, {"rank": 36, "player": "ALBERTOM", "total": "35", "m11": "15", "m12": "2", "m13": "11", "m2": "3", "m31": "4", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 37, "player": "MARCELLO ABBATANTUONO DEA", "total": "35", "m11": "3", "m12": "2", "m13": "0", "m2": "2", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": "3"}, {"rank": 38, "player": "BRUNO SOARES DEM", "total": "35", "m11": "5", "m12": "0", "m13": "0", "m2": "3", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": "2"}, {"rank": 39, "player": "FELIPE DE OLIVEIRAL", "total": "35", "m11": "11", "m12": "4", "m13": "11", "m2": "2", "m31": "4", "m32": "", "m33": "", "m4": "", "bonus": "3"}, {"rank": 40, "player": "BERNARDO DE MORAISR", "total": "34", "m11": "3", "m12": "", "m13": "", "m2": "2", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": "4"}, {"rank": 41, "player": "RICIELLE CAMILO DE CAMARGOSR", "total": "34", "m11": "3", "m12": "", "m13": "", "m2": "3", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": "3"}, {"rank": 42, "player": "FERNANDO AUGUSTO MARTINSX", "total": "34", "m11": "0", "m12": "0", "m13": "7", "m2": "2", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": ""}, {"rank": 43, "player": "LEONARDO ALVESS", "total": "34", "m11": "13", "m12": "6", "m13": "9", "m2": "2", "m31": "4", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 44, "player": "LUCAS ALVESB", "total": "33", "m11": "11", "m12": "", "m13": "", "m2": "", "m31": "4", "m32": "18", "m33": "", "m4": "", "bonus": ""}, {"rank": 45, "player": "CLAUDIO MELO PASSUELOS", "total": "33", "m11": "9", "m12": "", "m13": "", "m2": "", "m31": "4", "m32": "", "m33": "", "m4": "20", "bonus": ""}, {"rank": 46, "player": "ANDERSON LEONARDOS", "total": "32", "m11": "7", "m12": "0", "m13": "", "m2": "", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": ""}, {"rank": 47, "player": "ALEX CARMONAB", "total": "32", "m11": "5", "m12": "0", "m13": "0", "m2": "2", "m31": "4", "m32": "18", "m33": "3", "m4": "", "bonus": ""}, {"rank": 48, "player": "RODNEI BARCELOS DAS", "total": "28", "m11": "11", "m12": "2", "m13": "15", "m2": "0", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 49, "player": "PEDRO HENRIQUE ESTEVAM REZENDEM", "total": "28", "m11": "9", "m12": "10", "m13": "5", "m2": "1", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": "3"}, {"rank": 50, "player": "ITALLO VAZS", "total": "28", "m11": "13", "m12": "6", "m13": "9", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 51, "player": "ANDERSON RAFAELL", "total": "28", "m11": "7", "m12": "0", "m13": "15", "m2": "2", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": "4"}, {"rank": 52, "player": "JEAN PATRICKR", "total": "27", "m11": "7", "m12": "", "m13": "", "m2": "2", "m31": "", "m32": "18", "m33": "", "m4": "", "bonus": ""}, {"rank": 53, "player": "HUGO HENRIQUE CABRAL EP", "total": "26", "m11": "11", "m12": "0", "m13": "11", "m2": "2", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": "2"}, {"rank": 54, "player": "BRUNA COELHO DEO", "total": "26", "m11": "3", "m12": "0", "m13": "", "m2": "2", "m31": "", "m32": "18", "m33": "3", "m4": "", "bonus": ""}, {"rank": 55, "player": "OLDEMAR DE MELOJ", "total": "26", "m11": "3", "m12": "", "m13": "", "m2": "2", "m31": "", "m32": "18", "m33": "3", "m4": "", "bonus": ""}, {"rank": 56, "player": "NAYARA NUNESS", "total": "26", "m11": "5", "m12": "0", "m13": "", "m2": "", "m31": "", "m32": "18", "m33": "3", "m4": "", "bonus": ""}, {"rank": 57, "player": "RONALDO AYRESL", "total": "26", "m11": "3", "m12": "", "m13": "", "m2": "2", "m31": "", "m32": "18", "m33": "3", "m4": "", "bonus": ""}, {"rank": 58, "player": "MARIANA OLIVEIRA BARATAD", "total": "26", "m11": "5", "m12": "6", "m13": "11", "m2": "2", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": "2"}, {"rank": 59, "player": "HUDSON CARNEIROS", "total": "26", "m11": "0", "m12": "0", "m13": "0", "m2": "2", "m31": "", "m32": "18", "m33": "3", "m4": "", "bonus": "3"}, {"rank": 60, "player": "DENIS COUTINHO ALONSOS", "total": "26", "m11": "0", "m12": "0", "m13": "", "m2": "2", "m31": "", "m32": "18", "m33": "3", "m4": "", "bonus": "3"}, {"rank": 61, "player": "VITOR FERNANDO MACHADOL", "total": "26", "m11": "3", "m12": "4", "m13": "0", "m2": "2", "m31": "", "m32": "15", "m33": "2", "m4": "", "bonus": ""}, {"rank": 62, "player": "RODRIGO GHERARDM", "total": "25", "m11": "1", "m12": "", "m13": "", "m2": "1", "m31": "", "m32": "", "m33": "", "m4": "20", "bonus": "3"}, {"rank": 63, "player": "FILIPE DE ARAUJOF", "total": "25", "m11": "5", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "20", "bonus": ""}, {"rank": 64, "player": "MILTON COLANTONIN", "total": "25", "m11": "5", "m12": "0", "m13": "0", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "20", "bonus": ""}, {"rank": 65, "player": "SABRINA COELHOF", "total": "25", "m11": "5", "m12": "0", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "20", "bonus": ""}, {"rank": 66, "player": "MILENE GARCIA CARDOSOM", "total": "24", "m11": "13", "m12": "", "m13": "", "m2": "2", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": "9"}, {"rank": 67, "player": "KLEBER FERNANDO DOSS", "total": "24", "m11": "0", "m12": "0", "m13": "1", "m2": "2", "m31": "", "m32": "18", "m33": "3", "m4": "", "bonus": "0"}, {"rank": 68, "player": "PEDRO MAGALHAESM", "total": "23", "m11": "11", "m12": "", "m13": "", "m2": "3", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": "9"}, {"rank": 69, "player": "LEANDRO SOUZAG", "total": "23", "m11": "3", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "20", "bonus": ""}, {"rank": 70, "player": "FELIPE EWALDF", "total": "23", "m11": "11", "m12": "", "m13": "7", "m2": "2", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": "3"}, {"rank": 71, "player": "MARIA CLARAS", "total": "23", "m11": "3", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "20", "bonus": ""}, {"rank": 72, "player": "RAYANE DE SOUZAF", "total": "22", "m11": "7", "m12": "2", "m13": "11", "m2": "2", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 73, "player": "VIVIANEA", "total": "22", "m11": "5", "m12": "0", "m13": "5", "m2": "3", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": "9"}, {"rank": 74, "player": "NATHALIAM", "total": "18", "m11": "9", "m12": "0", "m13": "9", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 75, "player": "FREDERIKI DIASS", "total": "17", "m11": "1", "m12": "0", "m13": "0", "m2": "2", "m31": "", "m32": "8", "m33": "3", "m4": "", "bonus": "3"}, {"rank": 76, "player": "GIORGIO FELIX DAS", "total": "16", "m11": "11", "m12": "", "m13": "", "m2": "2", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": "3"}, {"rank": 77, "player": "MARINA CAMBAF", "total": "15", "m11": "9", "m12": "6", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 78, "player": "EVERTON LUIZA", "total": "15", "m11": "15", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 79, "player": "SAMARA FERREIRA DEA", "total": "15", "m11": "11", "m12": "4", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 80, "player": "ANA LUIZA DE FREITASR", "total": "15", "m11": "7", "m12": "8", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 81, "player": "ALLEXANDREK", "total": "14", "m11": "3", "m12": "", "m13": "", "m2": "2", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": "9"}, {"rank": 82, "player": "JOAO VICTOR DE ARAUJO GONCALVES ES", "total": "14", "m11": "7", "m12": "", "m13": "", "m2": "2", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": "5"}, {"rank": 83, "player": "GUILHERME COSTAC", "total": "14", "m11": "7", "m12": "0", "m13": "7", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 84, "player": "ALEXANDRE GOMES JESUSS", "total": "14", "m11": "7", "m12": "0", "m13": "7", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 85, "player": "ISAAC BOY DES", "total": "13", "m11": "13", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 86, "player": "LEANDRO DOSS", "total": "13", "m11": "13", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 87, "player": "MILTON JOSE VIEIRA DOSS", "total": "13", "m11": "13", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 88, "player": "THIAGO TEIXEIRA NARDYB", "total": "13", "m11": "9", "m12": "4", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 89, "player": "ANDREA SALES RODRIGUESG", "total": "13", "m11": "13", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 90, "player": "CASSIO HENRIQUE MENDES DAS", "total": "13", "m11": "13", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 91, "player": "DIEGO FRANCAO", "total": "13", "m11": "13", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 92, "player": "RAFAELA DINALIN", "total": "12", "m11": "0", "m12": "", "m13": "", "m2": "2", "m31": "", "m32": "7", "m33": "3", "m4": "", "bonus": ""}, {"rank": 93, "player": "RAFAELA VIOL VIDALF", "total": "12", "m11": "9", "m12": "", "m13": "", "m2": "3", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 94, "player": "THALES LOPES DES", "total": "12", "m11": "7", "m12": "0", "m13": "5", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 95, "player": "PRISCILLA OLIVEIRA DOC", "total": "11", "m11": "11", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 96, "player": "LUIZ RICARDOM", "total": "11", "m11": "11", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 97, "player": "MARCELO PINTO DA SILVAJ", "total": "11", "m11": "11", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 98, "player": "PAULO EDUARDOS", "total": "11", "m11": "11", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 99, "player": "RUBEM PINTO SILVAN", "total": "11", "m11": "11", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 100, "player": "ANDRE GERALDO DE SOUSAB", "total": "11", "m11": "11", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 101, "player": "GUSTAVO LAGE DEC", "total": "11", "m11": "11", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 102, "player": "MARCIOM", "total": "11", "m11": "5", "m12": "0", "m13": "", "m2": "3", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": "3"}, {"rank": 103, "player": "LEONARDO COSTAP", "total": "11", "m11": "11", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 104, "player": "BRUNO VILLANIP", "total": "11", "m11": "0", "m12": "0", "m13": "3", "m2": "2", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": "6"}, {"rank": 105, "player": "FELIPES", "total": "11", "m11": "9", "m12": "", "m13": "", "m2": "2", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 106, "player": "MATHEUS DE SA SANTIAGOB", "total": "11", "m11": "11", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 107, "player": "JONATAS ALBINO COELHO DEA", "total": "11", "m11": "3", "m12": "0", "m13": "5", "m2": "0", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": "3"}, {"rank": 108, "player": "NATHAN NAPOLIR", "total": "10", "m11": "5", "m12": "", "m13": "", "m2": "2", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": "3"}, {"rank": 109, "player": "WADSON FREITAS DOSS", "total": "10", "m11": "5", "m12": "", "m13": "", "m2": "2", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": "3"}, {"rank": 110, "player": "VINICIUS BENINI STARLINGV", "total": "9", "m11": "5", "m12": "", "m13": "", "m2": "2", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": "2"}, {"rank": 111, "player": "MARIA FERNANDA DOS SANTOSM", "total": "9", "m11": "9", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 112, "player": "THAIS CHRISTINA DA SILVAS", "total": "9", "m11": "9", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 113, "player": "THOMAS BRUNOM", "total": "9", "m11": "9", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 114, "player": "GEISIEL MOREIRA DEA", "total": "9", "m11": "9", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 115, "player": "ANA LUISA DE OLIVEIRAG", "total": "9", "m11": "0", "m12": "", "m13": "", "m2": "2", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": "7"}, {"rank": 116, "player": "RODRIGO ALMEIDAF", "total": "9", "m11": "5", "m12": "", "m13": "", "m2": "2", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": "2"}, {"rank": 117, "player": "CARLOS EDUARDO COCCOD", "total": "9", "m11": "9", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 118, "player": "WAGNER DE OLIVEIRAA", "total": "9", "m11": "9", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 119, "player": "FERNANDO MARTINA", "total": "9", "m11": "9", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 120, "player": "SAMUEL CANDIDO LEMOSA", "total": "9", "m11": "9", "m12": "0", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 121, "player": "LUCIAC", "total": "8", "m11": "3", "m12": "", "m13": "", "m2": "3", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": "2"}, {"rank": 122, "player": "GUILHERME EDUARDOB", "total": "8", "m11": "5", "m12": "0", "m13": "3", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 123, "player": "VICTOR MELOS", "total": "7", "m11": "7", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 124, "player": "MIRELLA MARIA TRINDADEC", "total": "7", "m11": "7", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 125, "player": "BARBARA ARAUJOS", "total": "7", "m11": "7", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 126, "player": "EDUARDO DUARTE ZILLERF", "total": "7", "m11": "7", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 127, "player": "DANIEL GONCALVESL", "total": "7", "m11": "7", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 128, "player": "GUSTAVO KASLAUSKAST", "total": "7", "m11": "7", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 129, "player": "FELIPE AUGUSTO DEA", "total": "7", "m11": "7", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 130, "player": "VICTOR CARVALHO FRANCOM", "total": "7", "m11": "7", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 131, "player": "JESSICA CAROLINE DE OLIVEIRAM", "total": "7", "m11": "5", "m12": "", "m13": "", "m2": "2", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 132, "player": "MURILO FABRICIOS", "total": "7", "m11": "1", "m12": "6", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 133, "player": "BELLETH LISBOA DA CRUZS", "total": "7", "m11": "7", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 134, "player": "PABLOC", "total": "7", "m11": "7", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 135, "player": "RODRIGOS", "total": "7", "m11": "7", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 136, "player": "LUNA MARCEL NOBREGA DAC", "total": "7", "m11": "7", "m12": "0", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 137, "player": "LEONARDO MELOM", "total": "7", "m11": "7", "m12": "0", "m13": "0", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 138, "player": "LUIZ FELIPE FERREIRA VASSALOR", "total": "7", "m11": "7", "m12": "0", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 139, "player": "GILBERTO MACEDO DEJ", "total": "7", "m11": "3", "m12": "", "m13": "", "m2": "2", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": "2"}, {"rank": 140, "player": "TARIK PIMENTA ROMUALDOS", "total": "7", "m11": "7", "m12": "0", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 141, "player": "ALAN XAVIER DES", "total": "7", "m11": "0", "m12": "0", "m13": "7", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 142, "player": "RAFAEL COSTAR", "total": "6", "m11": "3", "m12": "0", "m13": "3", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 143, "player": "THIAGO LUISZ", "total": "5", "m11": "5", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 144, "player": "CARLOS ANTONIOC", "total": "5", "m11": "5", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 145, "player": "JOAO LUCAS DE OLIVEIRAC", "total": "5", "m11": "5", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 146, "player": "HIURE ROBSON BETONICOA", "total": "5", "m11": "5", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 147, "player": "AUGUSTO ALVESA", "total": "5", "m11": "5", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 148, "player": "SILVIO PIANCASTELLIJ", "total": "5", "m11": "5", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 149, "player": "GUSTAVO MAIAF", "total": "5", "m11": "5", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 150, "player": "JULIO ZIVIANIP", "total": "5", "m11": "5", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 151, "player": "PEDROB", "total": "5", "m11": "5", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 152, "player": "THAMIRES CARDOZOS", "total": "5", "m11": "5", "m12": "0", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 153, "player": "SERGIO PABLOB", "total": "5", "m11": "5", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 154, "player": "KATIA FERNANDA DAS", "total": "5", "m11": "5", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 155, "player": "VICTORIA EUGENIAM", "total": "5", "m11": "5", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 156, "player": "JOAO PAULO TAVARESC", "total": "5", "m11": "5", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 157, "player": "FERNANDA BANDEIRAG", "total": "5", "m11": "5", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 158, "player": "LORENA CORREAV", "total": "5", "m11": "5", "m12": "0", "m13": "0", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 159, "player": "IAGO AVILAD", "total": "5", "m11": "3", "m12": "2", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 160, "player": "THOMASB", "total": "4", "m11": "1", "m12": "0", "m13": "", "m2": "2", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": "1"}, {"rank": 161, "player": "MAXWELL REGIS PEDROSAF", "total": "4", "m11": "3", "m12": "0", "m13": "1", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 162, "player": "EDUARDOM", "total": "3", "m11": "3", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 163, "player": "MARINAL", "total": "3", "m11": "3", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 164, "player": "CRISTIANO PABLO DES", "total": "3", "m11": "3", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 165, "player": "BRUNA ARAUJOC", "total": "3", "m11": "3", "m12": "", "m13": "", "m2": "0", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 166, "player": "ANDRE LUIZ BASSETTIC", "total": "3", "m11": "3", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 167, "player": "RUBEN CUNHAM", "total": "3", "m11": "3", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 168, "player": "LARA MAGROP", "total": "3", "m11": "3", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 169, "player": "JOSE FIRMINO DINIZN", "total": "3", "m11": "3", "m12": "0", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 170, "player": "HERLEI FRANCISCOB", "total": "3", "m11": "3", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 171, "player": "CLAYTON CARRARO DEA", "total": "3", "m11": "3", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 172, "player": "VIVIANE APARECIDA RIBEIROM", "total": "3", "m11": "3", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 173, "player": "DANIELA CAROLINA XAVIERF", "total": "3", "m11": "3", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 174, "player": "SERGIO AUGUSTO MARQUES DEM", "total": "1", "m11": "1", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 175, "player": "RENATO MARQUES DES", "total": "1", "m11": "1", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 176, "player": "MARIA MAGDALENA RIBEIROC", "total": "1", "m11": "1", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 177, "player": "WASHINGTON GALANTINO DAS", "total": "1", "m11": "1", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 178, "player": "FABIO VAZP", "total": "1", "m11": "1", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 179, "player": "LUIZ FERNANDO ROLLAC", "total": "1", "m11": "1", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 180, "player": "RODRIGO ANDRADE GOMES DES", "total": "1", "m11": "1", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 181, "player": "EVERALDO DE SOUZAT", "total": "0", "m11": "0", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 182, "player": "DIEGO HENRIQUEM", "total": "0", "m11": "0", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 183, "player": "PATRICIA MARQUESM", "total": "0", "m11": "0", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 184, "player": "DANIEL SANT ANNA DOSS", "total": "0", "m11": "0", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 185, "player": "GUILLERMO DARIO ARMANDOR", "total": "0", "m11": "0", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 186, "player": "JOAO CARLOSR", "total": "0", "m11": "0", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 187, "player": "GABRIELA CRISTINAR", "total": "0", "m11": "0", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 188, "player": "NIVAN PAULAV", "total": "0", "m11": "0", "m12": "0", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}, {"rank": 189, "player": "FABIANOR", "total": "0", "m11": "0", "m12": "", "m13": "", "m2": "", "m31": "", "m32": "", "m33": "", "m4": "", "bonus": ""}]};
+
+function escapeHtml(value){
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function winnerCard(w, type){
+  return `
+    <div class="winner-card" data-search="${escapeHtml((w.display + ' ' + w.pseudo).toLowerCase())}">
+      <div class="rank-pill rank-${type}">#${escapeHtml(w.rank)}</div>
+      <div class="winner-name">${escapeHtml(w.display)}</div>
+    </div>
+  `;
+}
+
+function renderStaticWinners(){
+  document.getElementById("firstPrize").innerHTML = DATA.firstPrize.map(w => winnerCard(w, "first")).join("");
+  document.getElementById("secondPrize").innerHTML = DATA.secondPrize.map(w => winnerCard(w, "second")).join("");
+}
+
+function renderThirdPrize(rows){
+  const body = document.getElementById("thirdPrize");
+  const empty = document.getElementById("emptyThird");
+  body.innerHTML = rows.map(r => `
+    <tr>
+      <td class="table-rank">#${escapeHtml(r.rank)}</td>
+      <td class="table-player">${escapeHtml(r.display)}</td>
+      <td>${escapeHtml(r.total)}</td>
+    </tr>
+  `).join("");
+  empty.style.display = rows.length ? "none" : "block";
+}
+
+function renderRemaining(rows){
+  const body = document.getElementById("remainingRanking");
+  const empty = document.getElementById("emptyRemaining");
+  body.innerHTML = rows.map(r => `
+    <tr>
+      <td class="table-rank">#${escapeHtml(r.rank)}</td>
+      <td class="table-player">${escapeHtml(r.player)}</td>
+      <td>${escapeHtml(r.total)}</td>
+      <td>${escapeHtml(r.m11 || "-")}</td>
+      <td>${escapeHtml(r.m12 || "-")}</td>
+      <td>${escapeHtml(r.m13 || "-")}</td>
+      <td>${escapeHtml(r.m2 || "-")}</td>
+      <td>${escapeHtml(r.m31 || "-")}</td>
+      <td>${escapeHtml(r.m32 || "-")}</td>
+      <td>${escapeHtml(r.m33 || "-")}</td>
+      <td>${escapeHtml(r.m4 || "-")}</td>
+      <td>${escapeHtml(r.bonus || "-")}</td>
+    </tr>
+  `).join("");
+  empty.style.display = rows.length ? "none" : "block";
+}
+
+function applySearch(){
+  const q = document.getElementById("searchInput").value.trim().toLowerCase();
+
+  document.querySelectorAll(".winner-card").forEach(card => {
+    card.style.display = card.dataset.search.includes(q) ? "" : "none";
+  });
+
+  const third = DATA.thirdPrize.filter(r =>
+    String(r.display).toLowerCase().includes(q) ||
+    String(r.pseudo).toLowerCase().includes(q)
+  );
+
+  const remaining = DATA.remainingRanking.filter(r =>
+    String(r.player).toLowerCase().includes(q)
+  );
+
+  renderThirdPrize(third);
+  renderRemaining(remaining);
+
+  const firstVisible = Array.from(document.querySelectorAll("#firstPrize .winner-card")).filter(c=>c.style.display !== "none").length;
+  const secondVisible = Array.from(document.querySelectorAll("#secondPrize .winner-card")).filter(c=>c.style.display !== "none").length;
+
+  document.getElementById("counter").textContent =
+    `${firstVisible + secondVisible + third.length} prize winners shown · ${remaining.length} eligible ranking rows`;
+
+  sendHeightDelayed();
+}
+
+renderStaticWinners();
+renderThirdPrize(DATA.thirdPrize);
+renderRemaining(DATA.remainingRanking);
+applySearch();
+
+document.getElementById("searchInput").addEventListener("input", applySearch);
+
+function reveal(){
+  document.querySelectorAll(".reveal").forEach((el,i)=>{
+    setTimeout(()=>el.classList.add("show"), i*70);
+  });
+}
+reveal();
+
+function sendHeight(){
+  parent.postMessage({
+    type:"resizeSAWinnersRankingPage",
+    height:document.documentElement.scrollHeight
+  },"*");
+}
+
+function sendHeightDelayed(){
+  setTimeout(sendHeight,220);
+}
+
+window.addEventListener("load",()=>{
+  sendHeight();
+  setInterval(sendHeight,900);
+});
+
+window.addEventListener("resize",sendHeight);
+</script>
+
+</body>
+</html>
